@@ -27,7 +27,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**").addResourceLocations("/static/css/");
-        registry.addResourceHandler("/images/**").addResourceLocations("/static/img/");
+        registry.addResourceHandler("/img/**").addResourceLocations("/static/img/");
         registry.addResourceHandler("/js/**").addResourceLocations("/static/js/");
     }
 

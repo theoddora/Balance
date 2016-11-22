@@ -18,8 +18,6 @@ public class Product {
         this.amountKilo = amountKilo;
         this.amountPiece = amountPiece;
         this.price = price;
-
-
     }
 
     public int getId() {
