@@ -77,7 +77,7 @@ jQuery(window).load(function () {
                     <li><a href="#">Process 03</a></li>
                   </ul>
                 </li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="register.jsp">Register</a></li>
               </ul>
             </div>
           </div>
