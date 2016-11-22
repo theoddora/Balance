@@ -1,26 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Codester | Work</title>
+<title>Codester | Contact</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
 <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
-<link rel="stylesheet" href="css/touchTouch.css" type="text/css" media="screen">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 <script src="js/jquery.js"></script>
 <script src="js/superfish.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/jquery.cookie.js"></script>
-<script src="js/touchTouch.jquery.js"></script>
-<script>if($(window).width()>1024){document.write("<"+"script src='js/jquery.preloader.js'></"+"script>");}	</script>
 <script>
 jQuery(window).load(function () {
-    $x = $(window).width();
-    if ($x > 1024) {
-        jQuery("#content .row").preloader();
-    }
-    jQuery('.magnifier').touchTouch();
     jQuery('.spinner').animate({
         'opacity': 0
     }, 1000, 'easeOutCubic', function () {
@@ -50,12 +42,12 @@ jQuery(window).load(function () {
       <div class="span12">
         <div class="navbar navbar_">
           <div class="container">
-            <h1 class="brand brand_"><a href="index.html"><img alt="" src="img/logo.png"> </a></h1>
+            <h1 class="brand brand_"><a href="index.jsp"><img alt="" src="img/logo.png"> </a></h1>
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li><a href="index.html">Home</a></li>
-                <li class="active"><a href="work.html">Work</a></li>
+                <li><a href="index.jsp">Home</a></li>
+                <li><a href="work.jsp">Work</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
                   <ul>
@@ -64,7 +56,7 @@ jQuery(window).load(function () {
                     <li><a href="#">Process 03</a></li>
                   </ul>
                 </li>
-                <li><a href="contact.html">Contact</a></li>
+                <li class="active"><a href="register.jsp">Contact</a></li>
               </ul>
             </div>
           </div>
@@ -74,34 +66,60 @@ jQuery(window).load(function () {
   </div>
 </header>
 <div class="bg-content">
-  <!-- Content -->
+  <!-- content -->
   <div id="content">
     <div class="ic"></div>
     <div class="container">
       <div class="row">
-        <article class="span12">
-          <h4>Portfolio</h4>
+        <article class="span8">
+          <h3>Contact us</h3>
+          <div class="inner-1">
+            <form id="contact-form" action="#">
+              <div class="success"> Your message has been sent succesfuly!<strong> We will be in touch soon.</strong> </div>
+              <fieldset>
+                <div>
+                  <label class="name">
+                    <input type="text" value="Your name">
+                    <br>
+                    <span class="error">*This is not a valid name.</span> <span class="empty">*This field is required.</span> </label>
+                </div>
+                <div>
+                  <label class="phone">
+                    <input type="tel" value="Telephone">
+                    <br>
+                    <span class="error">*This is not a valid phone number.</span> <span class="empty">*This field is required.</span> </label>
+                </div>
+                <div>
+                  <label class="email">
+                    <input type="email" value="Email">
+                    <br>
+                    <span class="error">*This is not a valid email address.</span> <span class="empty">*This field is required.</span> </label>
+                </div>
+                <div>
+                  <label class="message">
+                    <textarea>Message</textarea>
+                    <br>
+                    <span class="error">*The message is too short.</span> <span class="empty">*This field is required.</span> </label>
+                </div>
+                <div class="buttons-wrapper"> <a class="btn btn-1" data-type="reset">Clear</a> <a class="btn btn-1" data-type="submit">Send</a></div>
+              </fieldset>
+            </form>
+          </div>
         </article>
-        <div class="clear"></div>
-        <ul class="portfolio clearfix">
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/1.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/2.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/3.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/4.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/5.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/6.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/7.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/8.jpg"></a></li>
-          <div class="clear"></div>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/9.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/10.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/11.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/12.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/13.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/14.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/15.jpg"></a></li>
-          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/16.jpg"></a></li>
-        </ul>
+        <article class="span4">
+          <h3>Contact info</h3>
+          <div class="map"> <a href="#"><img src="img/map.jpg" alt=""></a> </div>
+          <address class="address-1">
+          <strong>Inbetwin Networks,<br>
+          Paud Phata, Road,<br>
+          Kothrud, Pune-38.</strong>
+          <div class="overflow"> <span>Mobile:</span>+91 12345 67890<br>
+            <span>Telephone:</span>+91 12345 67890<br>
+            <span>FAX:</span>+91 12345 67890 <br>
+            <span>E-mail:</span> <a href="#" class="mail-1">you@domain.com</a><br>
+            <span>Skype:</span> <a href="#" class="mail-1">@woohooo</a></div>
+          </address>
+        </article>
       </div>
     </div>
   </div>

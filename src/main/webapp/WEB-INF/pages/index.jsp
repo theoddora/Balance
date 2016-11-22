@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+<%@ page errorPage="404.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +52,8 @@ jQuery(window).load(function () {
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
 <![endif]-->
 </head>
+
+
 <body>
 <div class="spinner"></div>
 <!-- header start -->
@@ -57,12 +63,12 @@ jQuery(window).load(function () {
       <div class="span12">
         <div class="navbar navbar_">
           <div class="container">
-            <h1 class="brand brand_"><a href="index.html"><img alt="" src="img/logo.png"> </a></h1>
+            <h1 class="brand brand_"><a href="index.jsp"><img alt="" src="img/logo.png"> </a></h1>
             <a class="btn btn-navbar btn-navbar_" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="work.html">Work</a></li>
+                <li class="active"><a href="index.jsp">Home</a></li>
+                <li><a href="work.jsp">Work</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
                   <ul>
@@ -71,7 +77,7 @@ jQuery(window).load(function () {
                     <li><a href="#">Process 03</a></li>
                   </ul>
                 </li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="register.jsp">Register</a></li>
               </ul>
             </div>
           </div>
@@ -80,6 +86,7 @@ jQuery(window).load(function () {
     </div>
   </div>
 </header>
+
 <div class="bg-content">
   <div class="container">
     <div class="row">
@@ -89,17 +96,13 @@ jQuery(window).load(function () {
           <ul class="slides">
             <li> <img src="img/slide-1.jpg" alt=""> </li>
             <li> <img src="img/slide-2.jpg" alt=""> </li>
-            <li> <img src="img/slide-3.jpg" alt=""> </li>
-            <li> <img src="img/slide-4.jpg" alt=""> </li>
-            <li> <img src="img/slide-5.jpg" alt=""> </li>
           </ul>
         </div>
         <span id="responsiveFlag"></span>
         <div class="block-slogan">
-          <h2>Namaskar!</h2>
+          <h2>balance.com</h2>
           <div>
-            <p>This template is designed and developed over the Bootstrap frontend framework. Which is a free front-end framework for designers. Template is fully <i>responsive</i> and <i>compatible</i> with all the major browsers.</p>
-            <p style="text-align:center; padding-top:20px;"><a href="#" class="btn btn-1">Download Bootstrap</a></p>
+            <p>The best site for measuring your products.</p>
           </div>
         </div>
       </div>
@@ -107,44 +110,15 @@ jQuery(window).load(function () {
   </div>
   <!-- content -->
   <div id="content" class="content-extra">
-    <div class="ic"></div>
+
     <div class="row-1">
       <div class="container">
+        <article> Our Products </article>
         <div class="row">
-          <article class="span12">
-            <h4>Our Work</h4>
-          </article>
-          <div class="clear"></div>
-          <ul class="portfolio clearfix">
-            <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/1.jpg"></a></li>
-            <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/2.jpg"></a></li>
-            <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/3.jpg"></a></li>
-            <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/4.jpg"></a></li>
-            <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/5.jpg"></a></li>
-            <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/6.jpg"></a></li>
-            <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/7.jpg"></a></li>
-            <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/8.jpg"></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="row-2">
-      <div class="container">
-        <h3>Completly Customizable and Responsive</h3>
-        <h3>Easy to Use. Totally Free to Download. Made with love!</h3>
-        <p>The complete template is created using the Bootstrap framework, which is highly customizable with lots of options.</p>
-        <a href="#" class="btn btn-1">Download</a> </div>
-    </div>
-    <div class="row-1">
-      <div class="container">
-        <div class="row">
-          <article class="span12">
-            <h4>From blog</h4>
-          </article>
-          <ul class="thumbnails thumbnails-1">
+          <ul class="thumbnails thumbnails-1 box">
             <li class="span3">
               <div class="thumbnail thumbnail-1">
-                <h3>Web Design</h3>
+                <h3>Fruit</h3>
                 <img  src="img/blog-featured-01.jpg" alt="">
                 <section> <a href="#">
                   <h3>At vero eos et accusamus et iusto </h3>
@@ -160,7 +134,7 @@ jQuery(window).load(function () {
             </li>
             <li class="span3">
               <div class="thumbnail thumbnail-1">
-                <h3>Graphics</h3>
+                <h3>Vegetable</h3>
                 <img  src="img/blog-featured-02.jpg" alt="">
                 <section> <a href="#">
                   <h3>Deleniti atque corrupti quos</h3>
@@ -176,7 +150,7 @@ jQuery(window).load(function () {
             </li>
             <li class="span3">
               <div class="thumbnail thumbnail-1">
-                <h3>Social Media</h3>
+                <h3>Fruit</h3>
                 <img  src="img/blog-featured-03.jpg" alt="">
                 <section> <a href="#">
                   <h3>Similique sunt in culpa qui officia</h3>
@@ -192,7 +166,7 @@ jQuery(window).load(function () {
             </li>
             <li class="span3">
               <div class="thumbnail thumbnail-1">
-                <h3 class="title-1 extra">Photography</h3>
+                <h3 class="title-1 extra">vegetable</h3>
                 <img  src="img/blog-featured-04.jpg" alt="">
                 <section> <a href="#">
                   <h3>Similique sunt in culpa qui officia</h3>
@@ -210,48 +184,8 @@ jQuery(window).load(function () {
         </div>
       </div>
     </div>
-    <div class="container">
-      <div class="row">
-        <article class="span6">
-          <h3>Shortly about us</h3>
-          <div class="wrapper">
-            <figure class="img-indent"><img src="img/15.jpg " alt=""></figure>
-            <div class="inner-1 overflow extra">
-              <div class="txt-1">Mauris scelerisque odio quis leo viverra ac porttitor sem blandit. Sed tincidunt mattis varius. Nunc sodales ipsum nisl, eget lacinia nibh.</div>
-              Cras lacus tortor, tempus vitae porta nec, hendrerit id dolor. Nam volutpat gravida porta. Suspendisse turpis nibh, volutpat. </div>
-          </div>
-        </article>
-        <article class="span6">
-          <h3>Some quick links</h3>
-          <div class="wrapper">
-            <ul class="list list-pad">
-              <li><a href="#">Campaigns</a></li>
-              <li><a href="#">Portraits</a></li>
-              <li><a href="#">Fashion</a></li>
-              <li><a href="#">Fine Art</a></li>
-            </ul>
-            <ul class="list list-pad">
-              <li><a href="#">Campaigns</a></li>
-              <li><a href="#">Portraits</a></li>
-              <li><a href="#">Fashion</a></li>
-              <li><a href="#">Fine Art</a></li>
-            </ul>
-            <ul class="list list-pad">
-              <li><a href="#">Campaigns</a></li>
-              <li><a href="#">Portraits</a></li>
-              <li><a href="#">Fashion</a></li>
-              <li><a href="#">Fine Art</a></li>
-            </ul>
-            <ul class="list">
-              <li><a href="#">Advertising</a></li>
-              <li><a href="#">Lifestyle</a></li>
-              <li><a href="#">Love story</a></li>
-              <li><a href="#">Landscapes</a></li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </div>
+  </div>
+
   </div>
 </div>
 <!-- footer -->
@@ -263,7 +197,7 @@ jQuery(window).load(function () {
       <li><a class="icon-3" href="#"></a></li>
       <li><a class="icon-4" href="#"></a></li>
     </ul>
-    <div class="privacy pull-left">&copy; 2013 | <a href="http://www.dzyngiri.com">Dzyngiri</a> | Demo Illustrations by <a href="http://justinmezzell.com">Justin Mezzell</a></div>
+    <div class="privacy pull-left">&copy; 2016 | Best Java Junior Developers | </div>
   </div>
 </footer>
 <script src="js/bootstrap.js"></script>

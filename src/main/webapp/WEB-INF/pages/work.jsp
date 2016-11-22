@@ -1,18 +1,27 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Codester | 404</title>
+<title>Codester | Work</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
 <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="css/touchTouch.css" type="text/css" media="screen">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 <script src="js/jquery.js"></script>
 <script src="js/superfish.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/jquery.cookie.js"></script>
+<script src="js/touchTouch.jquery.js"></script>
+<script>if($(window).width()>1024){document.write("<"+"script src='js/jquery.preloader.js'></"+"script>");}	</script>
 <script>
 jQuery(window).load(function () {
+    $x = $(window).width();
+    if ($x > 1024) {
+        jQuery("#content .row").preloader();
+    }
+    jQuery('.magnifier').touchTouch();
     jQuery('.spinner').animate({
         'opacity': 0
     }, 1000, 'easeOutCubic', function () {
@@ -34,20 +43,22 @@ jQuery(window).load(function () {
 <![endif]-->
 </head>
 <body>
+
+
 <div class="spinner"></div>
-<!--  header  -->
+<!-- header -->
 <header>
   <div class="container clearfix">
     <div class="row">
       <div class="span12">
         <div class="navbar navbar_">
           <div class="container">
-            <h1 class="brand brand_"><a href="index.html"><img alt="" src="img/logo.png"> </a></h1>
+            <h1 class="brand brand_"><a href="index.jsp"><img alt="" src="img/logo.png"> </a></h1>
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="work.html">Work</a></li>
+                <li><a href="index.jsp">Home</a></li>
+                <li class="active"><a href="work.jsp">Work</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
                   <ul>
@@ -56,7 +67,7 @@ jQuery(window).load(function () {
                     <li><a href="#">Process 03</a></li>
                   </ul>
                 </li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="register.jsp">Contact</a></li>
               </ul>
             </div>
           </div>
@@ -66,29 +77,39 @@ jQuery(window).load(function () {
   </div>
 </header>
 <div class="bg-content">
-  <!--  content  -->
+  <!-- Content -->
   <div id="content">
+    <div class="ic"></div>
     <div class="container">
-      <div class="row ">
-        <div class="span12">
-          <div class="block-404"> <img class="img-404" src="img/404.jpg" alt="">
-            <div class="box-404">
-              <h2>Oopss!</h2>
-              <h3>404 page not found</h3>
-              <p>Nam liber tempor cum soluta nobis eleifend option congue nihil doming id quod mazim placerat facer possim assum orem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy euismod.</p>
-              <form id="form-search" action="#" method="GET" accept-charset="utf-8" >
-                <div class="clearfix">
-                  <input type="text" name="s" onBlur="if(this.value=='') this.value=''" onFocus="if(this.value =='' ) this.value=''" >
-                  <a href="#" class="btn btn-1 ">Search</a> </div>
-              </form>
-            </div>
-          </div>
-        </div>
+      <div class="row">
+        <article class="span12">
+          <h4>Portfolio</h4>
+        </article>
+        <div class="clear"></div>
+        <ul class="portfolio clearfix">
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/1.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/2.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/3.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/4.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/5.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/6.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/7.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/8.jpg"></a></li>
+          <div class="clear"></div>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/9.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/10.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/11.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/12.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/13.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/14.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/15.jpg"></a></li>
+          <li class="box"><a href="img/image-blank.png" class="magnifier" ><img alt="" src="img/work/16.jpg"></a></li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
-<!--  footer  -->
+<!-- footer -->
 <footer>
   <div class="container clearfix">
     <ul class="list-social pull-right">

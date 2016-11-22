@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Codester | Contact</title>
+<title>Codester | 404</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
 <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
@@ -35,19 +35,19 @@ jQuery(window).load(function () {
 </head>
 <body>
 <div class="spinner"></div>
-<!-- header -->
+<!--  header  -->
 <header>
   <div class="container clearfix">
     <div class="row">
       <div class="span12">
         <div class="navbar navbar_">
           <div class="container">
-            <h1 class="brand brand_"><a href="index.html"><img alt="" src="img/logo.png"> </a></h1>
+            <h1 class="brand brand_"><a href="index.jsp"><img alt="" src="img/logo.png"> </a></h1>
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="work.html">Work</a></li>
+                <li class="active"><a href="index.jsp">Home</a></li>
+                <li><a href="work.jsp">Work</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
                   <ul>
@@ -56,7 +56,7 @@ jQuery(window).load(function () {
                     <li><a href="#">Process 03</a></li>
                   </ul>
                 </li>
-                <li class="active"><a href="contact.html">Contact</a></li>
+                <li><a href="register.jsp">Contact</a></li>
               </ul>
             </div>
           </div>
@@ -66,65 +66,29 @@ jQuery(window).load(function () {
   </div>
 </header>
 <div class="bg-content">
-  <!-- content -->
+  <!--  content  -->
   <div id="content">
-    <div class="ic"></div>
     <div class="container">
-      <div class="row">
-        <article class="span8">
-          <h3>Contact us</h3>
-          <div class="inner-1">
-            <form id="contact-form" action="#">
-              <div class="success"> Your message has been sent succesfuly!<strong> We will be in touch soon.</strong> </div>
-              <fieldset>
-                <div>
-                  <label class="name">
-                    <input type="text" value="Your name">
-                    <br>
-                    <span class="error">*This is not a valid name.</span> <span class="empty">*This field is required.</span> </label>
-                </div>
-                <div>
-                  <label class="phone">
-                    <input type="tel" value="Telephone">
-                    <br>
-                    <span class="error">*This is not a valid phone number.</span> <span class="empty">*This field is required.</span> </label>
-                </div>
-                <div>
-                  <label class="email">
-                    <input type="email" value="Email">
-                    <br>
-                    <span class="error">*This is not a valid email address.</span> <span class="empty">*This field is required.</span> </label>
-                </div>
-                <div>
-                  <label class="message">
-                    <textarea>Message</textarea>
-                    <br>
-                    <span class="error">*The message is too short.</span> <span class="empty">*This field is required.</span> </label>
-                </div>
-                <div class="buttons-wrapper"> <a class="btn btn-1" data-type="reset">Clear</a> <a class="btn btn-1" data-type="submit">Send</a></div>
-              </fieldset>
-            </form>
+      <div class="row ">
+        <div class="span12">
+          <div class="block-404"> <img class="img-404" src="img/404.jpg" alt="">
+            <div class="box-404">
+              <h2>Oopss!</h2>
+              <h3>404 page not found</h3>
+              <p>Nam liber tempor cum soluta nobis eleifend option congue nihil doming id quod mazim placerat facer possim assum orem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy euismod.</p>
+              <form id="form-search" action="#" method="GET" accept-charset="utf-8" >
+                <div class="clearfix">
+                  <input type="text" name="s" onBlur="if(this.value=='') this.value=''" onFocus="if(this.value =='' ) this.value=''" >
+                  <a href="#" class="btn btn-1 ">Search</a> </div>
+              </form>
+            </div>
           </div>
-        </article>
-        <article class="span4">
-          <h3>Contact info</h3>
-          <div class="map"> <a href="#"><img src="img/map.jpg" alt=""></a> </div>
-          <address class="address-1">
-          <strong>Inbetwin Networks,<br>
-          Paud Phata, Road,<br>
-          Kothrud, Pune-38.</strong>
-          <div class="overflow"> <span>Mobile:</span>+91 12345 67890<br>
-            <span>Telephone:</span>+91 12345 67890<br>
-            <span>FAX:</span>+91 12345 67890 <br>
-            <span>E-mail:</span> <a href="#" class="mail-1">you@domain.com</a><br>
-            <span>Skype:</span> <a href="#" class="mail-1">@woohooo</a></div>
-          </address>
-        </article>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<!-- footer -->
+<!--  footer  -->
 <footer>
   <div class="container clearfix">
     <ul class="list-social pull-right">
