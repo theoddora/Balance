@@ -8,18 +8,33 @@ public class Product {
     private ProductType productTupe;
     private String name;
     private double amountKilo;
-    private double amountPiece;
+    private int amountPiece;
     private double price;
+    private double discount;
 
-    public Product(int id, ProductType productTupe, String name, double amountKilo, double amountPiece, double price) {
+
+
+    public Product(int id, ProductType productTupe, String name, double amountKilo, int amountPiece, double price, double discount) {
         this.id = id;
         this.productTupe = productTupe;
         this.name = name;
         this.amountKilo = amountKilo;
         this.amountPiece = amountPiece;
         this.price = price;
+        this.discount = discount;
 
+    }
 
+    public Product() {
+
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     public int getId() {
@@ -58,7 +73,7 @@ public class Product {
         return amountPiece;
     }
 
-    public void setAmountPiece(double amountPiece) {
+    public void setAmountPiece(int amountPiece) {
         this.amountPiece = amountPiece;
     }
 
