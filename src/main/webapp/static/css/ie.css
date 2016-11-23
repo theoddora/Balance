@@ -8,7 +8,7 @@
  	overflow: visible;
   }
 
- .flexslider .slides > li{display:block}
+ .flexslider .slides > li{display:block; height:400px;}
  
 
   #search input {
@@ -32,11 +32,11 @@
 
 
 	.flexslider .slides > li {
-		display:none;	
+		display:none;
 	}	
 
  .flexslider .slides img {
-max-width: 100%;width:100%
+max-width: 100%;width:100%;height:400px;
 }
  .flex-control-nav {
 display:none;

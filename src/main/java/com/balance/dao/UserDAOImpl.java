@@ -37,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
                 "values (:username, :email, :password, :name)";
 
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", user.getName());
         params.put("username", user.getUserName());
         params.put("email", user.getEmail());

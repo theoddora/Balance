@@ -1,14 +1,22 @@
 package com.balance;
 
-import com.balance.config.SpringWebConfig;
+import com.balance.controller.UserController;
 import com.balance.dao.UserDAO;
 import com.balance.model.User;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  * Created by pgenev on 23/11/2016.
@@ -25,9 +33,19 @@ public class UserTest {
     @Autowired
     private UserDAO dao;
 
+    /*
     @Test
     public void testUserCreateStatement() throws Exception {
-        dao.createUser(new User("petar1", "petar@abv.bg", "petar", "petar123"));
+        dao.createUser(new User("theoddora", "theoddora@abv.bg", "theodora", "tedi123"));
+    }
+    */
+
+
+    @Test
+    public void shouldShowRegistration() throws Exception {
+        UserController controller = new UserController();
+        MockMvc mockMvc = standaloneSetup(controller).build();
+        mockMvc.perform(get("/registration")).andExpect(view().name("register"));
     }
 
 }

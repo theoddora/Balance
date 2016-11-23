@@ -59,15 +59,16 @@ jQuery(window).load(function () {
 <!-- header start -->
 <header>
   <div class="container clearfix">
+    <!-- NAV-BAR FORM -->
     <div class="row">
       <div class="span12">
         <div class="navbar navbar_">
           <div class="container">
-            <h1 class="brand brand_"><a href="index.jsp"><img alt="" src="img/logo.png"> </a></h1>
-            <a class="btn btn-navbar btn-navbar_" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
+            <h1 class="brand brand_"><a href="index"><img alt="" src="img/logo.png"  width="350px"> </a></h1>
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li class="active"><a href="index.jsp">Home</a></li>
+                <li class="active"><a href="/index">Home</a></li>
                 <li><a href="work.jsp">Work</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
@@ -77,34 +78,42 @@ jQuery(window).load(function () {
                     <li><a href="#">Process 03</a></li>
                   </ul>
                 </li>
-                <li><a href="/register">Register</a></li>
+                <li><a href="/registration">Register</a></li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div><!-- / END NAV-BAR FORM -->
   </div>
+  
 </header>
 
 <div class="bg-content">
   <div class="container">
     <div class="row">
       <div class="span12">
-        <!-- slider -->
-        <div class="flexslider">
-          <ul class="slides">
-            <li> <img src="img/slide-1.jpg" alt=""> </li>
-            <li> <img src="img/slide-2.jpg" alt=""> </li>
-          </ul>
-        </div>
-        <span id="responsiveFlag"></span>
-        <div class="block-slogan">
+		<br/>
+		<span id="responsiveFlag"></span>
+		<div class="block-slogan">
           <h2>balance.com</h2>
           <div>
+		  <br/>
             <p>The best site for measuring your products.</p>
           </div>
         </div>
+		
+        <!-- slider -->
+        <div class="flexslider">
+          <ul class="slides">
+            <li> <img  height="400" src="img/slide-1.jpg" alt=""> </li>
+            <li> <img  height="400" src="img/slide-2.jpg" alt=""> </li>
+            <li> <img  height="400" src="img/slide-3.jpg" alt=""> </li>
+            <li> <img  height="400" src="img/slide-4.jpg" alt=""> </li>
+            <li> <img  height="400" src="img/slide-5.jpg" alt=""> </li>
+          </ul>
+        </div>
+       
       </div>
     </div>
   </div>

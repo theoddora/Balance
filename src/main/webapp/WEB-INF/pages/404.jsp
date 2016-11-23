@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Codester | 404</title>
+<title>Kantar | 404</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
 <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
@@ -35,18 +35,19 @@ jQuery(window).load(function () {
 </head>
 <body>
 <div class="spinner"></div>
-<!--  header  -->
+<!-- header start -->
 <header>
   <div class="container clearfix">
+    <!-- NAV-BAR FORM -->
     <div class="row">
       <div class="span12">
         <div class="navbar navbar_">
           <div class="container">
-            <h1 class="brand brand_"><a href="index.jsp"><img alt="" src="img/logo.png"> </a></h1>
+            <h1 class="brand brand_"><a href="index"><img alt="" src="img/logo.png" width="350px"> </a></h1>
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li class="active"><a href="index.jsp">Home</a></li>
+                <li><a href="/index">Home</a></li>
                 <li><a href="work.jsp">Work</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
@@ -56,15 +57,17 @@ jQuery(window).load(function () {
                     <li><a href="#">Process 03</a></li>
                   </ul>
                 </li>
-                <li><a href="register.jsp">Contact</a></li>
+                <li><a href="/registration">Register</a></li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div><!-- / END NAV-BAR FORM -->
   </div>
+  
 </header>
+
 <div class="bg-content">
   <!--  content  -->
   <div id="content">
@@ -75,12 +78,6 @@ jQuery(window).load(function () {
             <div class="box-404">
               <h2>Oopss!</h2>
               <h3>404 page not found</h3>
-              <p>Nam liber tempor cum soluta nobis eleifend option congue nihil doming id quod mazim placerat facer possim assum orem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy euismod.</p>
-              <form id="form-search" action="#" method="GET" accept-charset="utf-8" >
-                <div class="clearfix">
-                  <input type="text" name="s" onBlur="if(this.value=='') this.value=''" onFocus="if(this.value =='' ) this.value=''" >
-                  <a href="#" class="btn btn-1 ">Search</a> </div>
-              </form>
             </div>
           </div>
         </div>
@@ -89,6 +86,7 @@ jQuery(window).load(function () {
   </div>
 </div>
 <!--  footer  -->
+<!-- footer -->
 <footer>
   <div class="container clearfix">
     <ul class="list-social pull-right">
@@ -97,7 +95,7 @@ jQuery(window).load(function () {
       <li><a class="icon-3" href="#"></a></li>
       <li><a class="icon-4" href="#"></a></li>
     </ul>
-    <div class="privacy pull-left">&copy; 2013 | <a href="http://www.dzyngiri.com">Dzyngiri</a> | Demo Illustrations by <a href="http://justinmezzell.com">Justin Mezzell</a></div>
+    <div class="privacy pull-left">&copy; 2016 | Best Java Junior Developers | </div>
   </div>
 </footer>
 <script src="js/bootstrap.js"></script>
