@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +43,8 @@ jQuery(window).load(function () {
 <![endif]-->
 </head>
 <body>
+
+
 <div class="spinner"></div>
 <!-- header -->
 <header>
@@ -55,7 +58,7 @@ jQuery(window).load(function () {
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
                 <li><a href="index.jsp">Home</a></li>
-                <li class="active"><a href="work.html">Work</a></li>
+                <li class="active"><a href="work.jsp">Work</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
                   <ul>

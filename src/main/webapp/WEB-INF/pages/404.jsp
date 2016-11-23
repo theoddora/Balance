@@ -47,7 +47,7 @@ jQuery(window).load(function () {
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
                 <li class="active"><a href="index.jsp">Home</a></li>
-                <li><a href="work.html">Work</a></li>
+                <li><a href="work.jsp">Work</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
                   <ul>
