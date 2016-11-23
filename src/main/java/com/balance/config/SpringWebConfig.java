@@ -16,7 +16,6 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.balance")
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
 
     @Override

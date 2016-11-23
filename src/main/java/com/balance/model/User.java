@@ -15,8 +15,8 @@ public class User {
 
     }
 
-    public User(int id, String username, String email, String name, String password) throws UserException {
-        setId(id);
+    public User( String username, String email, String name, String password) throws UserException {
+
         setUsername(username);
         setEmail(email);
         setName(name);
@@ -61,7 +61,7 @@ public class User {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public String getEmail() {
