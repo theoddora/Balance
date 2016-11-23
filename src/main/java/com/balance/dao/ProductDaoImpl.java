@@ -50,6 +50,11 @@ public class ProductDaoImpl implements ProductDao{
 
     @Override
     public List<Product> getAllProducts() {
-        return null;
+
+
+        String sql = "Select * from product";
+        List<Product>products = getJdbcTemplate().query(sql, new ProductRowMapper());
+
+        return products;
     }
 }
