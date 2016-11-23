@@ -30,4 +30,9 @@ public class UserTest {
         dao.createUser(new User("petar1", "petar@abv.bg", "petar", "petar123"));
     }
 
+    @Test
+    public void testListAllUsers(){
+        dao.listUsers();
+    }
+
 }

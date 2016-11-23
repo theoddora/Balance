@@ -2,8 +2,9 @@ package com.balance.config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -14,8 +15,6 @@ import org.springframework.web.servlet.view.JstlView;
 
 import java.util.Locale;
 
-@Configuration
-@EnableWebMvc
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
 
     @Override
