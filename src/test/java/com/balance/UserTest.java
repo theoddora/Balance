@@ -48,4 +48,9 @@ public class UserTest {
         mockMvc.perform(get("/registration")).andExpect(view().name("register"));
     }
 
+    @Test
+    public void testListAllUsers(){
+        dao.listUsers();
+    }
+
 }

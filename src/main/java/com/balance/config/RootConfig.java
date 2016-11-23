@@ -3,6 +3,7 @@ package com.balance.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
         excludeFilters={
                 @ComponentScan.Filter(type= FilterType.ANNOTATION, value=EnableWebMvc.class)
         })
+@ImportResource({"classpath*:/balance-context.xml"})
+@EnableWebMvc
 public class RootConfig {
 
 
