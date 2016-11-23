@@ -20,7 +20,8 @@ public class ProductRowMapper implements RowMapper<Product> {
         Product product = new Product();
         product.setId(rs.getInt("id"));
         product.setName(rs.getString("name"));
-        ProductType prodType = ProductType.valueOf(rs.getString("type").toString());
+        ProductType prodType = ProductType.valueOf(rs.getString("type").trim());
+        System.out.println(prodType);
         product.setProductTupe(prodType);
         double amountKilo = rs.getDouble("amount_kg");
         if( amountKilo > 0){
