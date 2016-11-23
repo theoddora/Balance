@@ -1,13 +1,17 @@
 package com.balance.dao;
 
-import javax.sql.DataSource;
-
 import com.balance.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * Created by pgenev on 22/11/2016.
@@ -16,23 +20,37 @@ import java.util.Map;
 public class UserDAOImpl implements UserDAO {
 
     private DataSource dataSource;
-    private JdbcTemplate jdbcTemplateObject;
+    private NamedParameterJdbcTemplate jdbcTemplateObject;
 
+    @Autowired
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
-        this.jdbcTemplateObject = new JdbcTemplate(dataSource);
+        this.jdbcTemplateObject = new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Override
-    public void createUser(String userName, String email, String password, String name) {
-        String SQL = "INSERT INTO user (username, email, password, name) " +
+    public void createUser(User user) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+
+        String SQL = "INSERT INTO \"user\" (username, email, \"password\", \"name\") " +
                 "values (:username, :email, :password, :name)";
 
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", user.getName());
+        params.put("username", user.getUserName());
+        params.put("email", user.getEmail());
+        params.put("password", hashedPassword);
+        jdbcTemplateObject.update(SQL, params);
     }
 
     @Override
     public List<User> listUsers() {
-        return null;
+        String SQL = "SELECT * FROM \"user\" ";
+        List<User> users = jdbcTemplateObject.query(SQL, new UserMapper());
+
+        return users;
     }
 
     @Override

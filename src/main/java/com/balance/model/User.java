@@ -6,7 +6,7 @@ import com.balance.exceptions.UserException;
 public class User {
 
     private int id;
-    private String userName;
+    private String username;
     private String email;
     private String password;
     private String name;
@@ -15,17 +15,17 @@ public class User {
 
     }
 
-    public User(int id, String userName, String email, String name, String password) throws UserException {
-        setId(id);
-        setUserName(userName);
+    public User( String username, String email, String name, String password) throws UserException {
+
+        setUsername(username);
         setEmail(email);
         setName(name);
         setPassword(password);
     }
 
-    public void setUserName(String userName) throws UserException {
-        if(userName != null && !userName.isEmpty())
-            this.userName = userName;
+    public void setUsername(String username) throws UserException {
+        if(username != null && !username.isEmpty())
+            this.username = username;
         else
             throw new UserException("Invalid username!");
     }
@@ -61,7 +61,7 @@ public class User {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public String getEmail() {

@@ -1,0 +1,5 @@
+<authentication-manager>
+    <authentication-provider>
+        <password-encoder hash="bcrypt" />
+    </authentication-provider>
+</authentication-manager>

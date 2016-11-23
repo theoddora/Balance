@@ -12,7 +12,7 @@ public interface UserDAO {
 
     public void setDataSource(DataSource ds);
 
-    public void createUser(String userName, String email, String password, String name);
+    public void createUser(User user);
 
     public List<User> listUsers();
 
