@@ -60,7 +60,7 @@ public class User {
         return id;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return username;
     }
 

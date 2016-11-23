@@ -25,11 +25,11 @@ public class UserController {
 
         userDAO.createUser(user);
 
-        System.out.println("username: " + user.getUserName());
+        System.out.println("username: " + user.getUsername());
         System.out.println("password: " + user.getPassword());
         System.out.println("email: " + user.getEmail());
         System.out.println("name: " + user.getName());
-        return "register";
+        return "redirect:/" + user.getUsername();
     }
 
 

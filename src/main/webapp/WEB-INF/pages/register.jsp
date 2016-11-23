@@ -93,7 +93,7 @@ jQuery(window).load(function () {
 						  <fieldset>
 							<div>
 							<label class="name">
-								<form:input path="userName" placeholder="Username" required=""/>
+								<form:input path="username" placeholder="Username" required=""/>
 								<br>
 								<form:errors>*This is not a valid username.</form:errors> <span class="empty">*This field is required.</span>
 							</label>
