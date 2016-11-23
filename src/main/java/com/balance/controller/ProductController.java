@@ -1,11 +1,14 @@
 package com.balance.controller;
 
 import com.balance.dao.ProductDao;
+import com.balance.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 /**
  * Created by hangelov on 22/11/2016.
@@ -21,9 +24,8 @@ public class ProductController {
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public String getProducts(Model model){
 
-
-
-
+        List<Product>products = productDao.getAllProducts();
+        model.addAttribute("products", products);
 
         return "product";
 

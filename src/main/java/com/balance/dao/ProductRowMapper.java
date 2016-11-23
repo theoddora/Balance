@@ -3,6 +3,7 @@ package com.balance.dao;
 import com.balance.model.Product;
 import com.balance.model.ProductType;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 
 import javax.swing.tree.TreePath;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 /**
  * Created by hangelov on 22/11/2016.
  */
+@Component
 public class ProductRowMapper implements RowMapper<Product> {
 
     public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
