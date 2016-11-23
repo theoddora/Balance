@@ -11,7 +11,7 @@ public class User {
     private String password;
     private String name;
 
-    public User(){
+    public User() {
 
     }
 
@@ -55,6 +55,24 @@ public class User {
         this.id = id;
     }
 
+    //getters
+    public int getId() {
+        return id;
+    }
 
+    public String getUserName() {
+        return userName;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
