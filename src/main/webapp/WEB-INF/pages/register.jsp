@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+<%@ page errorPage="404.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,11 +38,15 @@ jQuery(window).load(function () {
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
 <![endif]-->
 </head>
+
+
 <body>
 <div class="spinner"></div>
 <!-- header -->
+
 <header>
   <div class="container clearfix">
+    <!-- NAV-BAR FORM -->
     <div class="row">
       <div class="span12">
         <div class="navbar navbar_">
@@ -46,7 +55,7 @@ jQuery(window).load(function () {
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li><a href="index.jsp">Home</a></li>
+                <li><a href="/index">Home</a></li>
                 <li><a href="work.jsp">Work</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
@@ -56,14 +65,15 @@ jQuery(window).load(function () {
                     <li><a href="#">Process 03</a></li>
                   </ul>
                 </li>
-                <li class="active"><a href="register.jsp">Contact</a></li>
+                <li class="active"><a href="/register">Register</a></li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div><!-- / END NAV-BAR FORM -->
   </div>
+  
 </header>
 <div class="bg-content">
   <!-- content -->
@@ -71,41 +81,52 @@ jQuery(window).load(function () {
     <div class="ic"></div>
     <div class="container">
       <div class="row">
-        <article class="span8">
-          <h3>Contact us</h3>
-          <div class="inner-1">
-            <form id="contact-form" action="#">
-              <div class="success"> Your message has been sent succesfuly!<strong> We will be in touch soon.</strong> </div>
-              <fieldset>
-                <div>
-                  <label class="name">
-                    <input type="text" value="Your name">
-                    <br>
-                    <span class="error">*This is not a valid name.</span> <span class="empty">*This field is required.</span> </label>
-                </div>
-                <div>
-                  <label class="phone">
-                    <input type="tel" value="Telephone">
-                    <br>
-                    <span class="error">*This is not a valid phone number.</span> <span class="empty">*This field is required.</span> </label>
-                </div>
-                <div>
-                  <label class="email">
-                    <input type="email" value="Email">
-                    <br>
-                    <span class="error">*This is not a valid email address.</span> <span class="empty">*This field is required.</span> </label>
-                </div>
-                <div>
-                  <label class="message">
-                    <textarea>Message</textarea>
-                    <br>
-                    <span class="error">*The message is too short.</span> <span class="empty">*This field is required.</span> </label>
-                </div>
-                <div class="buttons-wrapper"> <a class="btn btn-1" data-type="reset">Clear</a> <a class="btn btn-1" data-type="submit">Send</a></div>
-              </fieldset>
-            </form>
-          </div>
-        </article>
+		
+		<!-- REGISTER FORM -->
+			<article class="span8">
+			  <h3>Register</h3>
+			  <div class="inner-1">
+					<form:form method="POST" id="contact-form" action="/register" commandName="user">
+						<div class="success"> You have registered successfully!</div>
+						  
+						  <fieldset>
+							<div>
+							<label class="name">
+								<form:input path="userName" placeholder="Username" required=""/>
+								<br>
+								<form:errors>*This is not a valid username.</form:errors> <span class="empty">*This field is required.</span>
+							</label>
+							</div>
+							<div>
+							  <label class="email">
+								<form:input path="email" placeholder="Email" required=""/>
+								<br>
+								<form:errors>*This is not a valid email address.</form:errors> <span class="empty">*This field is required.</span> </label>
+							</div>
+							<div>
+							  <label>
+								<form:password path="password" placeholder="Password" required=""/>
+								<br>
+								<form:errors>*This is not a valid password.</form:errors> <span class="empty">*This field is required.</span> </label>
+							</div>
+							
+							<div>
+							  <label>
+								<form:input path="name" placeholder="Your name" required=""/>
+								<br>
+								<form:errors>*The message is too short.</form:errors> <span class="empty">*This field is required.</span> </label>
+							</div>
+							
+							<div class="buttons-wrapper">
+								<a class="btn btn-1" data-type="reset">Clear</a>
+								<input class="btn btn-1" type="submit" value="Register"/>
+							</div>
+						  </fieldset>
+						  
+				</form:form>
+			  </div>
+			</article> <!--/ END REGISTER FORM -->
+		
         <article class="span4">
           <h3>Contact info</h3>
           <div class="map"> <a href="#"><img src="img/map.jpg" alt=""></a> </div>
@@ -133,7 +154,7 @@ jQuery(window).load(function () {
       <li><a class="icon-3" href="#"></a></li>
       <li><a class="icon-4" href="#"></a></li>
     </ul>
-    <div class="privacy pull-left">&copy; 2013 | <a href="http://www.dzyngiri.com">Dzyngiri</a> | Demo Illustrations by <a href="http://justinmezzell.com">Justin Mezzell</a></div>
+    <div class="privacy pull-left">&copy; 2016 | Best Java Junior Developers | </div>
   </div>
 </footer>
 <script src="js/bootstrap.js"></script>

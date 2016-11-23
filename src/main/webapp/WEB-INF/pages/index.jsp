@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Codester</title>
+<title>Kantar</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
 <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
@@ -77,7 +77,7 @@ jQuery(window).load(function () {
                     <li><a href="#">Process 03</a></li>
                   </ul>
                 </li>
-                <li><a href="register.jsp">Register</a></li>
+                <li><a href="/register">Register</a></li>
               </ul>
             </div>
           </div>
