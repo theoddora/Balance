@@ -74,7 +74,10 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void deleteProduct(int id) {
-
+        String sql = "delete from product * where id = :id";
+        Map<String , Object> params = new HashMap<>();
+        params.put("id", id);
+        getJdbcTemplate().update(sql, params);
 
 
     }
@@ -88,4 +91,44 @@ public class ProductDaoImpl implements ProductDao {
 
         return products;
     }
+
+    @Override
+    public void increseProductByKilo(double kilos, int id) {
+        String sql = "update balance.product  SET  amount_kg = ((select amount_kg from product where id = :id ) + :kilos) where id = :id";
+        Map<String , Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("kilos", kilos);
+        getJdbcTemplate().update(sql, params);
+    }
+
+    @Override
+    public void decreaseProductByKilo(double kilos, int id) {
+        String sql = "update balance.product  SET  amount_kg = ((select amount_kg from product where id = :id ) - :kilos) where id = :id";
+        Map<String , Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("kilos", kilos);
+        getJdbcTemplate().update(sql, params);
+    }
+
+    @Override
+    public void increaseProductByPiece(int pieces, int id) {
+        String sql = "update balance.product  SET  amount_pc = ((select amount_pc from product where id = :id ) + :pieces) where id = :id";
+        Map<String , Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("pieces", pieces);
+        getJdbcTemplate().update(sql, params);
+
+    }
+
+    @Override
+    public void decreaseProductByPiece(int piece, int id) {
+        String sql = "update balance.product  SET  amount_pc = ((select amount_pc from product where id = :id ) - :piece) where id = :id";
+        Map<String , Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("piece", piece);
+        getJdbcTemplate().update(sql, params);
+
+    }
+
+
 }

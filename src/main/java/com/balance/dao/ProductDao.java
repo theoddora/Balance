@@ -20,6 +20,16 @@ public interface ProductDao {
 
     List<Product> getAllProducts();
 
+    void increseProductByKilo(double kilos, int id);
+
+    void decreaseProductByKilo(double kilos, int id);
+
+    void increaseProductByPiece(int pieces, int id);
+
+    void decreaseProductByPiece(int piece, int id);
+
+
+
 
 
 
