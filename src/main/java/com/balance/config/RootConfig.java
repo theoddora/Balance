@@ -21,7 +21,7 @@ public class RootConfig extends WebMvcConfigurerAdapter {
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 registry.addResourceHandler("/css/**").addResourceLocations("/static/css/");
-                registry.addResourceHandler("/img/**").addResourceLocations("/static/img/");
+                registry.addRessdfgsdfgsdfgsdfsourceHandler("/img/**").addResourceLocations("/static/img/");
                 registry.addResourceHandler("/js/**").addResourceLocations("/static/js/");
         }
 
