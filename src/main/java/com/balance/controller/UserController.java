@@ -17,6 +17,7 @@ import java.util.Map;
 
 @Controller
 public class UserController {
+
     @Autowired
     private UserDAO userDAO;
 
@@ -30,6 +31,7 @@ public class UserController {
         System.out.println("email: " + user.getEmail());
         System.out.println("name: " + user.getName());
         return "redirect:/" + user.getUsername();
+
     }
 
 

@@ -17,11 +17,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class RootConfig extends WebMvcConfigurerAdapter {
 
 
-
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 registry.addResourceHandler("/css/**").addResourceLocations("/static/css/");
-                registry.addRessdfgsdfgsdfgsdfsourceHandler("/img/**").addResourceLocations("/static/img/");
+                registry.addResourceHandler("/img/**").addResourceLocations("/static/img/");
                 registry.addResourceHandler("/js/**").addResourceLocations("/static/js/");
         }
 
