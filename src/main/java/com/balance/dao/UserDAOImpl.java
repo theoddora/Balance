@@ -36,10 +36,9 @@ public class UserDAOImpl implements UserDAO {
         String SQL = "INSERT INTO \"user\" (username, email, \"password\", \"name\") " +
                 "values (:username, :email, :password, :name)";
 
-
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", user.getName());
-        params.put("username", user.getUserName());
+        params.put("username", user.getUsername());
         params.put("email", user.getEmail());
         params.put("password", hashedPassword);
         jdbcTemplateObject.update(SQL, params);
@@ -49,7 +48,6 @@ public class UserDAOImpl implements UserDAO {
     public List<User> listUsers() {
         String SQL = "SELECT * FROM \"user\" ";
         List<User> users = jdbcTemplateObject.query(SQL, new UserMapper());
-
         return users;
     }
 

@@ -3,6 +3,7 @@
 <%@ page errorPage="404.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page session="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +52,7 @@ jQuery(window).load(function () {
       <div class="span12">
         <div class="navbar navbar_">
           <div class="container">
-            <h1 class="brand brand_"><a href="index.jsp"><img alt="" src="img/logo.png"> </a></h1>
+            <h1 class="brand brand_"><a href="index"><img alt="" src="img/logo.png"  width="350px"> </a></h1>
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
@@ -65,7 +66,7 @@ jQuery(window).load(function () {
                     <li><a href="#">Process 03</a></li>
                   </ul>
                 </li>
-                <li class="active"><a href="/register">Register</a></li>
+                <li class="active"><a href="/registration">Register</a></li>
               </ul>
             </div>
           </div>
@@ -86,13 +87,13 @@ jQuery(window).load(function () {
 			<article class="span8">
 			  <h3>Register</h3>
 			  <div class="inner-1">
-					<form:form method="POST" id="contact-form" action="/register" commandName="user">
+					<form:form method="POST" id="contact-form" action="/registration" commandName="user">
 						<div class="success"> You have registered successfully!</div>
 						  
 						  <fieldset>
 							<div>
 							<label class="name">
-								<form:input path="userName" placeholder="Username" required=""/>
+								<form:input path="username" placeholder="Username" required=""/>
 								<br>
 								<form:errors>*This is not a valid username.</form:errors> <span class="empty">*This field is required.</span>
 							</label>

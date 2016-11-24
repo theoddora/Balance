@@ -12,9 +12,11 @@ import org.springframework.jdbc.core.RowMapper;
 /**
  * Created by pgenev on 23/11/2016.
  */
-public class UserMapper  implements RowMapper<User>{
+public class UserMapper implements RowMapper<User> {
+
     private static final Logger logger = LoggerFactory.getLogger(UserMapper.class);
-    public User mapRow(ResultSet rs, int rowNum) throws SQLException{
+
+    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();
         try {
             user.setEmail(rs.getString("email"));
@@ -22,7 +24,6 @@ public class UserMapper  implements RowMapper<User>{
             user.setName(rs.getString("name"));
             user.setUsername(rs.getString("username"));
             user.setId(rs.getInt("user_id"));
-
         } catch (UserException e) {
             logger.error("User information exception", e);
             throw new SQLException(e);

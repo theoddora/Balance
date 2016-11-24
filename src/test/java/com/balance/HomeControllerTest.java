@@ -21,7 +21,6 @@ public class HomeControllerTest {
 
     @Test
     public void testHomePageWithMock() throws Exception {
-
         HomeController controller = new HomeController();
         MockMvc mockMvc = standaloneSetup(controller).build();
         mockMvc.perform(get("/")).andExpect(view().name("index"));
