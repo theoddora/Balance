@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 public class RootConfig extends WebMvcConfigurerAdapter {
 
-
+asdasdasdasdasd
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 registry.addResourceHandler("/css/**").addResourceLocations("/static/css/");
