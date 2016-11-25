@@ -1,13 +1,12 @@
 package com.balance.config;
 
-import org.springframework.web.servlet.support.
-        AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{SecurityConfig.class};
+        return new Class<?>[]{RootConfig.class};
     }
 
     @Override

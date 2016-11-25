@@ -89,6 +89,7 @@ jQuery(window).load(function () {
         <ul class="portfolio clearfix">
           <c:forEach items="${products}" var="product">
           <li class="box"><c:out value="${product.name}"></c:out><img alt="" src="img/work/${product.name}.jpg"></li>
+
           </c:forEach>
           <div class="clear"></div>
         </ul>

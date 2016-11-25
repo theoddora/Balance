@@ -1,6 +1,7 @@
 package com.balance.dao;
 
 import com.balance.model.Product;
+import org.springframework.security.access.annotation.Secured;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -10,11 +11,13 @@ import java.util.List;
  */
 public interface ProductDao {
 
+    @Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
     void setDataSource(DataSource ds);
 
     void insertProduct(Product product);
 
     Product findProductById(int id);
+
 
     void deleteProduct(int id);
 
@@ -27,11 +30,6 @@ public interface ProductDao {
     void increaseProductByPiece(int pieces, int id);
 
     void decreaseProductByPiece(int piece, int id);
-
-
-
-
-
 
 
 }
