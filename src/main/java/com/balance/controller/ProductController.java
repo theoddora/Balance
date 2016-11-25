@@ -27,7 +27,7 @@ public class ProductController {
         List<Product>products = productDao.getAllProducts();
         model.addAttribute("products", products);
 
-        return "product";
+        return "work";
 
     }
 
