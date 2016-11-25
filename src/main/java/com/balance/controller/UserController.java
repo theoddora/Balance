@@ -5,6 +5,7 @@ import com.balance.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,6 +21,7 @@ public class UserController {
     @Autowired
     private UserDAO userDAO;
 
+    //register
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registerUser(User user) {
 
@@ -39,5 +41,12 @@ public class UserController {
         return "register";
     }
 
+    //profile
+    @RequestMapping(value="/{username}", method = RequestMethod.POST)
+    public String viewProfilePage(@PathVariable String username, Model model) {
+        User user = userDAO.getUser(username);
+        model.addAttribute("user", user);
+        return "profile_page";
+    }
 
 }
