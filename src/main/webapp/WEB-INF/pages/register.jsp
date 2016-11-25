@@ -119,7 +119,6 @@ jQuery(window).load(function () {
 							</div>
 							
 							<div class="buttons-wrapper">
-								<a class="btn btn-1" data-type="reset">Clear</a>
 								<input class="btn btn-1" type="submit" value="Register"/>
 							</div>
 						  </fieldset>
