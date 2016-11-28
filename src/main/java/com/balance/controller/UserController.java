@@ -2,7 +2,6 @@ package com.balance.controller;
 
 import com.balance.dao.UserDAO;
 import com.balance.model.User;
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -11,7 +10,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -49,11 +50,22 @@ public class UserController {
 
     }
 
-
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String getRegisterUserPage(Model model) {
         model.addAttribute(new User());
         return "register";
+    }
+
+    //log in
+    @RequestMapping(value = "/log_in", method = RequestMethod.POST)
+    public String logInUser(@RequestParam(value = "username") String username,
+                            @RequestParam(value = "password") String password, HttpServletRequest request, Model model) {
+        return null;
+    }
+
+    @RequestMapping(value = "/log_in", method = RequestMethod.GET)
+    public String getLogInPage() {
+        return "log_in";
     }
 
     //profile

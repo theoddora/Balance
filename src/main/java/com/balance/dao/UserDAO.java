@@ -10,15 +10,16 @@ import java.util.List;
  */
 public interface UserDAO {
 
-    public void setDataSource(DataSource ds);
+    void setDataSource(DataSource ds);
 
-    public void createUser(User user);
+    void createUser(User user);
 
-    public List<User> listUsers();
+    List<User> listUsers();
 
-    public void delete(String email);
+    void delete(String email);
 
-    public User getUser(String email);
+    User getUser(String email);
 
+   // boolean isValidUser(String username, String password);
 
 }

@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,8 @@ public class UserDAOImpl implements UserDAO {
 
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplateObject;
+
+    private static final String SQL_SELECT_USER = "SELECT user_id, username, email, password, name FROM balance.user WHERE username = ?";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -59,4 +63,21 @@ public class UserDAOImpl implements UserDAO {
     public User getUser(String email) {
         return null;
     }
+
+    /*
+    @Override
+    public boolean isValidUser(String username, String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+
+        String SQL = "SELECT COUNT(1) FROM balance.user WHERE username = ? AND password = ?";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("username", username);
+        params.put("password", hashedPassword);
+        ResultSet resultSet = jdbcTemplateObject.query(SQL, new UserMapper());
+        return resultSet.next() && resultSet.getInt(1) > 0;
+    }
+    */
+
+
 }
