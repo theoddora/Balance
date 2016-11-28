@@ -5,19 +5,19 @@ package com.balance.model;
  */
 public class Product {
     private int id;
-    private ProductType productType;
+    private String productType;
     private String name;
     private double amountKilo;
-    private int amountPiece;
+    private double amountPiece;
     private double price;
     private double discount;
-    private boolean isForKilo;
 
 
 
-    public Product( ProductType productType, String name, double amountKilo, int amountPiece, double price, double discount, boolean isForKilo) {
+   
+    public Product( String productType, String name, double amountKilo, double amountPiece, double price, double discount, boolean isForKilo) {
 
-        this.productType = productType;
+        
         this.name = name;
         this.amountKilo = amountKilo;
         this.amountPiece = amountPiece;
@@ -55,11 +55,11 @@ public class Product {
         this.id = id;
     }
 
-    public ProductType getProductType() {
+    public String getProductType() {
         return productType;
     }
 
-    public void setProductType(ProductType productType) {
+    public void setProductType(String productType) {
         this.productType = productType;
     }
 
@@ -83,7 +83,7 @@ public class Product {
         return amountPiece;
     }
 
-    public void setAmountPiece(int amountPiece) {
+    public void setAmountPiece(double amountPiece) {
         this.amountPiece = amountPiece;
     }
 
@@ -95,5 +95,16 @@ public class Product {
         this.price = price;
     }
 
-
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productType=" + productType +
+                ", name='" + name + '\'' +
+                ", amountKilo=" + amountKilo +
+                ", amountPiece=" + amountPiece +
+                ", price=" + price +
+                ", discount=" + discount +
+                '}';
+    }
 }

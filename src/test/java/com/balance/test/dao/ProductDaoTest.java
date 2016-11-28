@@ -24,11 +24,7 @@ public class ProductDaoTest {
 
 
 
-    @Test
-    public void testInsertProduct() throws Exception{
-        Product product = new Product(ProductType.FRUITS, "Mananas",112,0,4.59,0.1, true);
-        productDao.insertProduct(product);
-    }
+
 
     @Test
     public void testFindProductById() throws  Exception{

@@ -5,7 +5,8 @@ import com.balance.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,5 +43,28 @@ public class ProductController {
         model.addAttribute("cart", cart);
         return "work";
     }
+
+
+    @RequestMapping(value = "/addproducts", method = RequestMethod.GET)
+    public String addProducts(Model model) {
+        model.addAttribute(new Product());
+
+
+        return "addproducts";
+
+    }
+
+
+    @RequestMapping(value = "/addproducts", method = RequestMethod.POST)
+    public String addGivenProduct(Product product) {
+        System.out.println(product);
+        productDao.insertProduct(product);
+
+
+        return "/";
+
+    }
+
+
 
 }

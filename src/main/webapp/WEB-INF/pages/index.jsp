@@ -65,14 +65,28 @@ jQuery(window).load(function () {
         <div class="navbar navbar_">
           <div class="container">
             <h1 class="brand brand_"><a href="index"><img alt="" src="img/logo.png"  width="350px"> </a></h1>
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_"><s:message code="balance.menu" /><span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li class="active"><a href="index">Home</a></li>
-                <li><a href="product">Charshiq</a></li>
-                <li ><a href="login">LogIn</a></li>
-                <li><a href="logout">Logout</a></li>
-                <li><a href="registration">Register</a></li>
+                <li class="active">
+                  <s:url value="/index" var="index"/>
+                  <a href="${index}"><s:message code="balance.home" /></a>
+                </li>
+                <li>
+                  <s:url value="/product" var="product"/>
+                  <a href="${product}"><s:message code="balance.product" /></a>
+                </li>
+                <li><a href="blog.html">Blog</a></li>
+                <li class="sub-menu"><a href="process.html">Process</a>
+                  <ul>
+                    <li><a href="#">Process 01</a></li>
+                    <li><a href="#">Process 02</a></li>
+                    <li><a href="#">Process 03</a></li>
+                  </ul>
+                </li>
+                <li><s:url value="/registration" var="registration"/>
+                  <a href="${registration}"><s:message code="balance.register" /></a>
+                </li>
               </ul>
             </div>
           </div>
@@ -80,7 +94,7 @@ jQuery(window).load(function () {
       </div>
     </div><!-- / END NAV-BAR FORM -->
   </div>
-  
+
 </header>
 
 <div class="bg-content">
