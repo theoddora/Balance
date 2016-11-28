@@ -68,16 +68,10 @@ jQuery(window).load(function () {
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li class="active"><a href="/index">Home</a></li>
-                <li><a href="work.jsp">Work</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li class="sub-menu"><a href="process.html">Process</a>
-                  <ul>
-                    <li><a href="#">Process 01</a></li>
-                    <li><a href="#">Process 02</a></li>
-                    <li><a href="#">Process 03</a></li>
-                  </ul>
-                </li>
+                <li class="active"><a href="index">Home</a></li>
+                <li><a href="product">Charshiq</a></li>
+                <li ><a href="login">LogIn</a></li>
+                <li><a href="logout">Logout</a></li>
                 <li><a href="registration">Register</a></li>
               </ul>
             </div>

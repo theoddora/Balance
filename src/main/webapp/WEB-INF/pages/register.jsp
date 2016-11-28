@@ -2,12 +2,12 @@
          pageEncoding="ISO-8859-1"%>
 <%@ page errorPage="404.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Codester | Contact</title>
+<title>Kantar | Register</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
 <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
@@ -89,37 +89,34 @@ jQuery(window).load(function () {
 			  <div class="inner-1">
 					<form:form method="POST" id="contact-form" action="registration" commandName="user">
 						<div class="success"> You have registered successfully!</div>
-						  
+                        <c:if test="${errorMessage != null}">
+                          <div class="error" style="display:block;"> <c:out value="${errorMessage}"/></div>
+                        </c:if>
+                        <form:errors path="*" element="div" cssClass="errors"/>
 						  <fieldset>
 							<div>
-							<label class="name">
-								<form:input path="username" placeholder="Username" required=""/>
+                                <form:label path="username" cssErrorClass="error"> Username: </form:label>
+								<form:input path="username" cssErrorClass="error"/>
 								<br>
-								<form:errors>*This is not a valid username.</form:errors> <span class="empty">*This field is required.</span>
-							</label>
 							</div>
 							<div>
-							  <label class="email">
-								<form:input path="email" placeholder="Email" required=""/>
+                                <form:label path="email" cssErrorClass="error"> Email: </form:label>
+								<form:input path="email" type="email" cssErrorClass="error"/>
 								<br>
-								<form:errors>*This is not a valid email address.</form:errors> <span class="empty">*This field is required.</span> </label>
 							</div>
 							<div>
-							  <label>
-								<form:password path="password" placeholder="Password" required=""/>
+                                <form:label  path="password" cssErrorClass="error"> Password: </form:label>
+								<form:password path="password" cssErrorClass="error"/>
 								<br>
-								<form:errors>*This is not a valid password.</form:errors> <span class="empty">*This field is required.</span> </label>
 							</div>
 							
 							<div>
-							  <label>
-								<form:input path="name" placeholder="Your name" required=""/>
+                                <form:label  path="name" cssErrorClass="error"> Your name: </form:label>
+								<form:input path="name" cssErrorClass="error"/>
 								<br>
-								<form:errors>*The message is too short.</form:errors> <span class="empty">*This field is required.</span> </label>
 							</div>
 							
 							<div class="buttons-wrapper">
-								<a class="btn btn-1" data-type="reset">Clear</a>
 								<input class="btn btn-1" type="submit" value="Register"/>
 							</div>
 						  </fieldset>
