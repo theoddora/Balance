@@ -1,13 +1,13 @@
 package com.balance.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.balance.exceptions.UserException;
 import com.balance.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Created by pgenev on 23/11/2016.

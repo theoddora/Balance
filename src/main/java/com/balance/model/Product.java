@@ -14,8 +14,8 @@ public class Product {
 
 
 
-    public Product(int id, ProductType productTupe, String name, double amountKilo, int amountPiece, double price, double discount) {
-        this.id = id;
+    public Product( ProductType productTupe, String name, double amountKilo, int amountPiece, double price, double discount) {
+
         this.productTupe = productTupe;
         this.name = name;
         this.amountKilo = amountKilo;
