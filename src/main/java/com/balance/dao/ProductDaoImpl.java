@@ -36,7 +36,7 @@ public class ProductDaoImpl implements ProductDao {
 
         Map<String, Object> params = new HashMap<>();
         params.put("name", product.getName());
-        params.put("type", product.getProductTupe().toString());
+        params.put("type", product.getProductType().toString());
         params.put("amount_kg", product.getAmountKilo());
         params.put("amount_pc", product.getAmountPiece());
         params.put("price", product.getPrice());

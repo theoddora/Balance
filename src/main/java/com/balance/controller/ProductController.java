@@ -21,14 +21,39 @@ public class ProductController {
     ProductDao productDao;
 
 
-    @RequestMapping(value = "/product", method = RequestMethod.GET)
-    public String getProducts(Model model){
 
-        List<Product>products = productDao.getAllProducts();
+
+    @RequestMapping(value = "/product", method = RequestMethod.GET)
+    public String getProducts(Model model) {
+
+        List<Product> products = productDao.getAllProducts();
         model.addAttribute("products", products);
 
         return "work";
 
     }
+
+
+    @RequestMapping(value = "/addproducts", method = RequestMethod.GET)
+    public String addProducts(Model model) {
+        model.addAttribute(new Product());
+
+
+        return "addproducts";
+
+    }
+
+
+    @RequestMapping(value = "/addproducts", method = RequestMethod.POST)
+    public String addGivenProduct(Product product) {
+        System.out.println(product);
+        productDao.insertProduct(product);
+
+
+        return "/";
+
+    }
+
+
 
 }
