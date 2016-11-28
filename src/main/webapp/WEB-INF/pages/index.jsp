@@ -2,10 +2,12 @@
          pageEncoding="ISO-8859-1"%>
 <%@ page errorPage="404.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<title>Kantar</title>
+<title><s:message code="balance.title" /></title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
 <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
@@ -53,7 +55,6 @@ jQuery(window).load(function () {
 <![endif]-->
 </head>
 
-
 <body>
 <div class="spinner"></div>
 <!-- header start -->
@@ -65,11 +66,11 @@ jQuery(window).load(function () {
         <div class="navbar navbar_">
           <div class="container">
             <h1 class="brand brand_"><a href="index"><img alt="" src="img/logo.png"  width="350px"> </a></h1>
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_"><s:message code="balance.menu" /><span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li class="active"><a href="/index">Home</a></li>
-                <li><a href="work.jsp">Work</a></li>
+                <li class="active"><a href="/index"><s:message code="balance.home" /></a></li>
+                <li><a href="work.jsp"><s:message code="balance.work" /></a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
                   <ul>
@@ -78,7 +79,9 @@ jQuery(window).load(function () {
                     <li><a href="#">Process 03</a></li>
                   </ul>
                 </li>
-                <li><a href="registration">Register</a></li>
+                <li><s:url value="/registration" var="registration"/>
+                  <a href="${registration}"><s:message code="balance.register" /></a>
+                </li>
               </ul>
             </div>
           </div>
@@ -99,7 +102,7 @@ jQuery(window).load(function () {
           <h2>balance.com</h2>
           <div>
 		  <br/>
-            <p>The best site for measuring your products.</p>
+            <p><s:message code="balance.welcomeMessage" /></p>
           </div>
         </div>
 		
