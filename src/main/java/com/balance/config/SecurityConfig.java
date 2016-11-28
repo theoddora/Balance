@@ -27,26 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .and()
-                .antMatcher("/registration").anonymous()
-                .and()
-                .antMatcher("/product").anonymous()
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/denied")
-                .and()
-                .rememberMe()
-                .tokenValiditySeconds(FOUR_WEEKS);
+
     }
 }

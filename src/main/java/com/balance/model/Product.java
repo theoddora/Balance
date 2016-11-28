@@ -5,28 +5,38 @@ package com.balance.model;
  */
 public class Product {
     private int id;
-    private ProductType productTupe;
+    private ProductType productType;
     private String name;
     private double amountKilo;
     private int amountPiece;
     private double price;
     private double discount;
+    private boolean isForKilo;
 
 
 
-    public Product( ProductType productTupe, String name, double amountKilo, int amountPiece, double price, double discount) {
+    public Product( ProductType productType, String name, double amountKilo, int amountPiece, double price, double discount, boolean isForKilo) {
 
-        this.productTupe = productTupe;
+        this.productType = productType;
         this.name = name;
         this.amountKilo = amountKilo;
         this.amountPiece = amountPiece;
         this.price = price;
         this.discount = discount;
+        this.isForKilo = isForKilo;
 
     }
 
     public Product() {
 
+    }
+
+    public boolean getIsForKilo() {
+        return isForKilo;
+    }
+
+    public void setIsForKilo(boolean isForKilo) {
+        this.isForKilo = isForKilo;
     }
 
     public double getDiscount() {
@@ -45,12 +55,12 @@ public class Product {
         this.id = id;
     }
 
-    public ProductType getProductTupe() {
-        return productTupe;
+    public ProductType getProductType() {
+        return productType;
     }
 
-    public void setProductTupe(ProductType productTupe) {
-        this.productTupe = productTupe;
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 
     public String getName() {

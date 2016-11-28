@@ -2,7 +2,6 @@ package com.balance.controller;
 
 import com.balance.dao.UserDAO;
 import com.balance.model.User;
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;

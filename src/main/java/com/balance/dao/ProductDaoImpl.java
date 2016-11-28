@@ -32,15 +32,16 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void insertProduct(Product product) {
-        String sql = " insert into balance.product (name, type, amount_kg, amount_pc,price, discount) values (:name,:type,:amount_kg,:amount_pc,:price,:discount )";
+        String sql = " insert into balance.product (name, type, amount_kg, amount_pc,price, discount,is_for_kilo) values (:name,:type,:amount_kg,:amount_pc,:price,:discount, :is_for_kilo )";
 
         Map<String, Object> params = new HashMap<>();
         params.put("name", product.getName());
-        params.put("type", product.getProductTupe().toString());
+        params.put("type", product.getProductType().toString());
         params.put("amount_kg", product.getAmountKilo());
         params.put("amount_pc", product.getAmountPiece());
         params.put("price", product.getPrice());
         params.put("discount", product.getDiscount());
+        params.put("is_for_kilo", product.getIsForKilo());
 
 
         getJdbcTemplate().update(sql, params);

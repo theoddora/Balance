@@ -117,7 +117,7 @@ jQuery(window).load(function () {
 							</div>
 							
 							<div class="buttons-wrapper">
-								<input class="btn btn-1" type="submit" value="Register"/>
+								<input class="btn btn-1" type="submit" value="Register" id="register" style="background-color: orange"/>
 							</div>
 						  </fieldset>
 						  
