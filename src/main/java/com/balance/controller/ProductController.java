@@ -67,7 +67,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping(value = "/addproducts", method = RequestMethod.GET)
+    @RequestMapping(value = "/increasequantity", method = RequestMethod.GET)
     public String addProducts(Model model) {
 
         List<Product> fruits = productDao.getAllFruits();
@@ -79,7 +79,7 @@ public class ProductController {
         model.addAttribute(new Product());
 
 
-        return "addproducts";
+        return "increasequantity";
 
     }
 
