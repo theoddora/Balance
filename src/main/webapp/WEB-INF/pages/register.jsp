@@ -58,7 +58,7 @@ jQuery(window).load(function () {
               <ul class="nav sf-menu">
                 <li><a href="index">Home</a></li>
                 <li><a href="work.jsp">Work</a></li>
-                <li><a href="blog.html">Blog</a></li>
+                <li><a href="cart">Cart</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
                   <ul>
                     <li><a href="#">Process 01</a></li>
@@ -117,7 +117,7 @@ jQuery(window).load(function () {
 							</div>
 							
 							<div class="buttons-wrapper">
-								<input class="btn btn-1" type="submit" value="Register"/>
+								<input class="btn btn-1" type="submit" value="Register" id="register" style="background-color: orange"/>
 							</div>
 						  </fieldset>
 						  

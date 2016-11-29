@@ -11,24 +11,41 @@ public class Product {
     private double amountPiece;
     private double price;
     private double discount;
+    private boolean isForKilo;
 
-    public Product() {
 
-    }
 
-    public Product( String productType, String name, double amountKilo, double amountPiece, double price, double discount, int id) {
 
-        this.productType = productType;
+
+   
+    public Product( String productType, String name, double amountKilo, double amountPiece, double price, double discount, boolean isForKilo) {
+
+
+
         this.name = name;
         this.amountKilo = amountKilo;
         this.amountPiece = amountPiece;
         this.price = price;
         this.discount = discount;
+
         this.id = id;
+
+        this.isForKilo = isForKilo;
+
 
     }
 
+    public Product() {
 
+    }
+
+    public boolean getIsForKilo() {
+        return isForKilo;
+    }
+
+    public void setIsForKilo(boolean isForKilo) {
+        this.isForKilo = isForKilo;
+    }
 
     public double getDiscount() {
         return discount;

@@ -35,5 +35,11 @@ public interface ProductDao {
 
     void decreaseProductByPiece(double piece, int id);
 
+    boolean hasEnoughAmount(double amount, int id, boolean isForKilo);
+
+    double getCurrentAmount(int id, boolean isForKilo);
+
+
+
 
 }
