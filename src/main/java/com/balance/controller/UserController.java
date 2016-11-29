@@ -84,7 +84,7 @@ public class UserController {
         session.setMaxInactiveInterval(60 * 60);
         session.setAttribute("user", user);
         session.setAttribute("cart", new HashMap<Product, Double>());
-        return "index";
+        return "redirect:/index";
     }
 
     @RequestMapping(value = "/log_in", method = RequestMethod.GET)

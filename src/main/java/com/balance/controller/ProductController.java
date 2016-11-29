@@ -7,8 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by hangelov on 22/11/2016.
@@ -64,7 +67,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping(value = "/addproducts", method = RequestMethod.GET)
+    @RequestMapping(value = "/increasequantity", method = RequestMethod.GET)
     public String addProducts(Model model) {
 
         List<Product> fruits = productDao.getAllFruits();
@@ -76,7 +79,7 @@ public class ProductController {
         model.addAttribute(new Product());
 
 
-        return "addproducts";
+        return "increasequantity";
 
     }
 
