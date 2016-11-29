@@ -1,7 +1,8 @@
 package com.balance;
 
 import com.balance.controller.UserController;
-import com.balance.dao.UserDAO;
+import com.balance.dao.ProductDao;
+import com.balance.model.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,39 +16,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
- * Created by pgenev on 23/11/2016.
+ * Created by pgenev on 29/11/2016.
  */
-
-
-
-
 @WebAppConfiguration()
 @ContextConfiguration(locations = "classpath:context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UserTest {
 
+public class ProductsTest {
     @Autowired
-    private UserDAO dao;
-
-    /*
-    @Test
-    public void testUserCreateStatement() throws Exception {
-        dao.createUser(new User("theoddora", "theoddora@abv.bg", "theodora", "tedi123"));
-    }
-    */
-
+    private ProductDao dao;
 
     @Test
-    public void shouldShowRegistration() throws Exception {
-        UserController controller = new UserController();
-        MockMvc mockMvc = standaloneSetup(controller).build();
-        mockMvc.perform(get("/registration")).andExpect(view().name("register"));
+    public void listAllFruits() throws Exception {
+        dao.getAllFruits();
+        for(Product product : dao.getAllFruits()){
+            System.out.println(product);
+        }
     }
 
     @Test
-    public void testListAllUsers(){
-        dao.listUsers();
+    public void listAllVegetables() throws Exception {
+        dao.getAllVegetables();
+        for(Product product : dao.getAllVegetables()){
+            System.out.println(product);
+        }
     }
-
 
 }
+

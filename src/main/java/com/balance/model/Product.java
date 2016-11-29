@@ -4,7 +4,7 @@ package com.balance.model;
  * Created by hangelov on 21/11/2016.
  */
 public class Product {
-    private int id;
+    private Integer id;
     private String productType;
     private String name;
     private double amountKilo;
@@ -16,7 +16,7 @@ public class Product {
 
     }
 
-    public Product( String productType, String name, double amountKilo, double amountPiece, double price, double discount) {
+    public Product( String productType, String name, double amountKilo, double amountPiece, double price, double discount, int id) {
 
         this.productType = productType;
         this.name = name;
@@ -24,6 +24,7 @@ public class Product {
         this.amountPiece = amountPiece;
         this.price = price;
         this.discount = discount;
+        this.id = id;
 
     }
 
@@ -37,11 +38,11 @@ public class Product {
         this.discount = discount;
     }
 
-    public int getId() {
-        return id;
+    public Integer getId() {
+        return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

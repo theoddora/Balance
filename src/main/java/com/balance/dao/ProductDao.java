@@ -23,13 +23,17 @@ public interface ProductDao {
 
     List<Product> getAllProducts();
 
-    void increseProductByKilo(double kilos, int id);
+    List<Product> getAllFruits();
+
+    List<Product> getAllVegetables();
+
+    void increaseProductByKilo(double kilos, int id);
 
     void decreaseProductByKilo(double kilos, int id);
 
-    void increaseProductByPiece(int pieces, int id);
+    void increaseProductByPiece(double pieces, int id);
 
-    void decreaseProductByPiece(int piece, int id);
+    void decreaseProductByPiece(double piece, int id);
 
 
 }

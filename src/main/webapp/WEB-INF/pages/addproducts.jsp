@@ -14,41 +14,55 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <style>
+        #fruitsSelect {
+            display: none;
+        }
 
-
+        #vegetablesSelect {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <div class="center">
-    <p>Add product</p>
-    <form:form method="POST" id="addproducts" action="addproducts" commandName="product">
+    <p>Increase product quantity</p>
+    <form:form method="POST" id="addproducts" action="increasequantity" commandName="product">
 
-        Category : <form:select path="productType" name="parent_selection" id="parent_selection">
-        <option value="">-- Please Select --</option>
-        <option value="vegetables">Vegetables</option>
-        <option value="fruits">Fruits</option>
+        Category : <form:select path="productType" id="products">
+        <form:option disabled="true" selected="true" value="">Choose product</form:option>
+        <form:option value="vegetable">Vegetables</form:option>
+        <form:option value="fruit">Fruits</form:option>
+
     </form:select>
-        <form:select path="name" name="child_selection" id="child_selection">
+
+        <form:select path="id" id="fruitsSelect">
+            <form:option disabled="true" selected="true" value="">Choose fruit</form:option>
+            <c:forEach var="fruit" items="${fruits}">
+                <form:option value="${fruit.id}"> ${fruit.name} </form:option>
+            </c:forEach>
         </form:select>
 
-        <br><br>
+        <form:select path="id" id="vegetablesSelect">
+            <form:option disabled="true" selected="true" value="">Choose vegetable</form:option>
+            <c:forEach var="vegetable" items="${vegetables}">
+                <form:option value="${vegetable.id}"> ${vegetable.name} </form:option>
+            </c:forEach>
+        </form:select>
 
-        Quantity :
-        <form:input path="amountKilo" name="amouneKilo" />
-        <form:input path="amountPiece" name="amountPiece" />
-
-
-        <br><br>
-
-        Price kg/piece : <form:input path="price"/>
 
         <br><br>
-        Discount % : <form:input path="discount"/>
-        <br><br>
-        <input type="submit" value="Submit" />
+
+        Increase quantity by :
+        <form:input path="amountKilo" name="amouneKilo"/> kgs <br>
+        <form:input path="amountPiece" name="amountPiece"/> pieces
+        <br>
+        <input type="submit" value="Submit"/>
 
     </form:form>
-    </div>
+</div>
+<script type="text/javascript" src="js/main.js"></script>
 
-    </body>
-    </html>
+</body>
+
+</html>

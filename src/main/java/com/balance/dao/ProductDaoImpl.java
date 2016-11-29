@@ -78,7 +78,6 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public List<Product> getAllProducts() {
 
-
         String sql = "Select * from product";
         List<Product> products = getJdbcTemplate().query(sql, new ProductRowMapper());
 
@@ -86,8 +85,24 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void increseProductByKilo(double kilos, int id) {
-        String sql = "update balance.product  SET  amount_kg = ((select amount_kg from product where id = :id ) + :kilos) where id = :id";
+    public List<Product> getAllFruits(){
+        String sql = "SELECT * FROM balance.product WHERE product.type = 'fruit'";
+        List<Product> products = getJdbcTemplate().query(sql, new ProductRowMapper());
+
+        return products;
+    }
+
+    @Override
+    public List<Product> getAllVegetables(){
+        String sql = "SELECT * FROM balance.product WHERE product.type = 'vegetable'";
+        List<Product> products = getJdbcTemplate().query(sql, new ProductRowMapper());
+
+        return products;
+    }
+
+    @Override
+    public void increaseProductByKilo(double kilos, int id) {
+        String sql = "update balance.product  SET  amount_kg = amount_kg + :kilos where product.id = :id";
         Map<String , Object> params = new HashMap<>();
         params.put("id", id);
         params.put("kilos", kilos);
@@ -95,8 +110,8 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void decreaseProductByKilo(double kilos, int id) {
-        String sql = "update balance.product  SET  amount_kg = ((select amount_kg from product where id = :id ) - :kilos) where id = :id";
+    public void decreaseProductByKilo(double kilos,int id) {
+        String sql = "update balance.product  SET  amount_kg = amount_kg - :kilos where product.id = :id";
         Map<String , Object> params = new HashMap<>();
         params.put("id", id);
         params.put("kilos", kilos);
@@ -104,8 +119,8 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void increaseProductByPiece(int pieces, int id) {
-        String sql = "update balance.product  SET  amount_pc = ((select amount_pc from product where id = :id ) + :pieces) where id = :id";
+    public void increaseProductByPiece(double pieces, int id) {
+        String sql = "update balance.product  SET  amount_pc = amount_pc + :pieces where product.id = :id";
         Map<String , Object> params = new HashMap<>();
         params.put("id", id);
         params.put("pieces", pieces);
@@ -114,8 +129,8 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void decreaseProductByPiece(int piece, int id) {
-        String sql = "update balance.product  SET  amount_pc = ((select amount_pc from product where id = :id ) - :piece) where id = :id";
+    public void decreaseProductByPiece(double piece, int id) {
+        String sql = "update balance.product  SET  amount_pc = amount_pc - :piece where product.id = : id";
         Map<String , Object> params = new HashMap<>();
         params.put("id", id);
         params.put("piece", piece);

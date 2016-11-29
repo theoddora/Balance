@@ -21,21 +21,29 @@ public class ProductController {
     ProductDao productDao;
 
 
-
-
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public String getProducts(Model model) {
 
         List<Product> products = productDao.getAllProducts();
+
+
         model.addAttribute("products", products);
+
 
         return "work";
 
     }
 
 
-    @RequestMapping(value = "/addproducts", method = RequestMethod.GET)
+    @RequestMapping(value = "/increasequantity", method = RequestMethod.GET)
     public String addProducts(Model model) {
+
+        List<Product> fruits = productDao.getAllFruits();
+        List<Product> vegetables = productDao.getAllVegetables();
+
+        model.addAttribute("fruits", fruits);
+        model.addAttribute("vegetables", vegetables);
+
         model.addAttribute(new Product());
 
 
@@ -44,16 +52,18 @@ public class ProductController {
     }
 
 
-    @RequestMapping(value = "/addproducts", method = RequestMethod.POST)
-    public String addGivenProduct(Product product) {
+    @RequestMapping(value = "/increasequantity", method = RequestMethod.POST)
+    public String updateGivenProduct(Product product) {
         System.out.println(product);
-        productDao.insertProduct(product);
-
+        if(product.getAmountKilo() != 0) {
+            productDao.increaseProductByKilo(product.getAmountKilo(), product.getId());
+        }else if(product.getAmountPiece() != 0){
+            productDao.increaseProductByPiece(product.getAmountPiece(), product.getId());
+        }
 
         return "/";
 
     }
-
 
 
 }
