@@ -1,9 +1,8 @@
 package com.balance.model;
 
-
-import com.balance.exceptions.UserException;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.omg.CORBA.UserException;
 
 import javax.validation.constraints.*;
 
@@ -31,27 +30,27 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String name, String password) throws UserException {
+    public User(String username, String email, String name, String password) {
         setUsername(username);
         setEmail(email);
         setName(name);
         setPassword(password);
     }
 
-    public void setUsername(String username) throws UserException {
+    public void setUsername(String username) {
         this.username = username;
 
     }
 
-    public void setPassword(String password) throws UserException {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setEmail(String email) throws UserException {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setName(String name) throws UserException {
+    public void setName(String name) {
         this.name = name;
     }
 

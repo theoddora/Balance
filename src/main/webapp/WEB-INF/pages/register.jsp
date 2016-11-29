@@ -2,6 +2,7 @@
          pageEncoding="ISO-8859-1"%>
 <%@ page errorPage="404.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false" %>
 <!DOCTYPE html>
@@ -76,10 +77,10 @@ jQuery(window).load(function () {
                     </li>
                   </c:when>
                   <c:otherwise>
-                    <li><s:url value="/registration" var="registration"/>
+                    <li class="active"><s:url value="/registration" var="registration"/>
                       <a href="${registration}"><s:message code="balance.register" /></a>
                     </li>
-                    <li class="active"><s:url value="/log_in" var="logIn"/>
+                    <li><s:url value="/log_in" var="logIn"/>
                       <a href="${logIn}"><s:message code="balance.log_in" /></a>
                     </li>
                   </c:otherwise>
