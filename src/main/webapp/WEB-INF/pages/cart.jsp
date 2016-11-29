@@ -60,7 +60,7 @@ jQuery(window).load(function () {
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li><a href="index">Home</a></li>
+                <li><a href="/index">Home</a></li>
                 <li><a href="/product">Work</a></li>
                 <li class="active"><a href="cart">Cart</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>

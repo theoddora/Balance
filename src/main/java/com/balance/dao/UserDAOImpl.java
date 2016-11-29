@@ -61,7 +61,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User findByUserName(String username) {
+    public User findByUsername(String username) {
         String sql = "select * from balace.user where username like :username ";
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);

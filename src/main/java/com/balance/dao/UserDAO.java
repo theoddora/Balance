@@ -20,7 +20,7 @@ public interface UserDAO {
 
     public User getUser(String email);
 
-    public User findByUserName(String username);
+    public User findByUsername(String username);
 
 
 

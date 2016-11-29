@@ -28,7 +28,18 @@ public class User {
     @Size(min = 2, max = 20, message = "{name.size}")
     private String name;
 
+    private boolean isAdmin;
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
     public User() {
+        this.isAdmin = false;
     }
 
     public User(String username, String email, String name, String password) throws UserException {
@@ -36,6 +47,7 @@ public class User {
         setEmail(email);
         setName(name);
         setPassword(password);
+        this.isAdmin = false;
     }
 
     public void setUsername(String username) throws UserException {

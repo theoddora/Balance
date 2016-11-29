@@ -65,9 +65,9 @@
 
                         <div class="nav-collapse nav-collapse_  collapse">
                             <ul class="nav sf-menu">
-                                <li><a href="index.jsp">Home</a></li>
+                                <li><a href="index">Home</a></li>
                                 <li class="active"><a href="work.jsp">Work</a></li>
-                                <li><a href="cart.jsp">Blog</a></li>
+                                <li><a href="cart">Cart</a></li>
                                 <li class="sub-menu"><a href="process.html">Process</a>
                                     <ul>
                                         <li><a href="#">Process 01</a></li>
@@ -108,14 +108,14 @@
                 </c:when>
                 <c:when test="${not product.isForKilo}">
                     <form action="${pageContext.request.contextPath}/product" method="POST">
-                        <input type="text" list="amount" placeholder="Enter pieces">
-                        <datalist id="amount">
+                        <input type="text" list = "amount" name="amount" placeholder="Enter pieces">
+                        <datalist id = "amount" name="amount">
                             <option value="1">
                             <option value="2">
                             <option value="3">
                             <option value="4">
                         </datalist>
-                        <input type="submit" value="${product.id}">
+                        <button type="submit" value="${product.id}" name = "productId" class="btn btn-1">Buy</button>
                     </form>
 
                 </c:when>
