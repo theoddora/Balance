@@ -59,4 +59,14 @@ public class UserDAOImpl implements UserDAO {
     public User getUser(String email) {
         return null;
     }
+
+    @Override
+    public User findByUserName(String username) {
+        String sql = "select * from balace.user where username like :username ";
+        Map<String, Object> params = new HashMap<>();
+        params.put("username", username);
+        User user = jdbcTemplateObject.queryForObject(sql, params, new UserMapper());
+
+        return user;
+    }
 }
