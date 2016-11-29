@@ -67,7 +67,7 @@
                             <ul class="nav sf-menu">
                                 <li><a href="index.jsp">Home</a></li>
                                 <li class="active"><a href="work.jsp">Work</a></li>
-                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="cart.jsp">Blog</a></li>
                                 <li class="sub-menu"><a href="process.html">Process</a>
                                     <ul>
                                         <li><a href="#">Process 01</a></li>
@@ -101,21 +101,21 @@
 
             <c:choose>
                 <c:when test="${product.isForKilo}">
-                    <form action="${pageContext.request.contextPath}/product/buy?productId=${product.id}" method="get">
+                    <form action="${pageContext.request.contextPath}/product" method="POST">
                     <input type="text" name="amount" placeholder="Amount...">
-                    <button type="submit" class="btn btn-1" name="buy">Buy</button>
+                    <button type="submit" value="${product.id}" name = "productId" class="btn btn-1">Buy</button>
                     </form>
                 </c:when>
                 <c:when test="${not product.isForKilo}">
-                    <form action="${pageContext.request.contextPath}/product/buy?productId=${product.id}" method="get">
-                        <input type="text" list="amount" placeholder="Eneter pieces">
+                    <form action="${pageContext.request.contextPath}/product" method="POST">
+                        <input type="text" list="amount" placeholder="Enter pieces">
                         <datalist id="amount">
                             <option value="1">
                             <option value="2">
                             <option value="3">
                             <option value="4">
                         </datalist>
-                        <input type="submit" value="Buy">
+                        <input type="submit" value="${product.id}">
                     </form>
 
                 </c:when>

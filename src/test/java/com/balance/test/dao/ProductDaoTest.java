@@ -2,7 +2,6 @@ package com.balance.test.dao;
 
 import com.balance.dao.ProductDao;
 import com.balance.model.Product;
-import com.balance.model.ProductType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

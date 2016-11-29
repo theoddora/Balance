@@ -1,7 +1,6 @@
 package com.balance.dao;
 
 import com.balance.model.Product;
-import com.balance.model.ProductType;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

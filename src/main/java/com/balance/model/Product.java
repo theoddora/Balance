@@ -11,6 +11,7 @@ public class Product {
     private double amountPiece;
     private double price;
     private double discount;
+    private boolean isForKilo;
 
 
 

@@ -2,7 +2,6 @@ package com.balance.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,6 +26,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http
+        .csrf().disable()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/", true)
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+                .logoutUrl("/logout")
+                .and()
+                .authorizeRequests()
+//                .antMatchers(HttpMethod.POST,"/product").authenticated()
+                .antMatchers("/login", "/register").anonymous()
+                .antMatchers("/product", "/register").anonymous()
+                .anyRequest().permitAll()
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/denied")
+                .and()
+                .rememberMe()
+                .tokenValiditySeconds(FOUR_WEEKS);
 
     }
 }

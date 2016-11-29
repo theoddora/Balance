@@ -76,7 +76,7 @@ jQuery(window).load(function () {
                   <s:url value="/product" var="product"/>
                   <a href="${product}"><s:message code="balance.product" /></a>
                 </li>
-                <li><a href="blog.html">Blog</a></li>
+                <li><a href="cart.jsp">Cart</a></li>
                 <li class="sub-menu"><a href="process.html">Process</a>
                   <ul>
                     <li><a href="#">Process 01</a></li>

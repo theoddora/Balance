@@ -124,5 +124,32 @@ public class ProductDaoImpl implements ProductDao {
 
     }
 
+    @Override
+    public boolean hasEnoughAmount(double amount, int id, boolean isForKilo) {
+
+        double result = this.getCurrentAmount(id, isForKilo);
+        if(result<amount) {
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    @Override
+    public double getCurrentAmount(int id, boolean isForKilo) {
+        String sql = null;
+        if(isForKilo) {
+            sql = "select amount_kg from balance.product where id = :id";
+        }else{
+            sql = "select amount_pc from balance.product where id = :id";
+        }
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        double result = getJdbcTemplate().queryForObject(sql, params, Double.class);
+
+        return result;
+    }
+
 
 }
