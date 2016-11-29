@@ -13,18 +13,17 @@ import java.util.List;
  */
 public interface UserDAO {
 
-    public void setDataSource(DataSource ds);
+    void setDataSource(DataSource ds);
 
-    public void createUser(User user);
+    void createUser(User user);
 
-    public List<User> listUsers();
+    List<User> listUsers();
 
-    public void delete(String email);
+    void delete(String email);
 
-    public User getUser(String email);
+    User findByUserEmail(String email) throws IncorrectResultSizeDataAccessException;
 
-    User findByUserName(String username) throws IncorrectResultSizeDataAccessException;
-    
+    User findByUsername(String username) throws IncorrectResultSizeDataAccessException;
 
     User getUser(String username, String password) throws IncorrectResultSizeDataAccessException, PasswordsDontMatchException;
 }

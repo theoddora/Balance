@@ -1,6 +1,5 @@
 package com.balance.dao;
 
-import com.balance.exceptions.NoSuchUserException;
 import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import sun.security.util.Password;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -60,10 +58,6 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
-    @Override
-    public User getUser(String email) {
-        return null;
-    }
 
     @Override
     public User findByUserEmail(String email) throws IncorrectResultSizeDataAccessException {
@@ -75,7 +69,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User findByUserName(String username) throws IncorrectResultSizeDataAccessException {
+    public User findByUsername(String username) throws IncorrectResultSizeDataAccessException {
         String sql = "select * from \"user\" where username like :username ";
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
@@ -85,7 +79,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUser(String username, String password) throws IncorrectResultSizeDataAccessException, PasswordsDontMatchException {
-        User user = findByUserName(username);
+        User user = findByUsername(username);
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new PasswordsDontMatchException();
         }

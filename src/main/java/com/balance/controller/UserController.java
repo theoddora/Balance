@@ -1,14 +1,12 @@
 package com.balance.controller;
 
 import com.balance.dao.UserDAO;
-import com.balance.exceptions.NoSuchUserException;
 import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.model.Product;
 import com.balance.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -95,7 +93,7 @@ public class UserController {
     //profile
     @RequestMapping(value="/{username}", method = RequestMethod.POST)
     public String viewProfilePage(@PathVariable String username, Model model) {
-        User user = userDAO.findByUserName(username);
+        User user = userDAO.findByUsername(username);
         if (user != null) {
             model.addAttribute("user", user);
         }
