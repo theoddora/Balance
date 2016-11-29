@@ -7,12 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- * Created by hangelov on 22/11/2016.
- */
+
 @Controller
 public class ProductController {
 
@@ -31,6 +32,8 @@ public class ProductController {
 
         return "work";
     }
+
+    //cart
 
     @RequestMapping(value = "/product", method = RequestMethod.POST)
     public String addToCart(@RequestParam("productId") int id, @RequestParam("amount") double amount, Model model) {
@@ -63,9 +66,42 @@ public class ProductController {
 
     }
 
+    //returning view
+    @RequestMapping(value = "/increasequantity", method = RequestMethod.GET)
+    public String increaseQuantityJSP(Model model) {
 
+        List<Product> fruits = productDao.getAllFruits();
+        List<Product> vegetables = productDao.getAllVegetables();
+
+        model.addAttribute("fruits", fruits);
+        model.addAttribute("vegetables", vegetables);
+
+        model.addAttribute(new Product());
+
+
+        return "increasequantity";
+
+    }
+
+    //updating products
+    @RequestMapping(value = "/increasequantity", method = RequestMethod.POST)
+    public String increaseProductsQuantity(Product product) {
+        System.out.println(product);
+        if(product.getAmountKilo() != 0) {
+            productDao.increaseProductByKilo(product.getAmountKilo(), product.getId());
+        }else if(product.getAmountPiece() != 0){
+            productDao.increaseProductByPiece(product.getAmountPiece(), product.getId());
+        }
+
+
+        return "/";
+
+    }
+
+
+    //returning view
     @RequestMapping(value = "/addproducts", method = RequestMethod.GET)
-    public String addProducts(Model model) {
+    public String addProductsJSP(Model model) {
 
         List<Product> fruits = productDao.getAllFruits();
         List<Product> vegetables = productDao.getAllVegetables();
@@ -80,20 +116,16 @@ public class ProductController {
 
     }
 
-
-    @RequestMapping(value = "/increasequantity", method = RequestMethod.POST)
-    public String updateGivenProduct(Product product) {
-        System.out.println(product);
-        if(product.getAmountKilo() != 0) {
-            productDao.increaseProductByKilo(product.getAmountKilo(), product.getId());
-        }else if(product.getAmountPiece() != 0){
-            productDao.increaseProductByPiece(product.getAmountPiece(), product.getId());
-        }
+    //inserting product
+    @RequestMapping(value = "/addproducts", method = RequestMethod.POST)
+    public String addProducts(Product product) {
 
 
-        return "/";
+        return "addproducts";
 
     }
+
+
 
 
 

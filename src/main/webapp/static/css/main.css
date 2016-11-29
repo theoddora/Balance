@@ -1,9 +1,16 @@
-.center {
-    position: absolute;
-    left: -40%;
-    top: 10%;
-    width: 100%;
+.main {
+    position: relative;
+    left: 500px;
+    top: 30px;
+
     text-align: center;
 
+    height: 200px;
+    width: 50%;
+    background-color: powderblue;
 }
 
+.textcolor{
+    color:#F25C27;
+    font-size: 15px;
+}

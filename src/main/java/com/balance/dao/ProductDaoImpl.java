@@ -120,7 +120,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void increaseProductByPiece(double pieces, int id) {
+    public void increaseProductByPiece(Integer pieces, int id) {
         String sql = "update balance.product  SET  amount_pc = amount_pc + :pieces where product.id = :id";
         Map<String , Object> params = new HashMap<>();
         params.put("id", id);
@@ -130,7 +130,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void decreaseProductByPiece(double piece, int id) {
+    public void decreaseProductByPiece(Integer piece, int id) {
         String sql = "update balance.product  SET  amount_pc = amount_pc - :piece where product.id = : id";
         Map<String , Object> params = new HashMap<>();
         params.put("id", id);

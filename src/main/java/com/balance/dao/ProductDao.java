@@ -3,6 +3,7 @@ package com.balance.dao;
 import com.balance.model.Product;
 import org.springframework.security.access.annotation.Secured;
 
+import javax.print.attribute.IntegerSyntax;
 import javax.sql.DataSource;
 import java.util.List;
 
@@ -31,9 +32,9 @@ public interface ProductDao {
 
     void decreaseProductByKilo(double kilos, int id);
 
-    void increaseProductByPiece(double pieces, int id);
+    void increaseProductByPiece(Integer pieces, int id);
 
-    void decreaseProductByPiece(double piece, int id);
+    void decreaseProductByPiece(Integer piece, int id);
 
     boolean hasEnoughAmount(double amount, int id, boolean isForKilo);
 
