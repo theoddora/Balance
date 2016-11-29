@@ -23,7 +23,7 @@ public class UserDAOImpl implements UserDAO {
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplateObject;
 
-    private static final String SQL_SELECT_USER = "SELECT user_id, username, email, password, name FROM balance.user WHERE username = ?";
+    private static final String SQL_SELECT_USER = "SELECT user_id, email, password, name FROM balance.user WHERE username = ?";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -64,9 +64,13 @@ public class UserDAOImpl implements UserDAO {
         return null;
     }
 
-    /*
+/*
     @Override
     public boolean isValidUser(String username, String password) {
+
+
+        User user = new User(); // change this to getUserByUsername
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
 
@@ -77,7 +81,5 @@ public class UserDAOImpl implements UserDAO {
         ResultSet resultSet = jdbcTemplateObject.query(SQL, new UserMapper());
         return resultSet.next() && resultSet.getInt(1) > 0;
     }
-    */
-
-
+*/
 }

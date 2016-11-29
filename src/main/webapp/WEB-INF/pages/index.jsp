@@ -73,7 +73,7 @@
 
                         <div class="nav-collapse nav-collapse_  collapse">
                             <ul class="nav sf-menu">
-                                <li class="active">
+                                <li>
                                     <s:url value="/index" var="index"/>
                                     <a href="${index}"><s:message code="balance.home"/></a>
                                 </li>
@@ -96,7 +96,7 @@
                                         <li><s:url value="/registration" var="registration"/>
                                             <a href="${registration}"><s:message code="balance.register"/></a>
                                         </li>
-                                        <li><s:url value="/log_in" var="logIn"/>
+                                        <li class="active"><s:url value="/log_in" var="logIn"/>
                                             <a href="${logIn}"><s:message code="balance.log_in"/></a>
                                         </li>
                                     </c:otherwise>

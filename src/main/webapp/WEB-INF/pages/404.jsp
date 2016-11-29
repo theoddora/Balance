@@ -47,17 +47,34 @@ jQuery(window).load(function () {
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li><a href="/index">Home</a></li>
-                <li><a href="work.jsp">Work</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li class="sub-menu"><a href="process.html">Process</a>
-                  <ul>
-                    <li><a href="#">Process 01</a></li>
-                    <li><a href="#">Process 02</a></li>
-                    <li><a href="#">Process 03</a></li>
-                  </ul>
+                <li>
+                  <s:url value="/index" var="index"/>
+                  <a href="${index}"><s:message code="balance.home" /></a>
                 </li>
-                <li><a href="/registration">Register</a></li>
+                <li>
+                  <s:url value="/product" var="product"/>
+                  <a href="${product}"><s:message code="balance.product" /></a>
+                </li>
+                <li><a href="blog.html">Blog</a></li>
+                <c:choose>
+                  <c:when test= "${!empty sessionScope.email}">
+                    <li class="sub-menu"><a href="process.html">Process</a>
+                      <ul>
+                        <li><a href="#">Process 01</a></li>
+                        <li><a href="#">Process 02</a></li>
+                        <li><a href="#">Process 03</a></li>
+                      </ul>
+                    </li>
+                  </c:when>
+                  <c:otherwise>
+                    <li><s:url value="/registration" var="registration"/>
+                      <a href="${registration}"><s:message code="balance.register" /></a>
+                    </li>
+                    <li class="active"><s:url value="/log_in" var="logIn"/>
+                      <a href="${logIn}"><s:message code="balance.log_in" /></a>
+                    </li>
+                  </c:otherwise>
+                </c:choose>
               </ul>
             </div>
           </div>

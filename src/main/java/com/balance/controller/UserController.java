@@ -1,6 +1,7 @@
 package com.balance.controller;
 
 import com.balance.dao.UserDAO;
+import com.balance.dao.UserDAOImpl;
 import com.balance.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -46,7 +47,7 @@ public class UserController {
         System.out.println("password: " + user.getPassword());
         System.out.println("email: " + user.getEmail());
         System.out.println("name: " + user.getName());
-        return "redirect:/" + user.getUsername();
+        return "forward:/" + user.getUsername();
 
     }
 
@@ -60,7 +61,8 @@ public class UserController {
     @RequestMapping(value = "/log_in", method = RequestMethod.POST)
     public String logInUser(@RequestParam(value = "username") String username,
                             @RequestParam(value = "password") String password, HttpServletRequest request, Model model) {
-        return null;
+        User user = new User();
+        return "forward:/" + user.getUsername();
     }
 
     @RequestMapping(value = "/log_in", method = RequestMethod.GET)

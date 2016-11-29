@@ -76,10 +76,10 @@ jQuery(window).load(function () {
                     </li>
                   </c:when>
                   <c:otherwise>
-                    <li class="active"><s:url value="/registration" var="registration"/>
+                    <li><s:url value="/registration" var="registration"/>
                       <a href="${registration}"><s:message code="balance.register" /></a>
                     </li>
-                    <li><s:url value="/log_in" var="logIn"/>
+                    <li class="active"><s:url value="/log_in" var="logIn"/>
                       <a href="${logIn}"><s:message code="balance.log_in" /></a>
                     </li>
                   </c:otherwise>

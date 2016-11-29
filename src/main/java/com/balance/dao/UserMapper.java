@@ -1,6 +1,5 @@
 package com.balance.dao;
 
-import com.balance.exceptions.UserException;
 import com.balance.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,17 +17,11 @@ public class UserMapper implements RowMapper<User> {
 
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();
-        try {
-            user.setEmail(rs.getString("email"));
-            user.setPassword(rs.getString("password"));
-            user.setName(rs.getString("name"));
-            user.setUsername(rs.getString("username"));
-            user.setId(rs.getInt("user_id"));
-        } catch (UserException e) {
-            logger.error("User information exception", e);
-            throw new SQLException(e);
-        }
-
+        user.setEmail(rs.getString("email"));
+        user.setPassword(rs.getString("password"));
+        user.setName(rs.getString("name"));
+        user.setUsername(rs.getString("username"));
+        user.setId(rs.getInt("user_id"));
         return user;
     }
 }

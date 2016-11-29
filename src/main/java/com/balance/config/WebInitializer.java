@@ -9,10 +9,9 @@ import java.io.File;
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     private static final String LOCATION = "D:" + File.separator +"songs" + File.separator;
-
-    private static final long MAX_FILE_SIZE = 104857600; // 100MB : Max file size.
-    private static final long MAX_REQUEST_SIZE = 20971520; // 20MB : Total request size containing Multi part.
-    private static final int FILE_SIZE_THRESHOLD = 0; // Size threshold after which files will be written to disk
+    private static final long MAX_FILE_SIZE = 104857600; // 100MB
+    private static final long MAX_REQUEST_SIZE = 20971520; // 20MB
+    private static final int FILE_SIZE_THRESHOLD = 0;
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -42,8 +41,5 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
         MultipartConfigElement multipartConfigElement = new MultipartConfigElement(	LOCATION, MAX_FILE_SIZE, MAX_REQUEST_SIZE, FILE_SIZE_THRESHOLD);
         return multipartConfigElement;
     }
-
-
-
 
 }
