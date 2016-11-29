@@ -5,28 +5,39 @@ package com.balance.model;
  */
 public class Product {
     private int id;
-    private ProductType productTupe;
+    private String productType;
     private String name;
     private double amountKilo;
-    private int amountPiece;
+    private double amountPiece;
     private double price;
     private double discount;
+    private boolean isForKilo;
 
 
 
-    public Product( ProductType productTupe, String name, double amountKilo, int amountPiece, double price, double discount) {
+   
+    public Product( String productType, String name, double amountKilo, double amountPiece, double price, double discount, boolean isForKilo) {
 
-        this.productTupe = productTupe;
+        
         this.name = name;
         this.amountKilo = amountKilo;
         this.amountPiece = amountPiece;
         this.price = price;
         this.discount = discount;
+        this.isForKilo = isForKilo;
 
     }
 
     public Product() {
 
+    }
+
+    public boolean getIsForKilo() {
+        return isForKilo;
+    }
+
+    public void setIsForKilo(boolean isForKilo) {
+        this.isForKilo = isForKilo;
     }
 
     public double getDiscount() {
@@ -45,12 +56,12 @@ public class Product {
         this.id = id;
     }
 
-    public ProductType getProductTupe() {
-        return productTupe;
+    public String getProductType() {
+        return productType;
     }
 
-    public void setProductTupe(ProductType productTupe) {
-        this.productTupe = productTupe;
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 
     public String getName() {
@@ -73,7 +84,7 @@ public class Product {
         return amountPiece;
     }
 
-    public void setAmountPiece(int amountPiece) {
+    public void setAmountPiece(double amountPiece) {
         this.amountPiece = amountPiece;
     }
 
@@ -85,5 +96,16 @@ public class Product {
         this.price = price;
     }
 
-
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productType=" + productType +
+                ", name='" + name + '\'' +
+                ", amountKilo=" + amountKilo +
+                ", amountPiece=" + amountPiece +
+                ", price=" + price +
+                ", discount=" + discount +
+                '}';
+    }
 }

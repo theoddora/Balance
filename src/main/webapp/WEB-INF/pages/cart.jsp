@@ -1,7 +1,10 @@
-<!DOCTYPE html>
+
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="en">
 <head>
-<title>Codester | Process</title>
+<title>Codester | Blog</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
 <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
@@ -22,6 +25,8 @@ jQuery(window).load(function () {
     if ($x > 1024) {
         jQuery("#content .row").preloader();
     }
+    jQuery(".list-blog li:last-child").addClass("last");
+    jQuery(".list li:last-child").addClass("last");
     jQuery('.spinner').animate({
         'opacity': 0
     }, 1000, 'easeOutCubic', function () {
@@ -44,7 +49,7 @@ jQuery(window).load(function () {
 </head>
 <body>
 <div class="spinner"></div>
-<!-- header -->
+<!--  header  -->
 <header>
   <div class="container clearfix">
     <div class="row">
@@ -55,10 +60,10 @@ jQuery(window).load(function () {
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
             <div class="nav-collapse nav-collapse_  collapse">
               <ul class="nav sf-menu">
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="work.jsp">Work</a></li>
-                <li><a href="cart.jsp">Blog</a></li>
-                <li class="sub-menu active"><a href="process.html">Process</a>
+                <li><a href="index">Home</a></li>
+                <li><a href="/product">Work</a></li>
+                <li class="active"><a href="cart">Cart</a></li>
+                <li class="sub-menu"><a href="process.html">Process</a>
                   <ul>
                     <li><a href="#">Process 01</a></li>
                     <li><a href="#">Process 02</a></li>
@@ -75,64 +80,20 @@ jQuery(window).load(function () {
   </div>
 </header>
 <div class="bg-content">
-  <!-- content -->
-  <div id="content">
-    <div class="ic"></div>
+  <!--  content  -->
     <div class="container">
-      <div class="row">
-        <article class="span12">
-          <h4>Services</h4>
-        </article>
-        <div class="clear"></div>
-        <ul class="thumbnails thumbnails-1 list-services">
-          <li class="span4">
-            <div class="thumbnail thumbnail-1"> <img  src="img/service-1.jpg" alt="">
-              <section> <a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate nonprovident similique sunt in culpa.</p>
-              </section>
-            </div>
-          </li>
-          <li class="span4">
-            <div class="thumbnail thumbnail-1"> <img  src="img/service-2.jpg" alt="">
-              <section> <a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate nonprovident similique sunt in culpa.</p>
-              </section>
-            </div>
-          </li>
-          <li class="span4">
-            <div class="thumbnail thumbnail-1"> <img  src="img/service-3.jpg" alt="">
-              <section> <a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate nonprovident similique sunt in culpa.</p>
-              </section>
-            </div>
-          </li>
-          <li class="span4">
-            <div class="thumbnail thumbnail-1"> <img  src="img/service-4.jpg" alt="">
-              <section> <a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate nonprovident similique sunt in culpa.</p>
-              </section>
-            </div>
-          </li>
-          <li class="span4">
-            <div class="thumbnail thumbnail-1"> <img  src="img/service-5.jpg" alt="">
-              <section> <a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate nonprovident similique sunt in culpa.</p>
-              </section>
-            </div>
-          </li>
-          <li class="span4">
-            <div class="thumbnail thumbnail-1"> <img  src="img/service-6.jpg" alt="">
-              <section> <a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate nonprovident similique sunt in culpa.</p>
-              </section>
-            </div>
-          </li>
-        </ul>
-      </div>
+
+       <h1> <c:out value="${message}"/></h1>
+
+        <c:forEach var="product" items="${cart}">
+
+           <h1> Product: <c:out value="${product.key.name}"/></h1>
+        <h1> Amount: <c:out value="${product.value}"/></h1>
+        </c:forEach>
+
+
     </div>
-  </div>
-</div>
-<!--============================== footer =================================-->
+<!--  footer  -->
 <footer>
   <div class="container clearfix">
     <ul class="list-social pull-right">
