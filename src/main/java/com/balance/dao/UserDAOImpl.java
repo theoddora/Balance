@@ -1,10 +1,14 @@
 package com.balance.dao;
 
+import com.balance.exceptions.NoSuchUserException;
+import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import sun.security.util.Password;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ public class UserDAOImpl implements UserDAO {
 
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplateObject;
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -61,12 +66,29 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User findByUsername(String username) {
-        String sql = "select * from balace.user where username like :username ";
+    public User findByUserEmail(String email) throws IncorrectResultSizeDataAccessException {
+        String sql = "select * from \"user\" where email like :email ";
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", email);
+        User user = jdbcTemplateObject.queryForObject(sql, params, new UserMapper());
+        return user;
+    }
+
+    @Override
+    public User findByUserName(String username) throws IncorrectResultSizeDataAccessException {
+        String sql = "select * from \"user\" where username like :username ";
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
         User user = jdbcTemplateObject.queryForObject(sql, params, new UserMapper());
+        return user;
+    }
 
+    @Override
+    public User getUser(String username, String password) throws IncorrectResultSizeDataAccessException, PasswordsDontMatchException {
+        User user = findByUserName(username);
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new PasswordsDontMatchException();
+        }
         return user;
     }
 }

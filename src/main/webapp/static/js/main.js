@@ -1,50 +1,39 @@
-/**
- * Created by pgenev on 28/11/2016.
- */
-$(document).ready(function(){
+//$("input:radio").on("click", function() {
+//    $("input:text").attr("disabled", true);
+//
+//    $(this).next("input").attr("disabled", false)
+//});
+//
+//function handleSelect() {
+//    if (this.value == '01') {
+//        document.getElementById('select02').disabled = true;
+//    } else {
+//        document.getElementById('select02').disabled = false;
+//    }
+//}
 
-//let's create arrays
-    var vegetables = [
-        {display: "Cucumber", value: "Cucumber" },
-        {display: "Onion", value: "Onion" },
-        {display: "Carrot", value: "Carrot" }];
+/*function displayProducts(){
+    var product = document.getElementById("products").value;
 
-
-    var fruits = [
-        {display: "Banana", value: "Banana" },
-        {display: "Apple", value: "Apple" },
-        {display: "Strawberry", value: "Strawberry" }];
-
-
-
-
-//If parent option is changed
-    $("#parent_selection").change(function() {
-        var parent = $(this).val(); //get option value from parent
-
-        switch(parent){ //using switch compare selected option and populate child
-            case 'vegetables':
-                list(vegetables);
-                break;
-            case 'fruits':
-                list(fruits);
-                break;
-
-            default: //default child option is blank
-                $("#child_selection").html('');
-                break;
-        }
-    });
-
-//function to populate child select box
-    function list(array_list)
-    {
-        $("#child_selection").html(""); //reset child options
-        $(array_list).each(function (i) { //populate child options
-            $("#child_selection").append("<option value="+array_list[i].value+">"+array_list[i].display+"</option>");
-
-
-        });
+    if(product === 'vegetable') {
+        document.getElementById("fruitsSelect").style.display = "block";
+        document.getElementById("vegetablesSelect").style.display = "none";
+    }else if(product === 'fruit'){
+        document.getElementById("fruitsSelect").style.display = "none";
+        document.getElementById("vegetablesSelect").style.display = "block";
     }
+}*/
 
+document.getElementById("products").addEventListener('change', function() {
+    var product = this.value;
+
+    if (product == "vegetable") {
+        document.getElementById("fruitsSelect").style.display = "none";
+        document.getElementById("vegetablesSelect").style.display = "inline-block";
+    }
+    else if(product =="fruit"){
+        document.getElementById("fruitsSelect").style.display = "inline-block";
+        document.getElementById("vegetablesSelect").style.display = "none";
+    }
 });
+

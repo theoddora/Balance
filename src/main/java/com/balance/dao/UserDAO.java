@@ -1,6 +1,9 @@
 package com.balance.dao;
 
+import com.balance.exceptions.NoSuchUserException;
+import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.model.User;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -20,8 +23,8 @@ public interface UserDAO {
 
     public User getUser(String email);
 
-    public User findByUsername(String username);
+    User findByUserName(String username) throws IncorrectResultSizeDataAccessException;
+    
 
-
-
+    User getUser(String username, String password) throws IncorrectResultSizeDataAccessException, PasswordsDontMatchException;
 }

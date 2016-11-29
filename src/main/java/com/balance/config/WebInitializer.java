@@ -2,7 +2,16 @@ package com.balance.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
+import java.io.File;
+
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    private static final String LOCATION = "D:" + File.separator +"songs" + File.separator;
+    private static final long MAX_FILE_SIZE = 104857600; // 100MB
+    private static final long MAX_REQUEST_SIZE = 20971520; // 20MB
+    private static final int FILE_SIZE_THRESHOLD = 0;
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -21,7 +30,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
         return new String[]{"/", "*.html", "*.pdf"};
     }
 
-/*
+
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         registration.setMultipartConfig(getMultipartConfigElement());
@@ -33,13 +42,4 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
         return multipartConfigElement;
     }
 
-
-    private static final String LOCATION = "D:" + File.separator +"songs" + File.separator; // Temporary location where files will be stored
-
-    private static final long MAX_FILE_SIZE = 104857600; // 100MB : Max file size.
-    // Beyond that size spring will throw exception.
-    private static final long MAX_REQUEST_SIZE = 20971520; // 20MB : Total request size containing Multi part.
-
-    private static final int FILE_SIZE_THRESHOLD = 0; // Size threshold after which files will be written to disk
-    */
 }
