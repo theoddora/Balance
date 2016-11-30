@@ -26,6 +26,9 @@ public class UserDAOImpl implements UserDAO {
     private NamedParameterJdbcTemplate jdbcTemplateObject;
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    private static final String WRONG_PASSWORD = "You have entered a wrong password";
+    private static final String WRONG_USERNAME = "You have entered a wrong username";
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -78,10 +81,15 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUser(String username, String password) throws IncorrectResultSizeDataAccessException, PasswordsDontMatchException {
-        User user = findByUserName(username);
+    public User getUser(String username, String password) throws NoSuchUserException, PasswordsDontMatchException {
+        User user = null;
+        try {
+            user = findByUserName(username);
+        } catch (IncorrectResultSizeDataAccessException e) {
+            throw new NoSuchUserException(WRONG_USERNAME);
+        }
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new PasswordsDontMatchException();
+            throw new PasswordsDontMatchException(WRONG_PASSWORD);
         }
         return user;
     }

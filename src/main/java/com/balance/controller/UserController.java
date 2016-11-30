@@ -1,10 +1,13 @@
 package com.balance.controller;
 
 import com.balance.dao.UserDAO;
+import com.balance.dao.UserMapper;
 import com.balance.exceptions.NoSuchUserException;
 import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.model.Product;
 import com.balance.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -33,9 +36,9 @@ public class UserController {
     @Autowired
     private UserDAO userDAO;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
     private static final String DUPLICATE_USERNAME = "User with that username/email already exists.";
-    private static final String WRONG_USERNAME = "You have entered a wrong username";
-    private static final String WRONG_PASSWORD = "You have entered a wrong password";
+
 
     //register
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -51,16 +54,13 @@ public class UserController {
             return "register";
         }
 
-        System.out.println("username: " + user.getUsername());
-        System.out.println("password: " + user.getPassword());
-        System.out.println("email: " + user.getEmail());
-        System.out.println("name: " + user.getName());
         return "forward:/" + user.getUsername();
 
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String getRegisterUserPage(Model model) {
+
         model.addAttribute(new User());
         return "register";
     }
@@ -71,15 +71,8 @@ public class UserController {
                             @RequestParam(value = "password") String password,
                             HttpServletRequest request, Model model) {
         User user = null;
-        try {
-            user = userDAO.getUser(username, password);
-        } catch (IncorrectResultSizeDataAccessException e) {
-            model.addAttribute("errorMessage", WRONG_USERNAME);
-            return "log_in";
-        } catch (PasswordsDontMatchException e) {
-            model.addAttribute("errorMessage", WRONG_PASSWORD);
-            return "log_in";
-        }
+        user = userDAO.getUser(username, password);
+
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(60 * 60);
         session.setAttribute("user", user);
@@ -95,10 +88,12 @@ public class UserController {
     //profile
     @RequestMapping(value="/{username}", method = RequestMethod.POST)
     public String viewProfilePage(@PathVariable String username, Model model) {
+
         User user = userDAO.findByUserName(username);
         if (user != null) {
             model.addAttribute("user", user);
         }
         return "profile_page";
+
     }
 }
