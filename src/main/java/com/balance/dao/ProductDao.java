@@ -28,9 +28,9 @@ public interface ProductDao {
 
     List<Product> getAllVegetables();
 
-    void increaseProductByKilo(double kilos, int id);
+    void increaseProductByKilo(Double kilos, int id);
 
-    void decreaseProductByKilo(double kilos, int id);
+    void decreaseProductByKilo(Double kilos, int id);
 
     void increaseProductByPiece(Integer pieces, int id);
 

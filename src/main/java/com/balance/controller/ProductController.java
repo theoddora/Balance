@@ -109,6 +109,7 @@ public class ProductController {
         model.addAttribute("fruits", fruits);
         model.addAttribute("vegetables", vegetables);
 
+
         model.addAttribute(new Product());
 
 
@@ -120,6 +121,7 @@ public class ProductController {
     @RequestMapping(value = "/addproducts", method = RequestMethod.POST)
     public String addProducts(Product product) {
 
+        productDao.insertProduct(product);
 
         return "addproducts";
 
