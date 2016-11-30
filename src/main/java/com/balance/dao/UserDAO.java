@@ -25,5 +25,5 @@ public interface UserDAO {
 
     User findByUserName(String username) throws IncorrectResultSizeDataAccessException;
 
-    User getUser(String username, String password) throws IncorrectResultSizeDataAccessException, PasswordsDontMatchException;
+    User getUser(String username, String password) throws NoSuchUserException, PasswordsDontMatchException;
 }

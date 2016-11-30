@@ -13,7 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Created by hangelov on 22/11/2016.
+ */
 @Controller
 public class ProductController {
 
@@ -69,6 +71,7 @@ public class ProductController {
     //returning view
     @RequestMapping(value = "/increasequantity", method = RequestMethod.GET)
     public String increaseQuantityJSP(Model model) {
+        
 
         List<Product> fruits = productDao.getAllFruits();
         List<Product> vegetables = productDao.getAllVegetables();
