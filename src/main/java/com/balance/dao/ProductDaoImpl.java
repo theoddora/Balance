@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by hangelov on 22/11/2016.
- */
+
 @Component
 public class ProductDaoImpl implements ProductDao {
 
@@ -72,7 +70,6 @@ public class ProductDaoImpl implements ProductDao {
         Map<String , Object> params = new HashMap<>();
         params.put("id", id);
         getJdbcTemplate().update(sql, params);
-
 
     }
 

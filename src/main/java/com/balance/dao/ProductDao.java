@@ -7,9 +7,7 @@ import javax.print.attribute.IntegerSyntax;
 import javax.sql.DataSource;
 import java.util.List;
 
-/**
- * Created by hangelov on 22/11/2016.
- */
+
 public interface ProductDao {
 
     @Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})

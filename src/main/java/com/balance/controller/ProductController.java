@@ -13,17 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by hangelov on 22/11/2016.
- */
+
 @Controller
 public class ProductController {
 
 
     @Autowired
     ProductDao productDao;
-
-
 
 
     @RequestMapping(value = "/product", method = RequestMethod.GET)
@@ -71,7 +67,7 @@ public class ProductController {
     //returning view
     @RequestMapping(value = "/increasequantity", method = RequestMethod.GET)
     public String increaseQuantityJSP(Model model) {
-        
+
 
         List<Product> fruits = productDao.getAllFruits();
         List<Product> vegetables = productDao.getAllVegetables();
@@ -90,9 +86,9 @@ public class ProductController {
     @RequestMapping(value = "/increasequantity", method = RequestMethod.POST)
     public String increaseProductsQuantity(Product product) {
         System.out.println(product);
-        if(product.getAmountKilo() != 0) {
+        if (product.getAmountKilo() != 0) {
             productDao.increaseProductByKilo(product.getAmountKilo(), product.getId());
-        }else if(product.getAmountPiece() != 0){
+        } else if (product.getAmountPiece() != 0) {
             productDao.increaseProductByPiece(product.getAmountPiece(), product.getId());
         }
 
@@ -130,6 +126,28 @@ public class ProductController {
 
     }
 
+    //returning view
+    @RequestMapping(value = "/manageproducts", method = RequestMethod.GET)
+    public String manageProductsJSP(Model model) {
+
+        List<Product> products = productDao.getAllProducts();
+        for(Product product : products){
+            System.out.println(product);
+        }
+        model.addAttribute("products", products);
+
+        return "manageproducts";
+    }
+
+    //managing products
+    @RequestMapping(value = "/manageproducts", method = RequestMethod.POST)
+    public String manageProducts(Model model) {
+
+
+
+        return "manageproducts";
+
+    }
 
 
 

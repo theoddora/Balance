@@ -7,9 +7,7 @@ import org.springframework.stereotype.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by hangelov on 22/11/2016.
- */
+
 @Component
 public class ProductRowMapper implements RowMapper<Product> {
 
@@ -17,8 +15,8 @@ public class ProductRowMapper implements RowMapper<Product> {
         Product product = new Product();
         product.setId(rs.getInt("id"));
         product.setName(rs.getString("name"));
-        String prodType = rs.getString("type").trim();
-        System.out.println(prodType);
+        product.setProductType(rs.getString("type").trim());
+
         product.setIsForKilo(rs.getBoolean("is_for_kilo"));
         double amountKilo = rs.getDouble("amount_kg");
         if( amountKilo > 0){
