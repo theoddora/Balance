@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +70,7 @@
                                 <li><a href="index">Home</a></li>
                                 <li class="active"><a href="work.jsp">Work</a></li>
                                 <li><a href="cart">Cart</a></li>
-                                <li class="sub-menu"><a href="process.html">Process</a>
+                                <li class="sub-menu"><a href="profile_page.jsp">Process</a>
                                     <ul>
                                         <li><a href="#">Process 01</a></li>
                                         <li><a href="#">Process 02</a></li>
@@ -90,8 +91,10 @@
 <!-- Content -->
 
 
-<div class="container">
 
+
+
+<div class="container">
 
     <c:forEach items="${products}" var="product">
 
@@ -128,7 +131,6 @@
 
 
     </c:forEach>
-
 
 </div>
 <!-- footer -->

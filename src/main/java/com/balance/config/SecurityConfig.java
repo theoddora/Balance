@@ -1,12 +1,22 @@
 package com.balance.config;
 
+import com.balance.security.BalanceUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.sql.DataSource;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 /**
  * Created by hangelov on 24/11/2016.
@@ -16,12 +26,30 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final int FOUR_WEEKS = 2419200;
+    private static final int ENCODER_STRENGTH = 12;
+
+
+    @Autowired
+    DataSource datasource;
+
+    @Autowired
+    BalanceUserService userService;
+
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
+
+
+
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+                auth.
+                        userDetailsService(userService).passwordEncoder(passwordEncoder);
+//                jdbcAuthentication()
+//                .dataSource(datasource)
+//                .usersByUsernameQuery("select username, password from \"user\" where username = ? ")
+//                .authoritiesByUsernameQuery("select username , is_admin from \"user\" where username = ?");
     }
 
     @Override
@@ -29,24 +57,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
         .csrf().disable()
                 .formLogin()
-                .loginPage("/log_in")
-                .defaultSuccessUrl("/", true)
+                    .loginPage("/log_in")
+                    .defaultSuccessUrl("/", true)
                 .and()
                 .logout()
-                .logoutSuccessUrl("/")
-                .logoutUrl("/logout")
+                    .logoutSuccessUrl("/")
+                    .logoutUrl("/log_out")
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/product").authenticated()
                 .antMatchers("/log_in", "/register").anonymous()
-                .antMatchers("/product", "/register").anonymous()
+                .antMatchers("/register").anonymous()
+                .antMatchers(HttpMethod.POST,"/product").access("isAuthenticated() and hasRole('ROLE_USER')")
                 .anyRequest().permitAll()
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/denied")
                 .and()
                 .rememberMe()
-                .tokenValiditySeconds(FOUR_WEEKS);
+                .tokenValiditySeconds(FOUR_WEEKS)
+                .key("balanceKye");
 
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        try {
+            return new BCryptPasswordEncoder(ENCODER_STRENGTH, SecureRandom.getInstance("SHA1PRNG"));
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println(
+                    "Failed to instantiate specified BCryptPasswordEncoder, reverting to deafult BCryptPasswordEncoder.");
+            return new BCryptPasswordEncoder();
+        }
     }
 }

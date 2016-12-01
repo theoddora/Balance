@@ -58,7 +58,7 @@ jQuery(window).load(function () {
                 <li><a href="index.jsp">Home</a></li>
                 <li><a href="work.jsp">Work</a></li>
                 <li><a href="cart.jsp">Blog</a></li>
-                <li class="sub-menu active"><a href="process.html">Process</a>
+                <li class="sub-menu active"><a href="profile_page.jsp">Process</a>
                   <ul>
                     <li><a href="#">Process 01</a></li>
                     <li><a href="#">Process 02</a></li>

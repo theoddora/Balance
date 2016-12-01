@@ -68,7 +68,7 @@ jQuery(window).load(function () {
                 <li><a href="blog.html">Blog</a></li>
                 <c:choose>
                   <c:when test= "${!empty sessionScope.email}">
-                    <li class="sub-menu"><a href="process.html">Process</a>
+                    <li class="sub-menu"><a href="profile_page.jsp">Process</a>
                       <ul>
                         <li><a href="#">Process 01</a></li>
                         <li><a href="#">Process 02</a></li>
@@ -105,7 +105,7 @@ jQuery(window).load(function () {
 			<article class="span8">
 			  <h3>Register</h3>
 			  <div class="inner-1">
-					<form:form method="POST" id="contact-form" action="registration" commandName="user">
+					<form:form method="POST" id="contact-form" action="/registration" commandName="user">
 						<div class="success"> You have registered successfully!</div>
                         <c:if test="${errorMessage != null}">
                           <div class="error" style="display:block;"> <c:out value="${errorMessage}"/></div>

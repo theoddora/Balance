@@ -5,6 +5,7 @@ import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.model.Product;
 import com.balance.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 
 
 @Controller
+
 public class UserController {
 
     @Autowired
@@ -80,7 +82,7 @@ public class UserController {
         }
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(60 * 60);
-        session.setAttribute("user", user);
+//        session.setAttribute("user", user);
         session.setAttribute("cart", new HashMap<Product, Double>());
         return "redirect:/index";
     }

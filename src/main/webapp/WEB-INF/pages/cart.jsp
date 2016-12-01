@@ -64,7 +64,7 @@ jQuery(window).load(function () {
                 <li><a href="/index">Home</a></li>
                 <li><a href="/product">Work</a></li>
                 <li class="active"><a href="cart">Cart</a></li>
-                <li class="sub-menu"><a href="process.html">Process</a>
+                <li class="sub-menu"><a href="profile_page.jsp">Process</a>
                   <ul>
                     <li><a href="#">Process 01</a></li>
                     <li><a href="#">Process 02</a></li>
@@ -91,7 +91,10 @@ jQuery(window).load(function () {
            <h1> Product: <c:out value="${product.key.name}"/></h1>
         <h1> Amount: <c:out value="${product.value}"/></h1>
         </c:forEach>
+        <h1>
 
+        Total price:  <c:out value="${totalPrice}"/>
+        </h1>
 
     </div>
 <!--  footer  -->

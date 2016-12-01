@@ -19,8 +19,12 @@ public class SecurityUser implements UserDetails {
     private List<GrantedAuthority> authorities;
 
     public SecurityUser(User user, List<GrantedAuthority> authorities) {
+
+        if (user == null) {
+            return;
+        }
+
         this.id = user.getId();
-        if(user!=null)
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.authorities = authorities;

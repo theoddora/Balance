@@ -66,7 +66,7 @@
                                 <li><a href="blog.html">Blog</a></li>
                                 <c:choose>
                                     <c:when test="${!empty sessionScope.email}">
-                                        <li class="sub-menu"><a href="process.html">Process</a>
+                                        <li class="sub-menu"><a href="profile_page.jsp">Process</a>
                                             <ul>
                                                 <li><a href="#">Process 01</a></li>
                                                 <li><a href="#">Process 02</a></li>

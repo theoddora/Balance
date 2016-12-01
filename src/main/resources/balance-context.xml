@@ -32,4 +32,9 @@
           class="com.balance.dao.ProductDaoImpl">
         <property name="dataSource"  ref="dataSource" />
     </bean>
+    <bean id="balanceUserService"
+          class="com.balance.security.BalanceUserService">
+    </bean>
+
+
 </beans>

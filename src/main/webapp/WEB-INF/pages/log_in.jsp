@@ -85,7 +85,7 @@
                                 <li><a href="blog.html">Blog</a></li>
                                 <c:choose>
                                     <c:when test= "${!empty sessionScope.email}">
-                                        <li class="sub-menu"><a href="process.html">Process</a>
+                                        <li class="sub-menu"><a href="profile_page.jsp">Process</a>
                                             <ul>
                                                 <li><a href="#">Process 01</a></li>
                                                 <li><a href="#">Process 02</a></li>
@@ -142,6 +142,11 @@
                                 <div class="buttons-wrapper">
                                     <input class="btn btn-1" type="submit" value="Log In"/>
                                 </div>
+                                <div class = "buttons-wrapper">
+                                    <input id="remember_me" name="remember-me" type="checkbox"/>
+                                    <label for="remember_me" class="inline">Remember me</label>
+                                </div>
+
                             </fieldset>
                         </form>
                     </div>

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="ISO-8859-1" %>
-<%@ page errorPage="404.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,27 +81,33 @@
                                     <s:url value="/product" var="product"/>
                                     <a href="${product}"><s:message code="balance.product"/></a>
                                 </li>
-                                <c:choose>
-                                    <c:when test="${sessionScope.user != null}">
-                                        <c:set var="user" value="${user}"/>
-                                        <li class="sub-menu"><a><c:out value="${user.username}"/> </a>
-                                            <ul>
-                                                <s:url value="/${user.username}" var="profileUrl"/>
-                                                <s:url value="/log_out" var="logOut"/>
-                                                <li><a href="${profileUrl}"><s:message code="balance.profile_page"/></a>
-                                                <li><a href="${logOut}"><s:message code="balance.log_out"/></a></li>
-                                            </ul>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li><s:url value="/registration" var="registration"/>
-                                            <a href="${registration}"><s:message code="balance.register"/></a>
-                                        </li>
-                                        <li><s:url value="/log_in" var="logIn"/>
-                                            <a href="${logIn}"><s:message code="balance.log_in"/></a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
+
+                                <sec:authorize access="isAuthenticated()">
+                                    <sec:authentication var="username" property="principal.username"/>
+                                    <li class="sub-menu"><a><c:out value="${username}"/> </a>
+
+                                        <ul>
+                                            <s:url value="/${username}" var="profileUrl"/>
+
+                                            <a href="<c:url value="/log_out" />">Logout</a>
+                                        </ul>
+                                    </li>
+
+                                </sec:authorize>
+
+
+                                <sec:authorize access="isAnonymous()">
+
+
+                                    <li><s:url value="/registration" var="registration"/>
+                                        <a href="${registration}"><s:message code="balance.register"/></a>
+                                    </li>
+                                    <li><s:url value="/log_in" var="logIn"/>
+                                        <a href="${logIn}"><s:message code="balance.log_in"/></a>
+                                    </li>
+                                </sec:authorize>
+
+
                             </ul>
                         </div>
                     </div>
