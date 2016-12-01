@@ -7,9 +7,9 @@ public class Product {
     private Integer id;
     private String productType;
     private String name;
-    private double amountKilo;
-    private double amountPiece;
-    private double price;
+    private Double amountKilo;
+    private Integer amountPiece;
+    private Double price;
     private double discount;
     private boolean isForKilo;
 
@@ -18,7 +18,7 @@ public class Product {
 
 
    
-    public Product( String productType, String name, double amountKilo, double amountPiece, double price, double discount, boolean isForKilo) {
+    public Product( String productType, String name, Double amountKilo, Integer amountPiece, Double price, double discount, boolean isForKilo) {
 
 
 
@@ -79,27 +79,27 @@ public class Product {
         this.name = name;
     }
 
-    public double getAmountKilo() {
+    public Double getAmountKilo() {
         return amountKilo;
     }
 
-    public void setAmountKilo(double amountKilo) {
+    public void setAmountKilo(Double amountKilo) {
         this.amountKilo = amountKilo;
     }
 
-    public double getAmountPiece() {
+    public Integer getAmountPiece() {
         return amountPiece;
     }
 
-    public void setAmountPiece(double amountPiece) {
+    public void setAmountPiece(Integer amountPiece) {
         this.amountPiece = amountPiece;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

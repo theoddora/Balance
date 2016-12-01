@@ -1,12 +1,16 @@
 package com.balance.dao;
 
+import com.balance.exceptions.NoSuchUserException;
 import com.balance.exceptions.PasswordsDontMatchException;
+import com.balance.exceptions.UserAlreadyExistsException;
 import com.balance.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import sun.security.util.Password;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -23,6 +27,10 @@ public class UserDAOImpl implements UserDAO {
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplateObject;
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    private static final String WRONG_PASSWORD = "You have entered a wrong password";
+    private static final String WRONG_USERNAME = "You have entered a wrong username";
+    private static final String DUPLICATE_USERNAME = "User with that username/email already exists.";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -43,7 +51,11 @@ public class UserDAOImpl implements UserDAO {
         params.put("username", user.getUsername());
         params.put("email", user.getEmail());
         params.put("password", hashedPassword);
-        jdbcTemplateObject.update(SQL, params);
+        try {
+            jdbcTemplateObject.update(SQL, params);
+        } catch (DuplicateKeyException e) {
+            throw new UserAlreadyExistsException(DUPLICATE_USERNAME);
+        }
     }
 
     @Override
@@ -57,7 +69,6 @@ public class UserDAOImpl implements UserDAO {
     public void delete(String email) {
 
     }
-
 
     @Override
     public User findByUserEmail(String email) throws IncorrectResultSizeDataAccessException {
@@ -79,9 +90,14 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUser(String username, String password) throws IncorrectResultSizeDataAccessException, PasswordsDontMatchException {
-        User user = findByUsername(username);
+        User user = null;
+        try {
+            user = findByUsername(username);
+        } catch (IncorrectResultSizeDataAccessException e) {
+            throw new NoSuchUserException(WRONG_USERNAME);
+        }
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new PasswordsDontMatchException();
+            throw new PasswordsDontMatchException(WRONG_PASSWORD);
         }
         return user;
     }

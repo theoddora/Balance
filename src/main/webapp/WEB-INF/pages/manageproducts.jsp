@@ -132,60 +132,35 @@
 
                 <!-- Log In FORM -->
                 <article class="span8">
-                    <h3>Increase product quantity</h3>
-
-                    <div class="inner-1">
-                        <table>
-
-                            <form:form method="POST" id="addproducts" action="increasequantity"
-                                       commandName="product">
-                                <tr>
-                                    <td><span class="textcolor">Category :</span></td>
-
-                                    <td>
-                                        <form:select path="productType" id="products">
-                                            <form:option disabled="true" selected="true"
-                                                         value="">Choose product</form:option>
-                                            <form:option value="vegetable">Vegetables</form:option>
-                                            <form:option value="fruit">Fruits</form:option>
-
-                                        </form:select>
-                                    </td>
-
-                                    <td>
-                                        <form:select path="id" id="fruitsSelect">
-                                            <form:option disabled="true" selected="true"
-                                                         value="">Choose fruit</form:option>
-                                            <c:forEach var="fruit" items="${fruits}">
-                                                <form:option value="${fruit.id}"> ${fruit.name} </form:option>
-                                            </c:forEach>
-                                        </form:select>
-
-                                        <form:select path="id" id="vegetablesSelect">
-                                            <form:option disabled="true" selected="true"
-                                                         value="">Choose vegetable</form:option>
-                                            <c:forEach var="vegetable" items="${vegetables}">
-                                                <form:option value="${vegetable.id}"> ${vegetable.name} </form:option>
-                                            </c:forEach>
-                                        </form:select>
-                                    </td>
-                                </tr>
-                                <tr>
-
-                                    <td><span class="textcolor">Increase quantity by : </span></td>
-                                    <td><form:input path="amountKilo" name="amouneKilo"/> <span class="textcolor">kgs</span></td>
-                                    <td><form:input path="amountPiece" name="amountPiece"/> <span class="textcolor">pieces</span></td>
-
-                                </tr>
-
-                                <tr>
-                                    <td><b><input type="submit" value="Increase" class="textcolor"/></b></td>
-                                </tr>
+                    <h3>Manage products</h3>
 
 
-                            </form:form>
-                        </table>
-                    </div>
+                    <table class="productsTable" cellpadding="5">
+                        <tr class="productsMetadata" >
+                            <td>TYPE</td>
+                            <td>NAME</td>
+                            <td>KILOS</td>
+                            <td>PIECES</td>
+                            <td>PRICE</td>
+                            <td>DISCOUNT</td>
+                            <td>REMOVE PRODUCT</td>
+                        </tr>
+
+                        <c:forEach items="${products}" var="product">
+                            <tr class="productsData">
+                                <td>${product.productType}</td>
+                                <td>${product.name}</td>
+                                <td>${product.amountKilo}</td>
+                                <td>${product.amountPiece}</td>
+                                <td>${product.price}</td>
+                                <td>${product.discount}</td>
+                                <td><input type="button" class="deleteBtn" value="DELETE"></td>
+                            </tr>
+                        </c:forEach>
+
+
+                    </table>
+
                 </article>
                 <!--/ END Log IN FORM -->
             </div>

@@ -12,11 +12,17 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <style>
-        #fruitsSelect {
+        #amountKilo {
             display: none;
         }
 
-        #vegetablesSelect {
+        #price {
+            display: none;
+        }
+
+
+
+        #amountPiece {
             display: none;
         }
     </style>
@@ -132,12 +138,12 @@
 
                 <!-- Log In FORM -->
                 <article class="span8">
-                    <h3>Increase product quantity</h3>
+                    <h3>Add new product</h3>
 
                     <div class="inner-1">
                         <table>
 
-                            <form:form method="POST" id="addproducts" action="increasequantity"
+                            <form:form method="POST" id="addproducts" action="addproducts"
                                        commandName="product">
                                 <tr>
                                     <td><span class="textcolor">Category :</span></td>
@@ -146,40 +152,36 @@
                                         <form:select path="productType" id="products">
                                             <form:option disabled="true" selected="true"
                                                          value="">Choose product</form:option>
-                                            <form:option value="vegetable">Vegetables</form:option>
-                                            <form:option value="fruit">Fruits</form:option>
+                                            <form:option value="vegetable">Vegetable</form:option>
+                                            <form:option value="fruit">Fruit</form:option>
 
                                         </form:select>
                                     </td>
 
                                     <td>
-                                        <form:select path="id" id="fruitsSelect">
-                                            <form:option disabled="true" selected="true"
-                                                         value="">Choose fruit</form:option>
-                                            <c:forEach var="fruit" items="${fruits}">
-                                                <form:option value="${fruit.id}"> ${fruit.name} </form:option>
-                                            </c:forEach>
-                                        </form:select>
-
-                                        <form:select path="id" id="vegetablesSelect">
-                                            <form:option disabled="true" selected="true"
-                                                         value="">Choose vegetable</form:option>
-                                            <c:forEach var="vegetable" items="${vegetables}">
-                                                <form:option value="${vegetable.id}"> ${vegetable.name} </form:option>
-                                            </c:forEach>
-                                        </form:select>
+                                        <form:input path="name" placeholder="Product name"/>
                                     </td>
                                 </tr>
                                 <tr>
 
-                                    <td><span class="textcolor">Increase quantity by : </span></td>
-                                    <td><form:input path="amountKilo" name="amouneKilo"/> <span class="textcolor">kgs</span></td>
-                                    <td><form:input path="amountPiece" name="amountPiece"/> <span class="textcolor">pieces</span></td>
+                                    <td><span class="textcolor">Selling unit : </span></td>
+                                    <td><form:radiobutton path="isForKilo" name="isForKilo" value="true"
+                                                          id="forKilo"/><span class="textcolor"> Kg </span>
+                                        <form:radiobutton path="isForKilo" name="isForKilo" value="false"
+                                                          id="forPiece"/><span class="textcolor">Piece </span>
+                                    </td>
+                                    <td><form:input path="amountKilo" id="amountKilo" placeholder="Add kilos"/>
+                                        <form:input path="amountPiece" id="amountPiece" placeholder="Add pieces"/>
+                                        </td>
+                                    <td>
+                                        <form:input path="price" id="price" name="price" placeholder=""/>
+
+                                    </td>
 
                                 </tr>
 
                                 <tr>
-                                    <td><b><input type="submit" value="Increase" class="textcolor"/></b></td>
+                                    <td><b><input type="submit" value="Add  " class="textcolor"/></b></td>
                                 </tr>
 
 

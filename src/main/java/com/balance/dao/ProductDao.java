@@ -3,12 +3,11 @@ package com.balance.dao;
 import com.balance.model.Product;
 import org.springframework.security.access.annotation.Secured;
 
+import javax.print.attribute.IntegerSyntax;
 import javax.sql.DataSource;
 import java.util.List;
 
-/**
- * Created by hangelov on 22/11/2016.
- */
+
 public interface ProductDao {
 
     @Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
@@ -27,13 +26,13 @@ public interface ProductDao {
 
     List<Product> getAllVegetables();
 
-    void increaseProductByKilo(double kilos, int id);
+    void increaseProductByKilo(Double kilos, int id);
 
-    void decreaseProductByKilo(double kilos, int id);
+    void decreaseProductByKilo(Double kilos, int id);
 
-    void increaseProductByPiece(double pieces, int id);
+    void increaseProductByPiece(Integer pieces, int id);
 
-    void decreaseProductByPiece(double piece, int id);
+    void decreaseProductByPiece(Integer piece, int id);
 
     boolean hasEnoughAmount(double amount, int id, boolean isForKilo);
 
