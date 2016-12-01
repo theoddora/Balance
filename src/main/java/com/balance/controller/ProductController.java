@@ -63,7 +63,7 @@ public class ProductController {
                 if (isForKilo) {
                     productDao.decreaseProductByKilo(amount, id);
                 } else {
-                    productDao.decreaseProductByPiece( amount, id);
+                    productDao.decreaseProductByPiece( (int)amount, id);
                 }
             }
             cart.put(product, amount);
@@ -75,7 +75,8 @@ public class ProductController {
             message = "There is not enough amount from " + product.getName() + ". The current amount is " + currentAmount + ".";
         }
         for (Product productInCart : cart.keySet()) {
-            totalPrice += cart.get(productInCart)*(productInCart.getPrice()-productInCart.getPrice()*productInCart.getDiscount());
+            double price = productInCart.getPrice() - (productInCart.getPrice()*productInCart.getDiscount());
+            totalPrice += cart.get(productInCart)*price;
         }
         priceToShow = totalPrice;
         priceToShow = Math.floor(priceToShow * 100) / 100;

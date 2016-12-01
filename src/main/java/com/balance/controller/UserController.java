@@ -84,4 +84,14 @@ public class UserController {
         return "profile_page";
 
     }
+
+
+    @RequestMapping(value = "/addToBuy", method = RequestMethod.GET)
+    public String addProductsToBuy(Model model, HttpSession session){
+
+
+
+        return "profile_page";
+    }
+
 }

@@ -9,6 +9,10 @@ public class Order {
     private double amount;
     private Product product;
 
+    public Order(){
+
+    }
+
     public Order(User user, double amount, Product product) {
         this.user = user;
         this.amount = amount;

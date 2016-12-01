@@ -96,6 +96,8 @@ jQuery(window).load(function () {
         Total price:  <c:out value="${priceToShow}"/> levs
         </h1>
 
+        <input type="button" onclick="/addToBuy" value="BUY PRODUCTS" >
+
     </div>
 <!--  footer  -->
 <footer>
