@@ -93,7 +93,7 @@ jQuery(window).load(function () {
         </c:forEach>
         <h1>
 
-        Total price:  <c:out value="${totalPrice}"/>
+        Total price:  <c:out value="${priceToShow}"/> levs
         </h1>
 
     </div>

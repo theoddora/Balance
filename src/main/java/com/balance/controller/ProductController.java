@@ -53,8 +53,8 @@ public class ProductController {
         }
         Product product = productDao.findProductById(id);
 
-        Double totalPrice = 0.0;
-
+        double totalPrice = 0.0;
+        Double priceToShow = 0.0;
 
 
         boolean isForKilo = product.getIsForKilo();
@@ -80,10 +80,15 @@ public class ProductController {
         for (Product productInCart : cart.keySet()) {
             totalPrice += cart.get(productInCart)*(productInCart.getPrice()-productInCart.getPrice()*productInCart.getDiscount());
         }
+        priceToShow = totalPrice;
+        priceToShow = Math.floor(priceToShow * 100) / 100;
+        if(priceToShow == 0 ){
+            priceToShow = 10.0;
+        }
 
         model.addAttribute("message", message);
         model.addAttribute("cart", cart);
-        session.setAttribute("totalPrice", totalPrice);
+        session.setAttribute("priceToShow", priceToShow);
         return "cart";
 
 
