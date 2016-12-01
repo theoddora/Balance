@@ -3,6 +3,7 @@ package com.balance.config;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -25,7 +26,6 @@ import java.util.Locale;
 @ImportResource({"classpath*:/balance-context.xml"})
 @EnableWebMvc
 public class RootConfig extends WebMvcConfigurerAdapter {
-
 
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -54,5 +54,7 @@ public class RootConfig extends WebMvcConfigurerAdapter {
                 changeInterceptor.setParamName("language");
                 registry.addInterceptor(changeInterceptor);
         }
+
+
 
 }

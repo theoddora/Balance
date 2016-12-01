@@ -131,7 +131,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void decreaseProductByPiece(Integer piece, int id) {
-        String sql = "update balance.product  SET  amount_pc = amount_pc - :piece where product.id = : id";
+        String sql = "update balance.product  SET  amount_pc = amount_pc - :piece where product.id = :id";
         Map<String , Object> params = new HashMap<>();
         params.put("id", id);
         params.put("piece", piece);

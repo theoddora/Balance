@@ -13,8 +13,6 @@ import java.sql.SQLException;
  */
 public class UserMapper implements RowMapper<User> {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserMapper.class);
-
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();
         user.setEmail(rs.getString("email"));

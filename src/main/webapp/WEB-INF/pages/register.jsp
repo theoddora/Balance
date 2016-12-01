@@ -105,7 +105,7 @@ jQuery(window).load(function () {
 			<article class="span8">
 			  <h3>Register</h3>
 			  <div class="inner-1">
-					<form:form method="POST" id="contact-form" action="/registration" commandName="user">
+					<form:form method="POST" id="contact-form" action="registration" commandName="user">
 						<div class="success"> You have registered successfully!</div>
                         <c:if test="${errorMessage != null}">
                           <div class="error" style="display:block;"> <c:out value="${errorMessage}"/></div>
@@ -113,27 +113,26 @@ jQuery(window).load(function () {
                         <form:errors path="*" element="div" cssClass="errors"/>
 						  <fieldset>
 							<div>
-                                <form:label path="username" cssErrorClass="error"> Username: </form:label>
-								<form:input path="username" cssErrorClass="error"/>
+								<form:input path="username" cssErrorClass="error" placeholder="Username: "/>
 								<br>
 							</div>
 							<div>
-                                <form:label path="email" cssErrorClass="error"> Email: </form:label>
-								<form:input path="email" type="email" cssErrorClass="error"/>
+								<form:input path="email" type="email" cssErrorClass="error" placeholder="Email: " />
 								<br>
 							</div>
 							<div>
-                                <form:label  path="password" cssErrorClass="error"> Password: </form:label>
-								<form:password path="password" cssErrorClass="error"/>
+								<form:password path="password" cssErrorClass="error" placeholder="Password:"/>
 								<br>
 							</div>
-							
+                            <div>
+                              <form:password path="passwordRepeat" cssErrorClass="error" placeholder="Repeat Password:"/>
+                              <br>
+                            </div>
 							<div>
-                                <form:label  path="name" cssErrorClass="error"> Your name: </form:label>
-								<form:input path="name" cssErrorClass="error"/>
+								<form:input path="name" cssErrorClass="error" placeholder="Your name: "/>
 								<br>
 							</div>
-							
+                            <br><br>
 							<div class="buttons-wrapper">
 								<input class="btn btn-1" type="submit" value="Register"/>
 							</div>

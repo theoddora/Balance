@@ -1,17 +1,22 @@
 package com.balance.model;
 
+import cz.jirutka.validator.spring.SpELAssert;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.omg.CORBA.UserException;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
+
+@SpELAssert(value = "password.equals(passwordRepeat)", applyIf = "!password.isEmpty() || !passwordRepeat.isEmpty()", message = "{password.match}")
 public class User {
 
     private long id;
 
     @NotBlank(message = "{username.empty}")
     @Size(min = 4, max = 20, message = "{username.size}")
+    //todo validate for no white spaces
+    @Pattern(regexp = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-])", message = "{username.valid}")
     private String username;
 
     @NotBlank(message = "{email.empty}")
@@ -23,19 +28,13 @@ public class User {
     @Size(min = 5, max = 100, message = "{password.size}")
     private String password;
 
+    private String passwordRepeat;
+
     @NotBlank(message = "{name.empty}")
     @Size(min = 2, max = 20, message = "{name.size}")
     private String name;
 
     private boolean isAdmin;
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
 
     public User() {
         this.isAdmin = false;
@@ -51,7 +50,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-
     }
 
     public void setPassword(String password) {
@@ -70,7 +68,19 @@ public class User {
         this.id = id;
     }
 
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public void setPasswordRepeat(String passwordRepeat) {
+        this.passwordRepeat = passwordRepeat;
+    }
+
     //getters
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
     public long getId() {
         return id;
     }
@@ -89,5 +99,9 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getPasswordRepeat() {
+        return passwordRepeat;
     }
 }

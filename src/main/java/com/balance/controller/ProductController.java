@@ -63,7 +63,7 @@ public class ProductController {
                 if (isForKilo) {
                     productDao.decreaseProductByKilo(amount, id);
                 } else {
-                    productDao.decreaseProductByPiece( amount, id);
+                    productDao.decreaseProductByPiece( (int)amount, id);
                 }
             }
             cart.put(product, amount);
