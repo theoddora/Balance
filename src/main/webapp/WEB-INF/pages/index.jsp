@@ -84,27 +84,26 @@
 
                                 <sec:authorize access="isAuthenticated()">
                                     <sec:authentication var="username" property="principal.username"/>
-                                    <li class="sub-menu"><a><c:out value="${username}"/> </a>
-
+                                    <li class="sub-menu"><a><c:out value="${username}"/></a>
+                                        <s:url value="/${username}" var="profileUrl"/>
                                         <ul>
-                                            <s:url value="/${username}" var="profileUrl"/>
-                                            <a href="${profileUrl}"><s:message code="balance.profile_page"/></a>
-                                            <a href="<c:url value="/log_out" /><s:message code="balance.log_out"/></a>
+                                            <a href="${profileUrl}">
+                                                <s:message code="balance.profile_page"/>
+                                            </a>
+                                                <s:url value="/log_out" var="log_out"/>
+                                            <a href="${log_out}"><s:message code="balance.log_out"/></a>
                                         </ul>
                                     </li>
 
                                 </sec:authorize>
 
-
                                 <sec:authorize access="isAnonymous()">
-
-
-                                    <li><s:url value="/registration" var="registration"/>
-                                        <a href="${registration}"><s:message code="balance.register"/></a>
-                                    </li>
-                                    <li><s:url value="/log_in" var="logIn"/>
-                                        <a href="${logIn}"><s:message code="balance.log_in"/></a>
-                                    </li>
+                                 <li><s:url value="/registration" var="registration"/>
+                                    <a href="${registration}"><s:message code="balance.register"/></a>
+                                </li>
+                                <li><s:url value="/log_in" var="logIn"/>
+                                    <a href="${logIn}"><s:message code="balance.log_in"/></a>
+                                </li>
                                 </sec:authorize>
 
 
@@ -113,10 +112,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- / END NAV-BAR FORM -->
+        </div><!-- / END NAV-BAR FORM -->
     </div>
-
 </header>
 
 <div class="bg-content">
@@ -152,95 +149,7 @@
     </div>
     <!-- content -->
     <div id="content" class="content-extra">
-
-        <div class="row-1">
-            <div class="container">
-                <article> Our Products</article>
-                <div class="row">
-                    <ul class="thumbnails thumbnails-1 box">
-                        <li class="span3">
-                            <div class="thumbnail thumbnail-1">
-                                <h3>Fruit</h3>
-                                <img src="img/blog-featured-01.jpg" alt="">
-                                <section><a href="#">
-                                    <h3>At vero eos et accusamus et iusto </h3>
-                                </a>
-
-                                    <div class="meta">
-                                        <time datetime="2012-11-09" class="date-1"><i class="icon-calendar"></i>
-                                            9.11.2012
-                                        </time>
-                                        <div class="name-author"><i class="icon-user"></i> <a href="#">Admin</a></div>
-                                        <a href="#" class="comments"><i class="icon-comment"></i> 7 comments</a></div>
-                                    <div class="clear"></div>
-                                    <p>Vivamus sollicitudin libero auctor arcu pulvinar commodo.</p>
-                                    <a href="#" class="btn btn-1">Read More</a></section>
-                            </div>
-                        </li>
-                        <li class="span3">
-                            <div class="thumbnail thumbnail-1">
-                                <h3>Vegetable</h3>
-                                <img src="img/blog-featured-02.jpg" alt="">
-                                <section><a href="#">
-                                    <h3>Deleniti atque corrupti quos</h3>
-                                </a>
-
-                                    <div class="meta">
-                                        <time datetime="2012-11-09" class="date-1"><i class="icon-calendar"></i>
-                                            9.11.2012
-                                        </time>
-                                        <div class="name-author"><i class="icon-user"></i> <a href="#">Admin</a></div>
-                                        <a href="#" class="comments"><i class="icon-comment"></i> 4 comments</a></div>
-                                    <div class="clear"></div>
-                                    <p>Vestibulum volutpat urna sed sapien vehicula varius.</p>
-                                    <a href="#" class="btn btn-1">Read More</a></section>
-                            </div>
-                        </li>
-                        <li class="span3">
-                            <div class="thumbnail thumbnail-1">
-                                <h3>Fruit</h3>
-                                <img src="img/blog-featured-03.jpg" alt="">
-                                <section><a href="#">
-                                    <h3>Similique sunt in culpa qui officia</h3>
-                                </a>
-
-                                    <div class="meta">
-                                        <time datetime="2012-11-09" class="date-1"><i class="icon-calendar"></i>
-                                            9.11.2012
-                                        </time>
-                                        <div class="name-author"><i class="icon-user"></i> <a href="#">Admin</a></div>
-                                        <a href="#" class="comments"><i class="icon-comment"></i> 9 comments</a></div>
-                                    <div class="clear"></div>
-                                    <p>Pellentesque mi justo, laoreet non bibendum non, auctor imperdiet eros.</p>
-                                    <a href="#" class="btn btn-1">Read More</a></section>
-                            </div>
-                        </li>
-                        <li class="span3">
-                            <div class="thumbnail thumbnail-1">
-                                <h3 class="title-1 extra">vegetable</h3>
-                                <img src="img/blog-featured-04.jpg" alt="">
-                                <section><a href="#">
-                                    <h3>Similique sunt in culpa qui officia</h3>
-                                </a>
-
-                                    <div class="meta">
-                                        <time datetime="2012-11-09" class="date-1"><i class="icon-calendar"></i>
-                                            9.11.2012
-                                        </time>
-                                        <div class="name-author"><i class="icon-user"></i> <a href="#">Admin</a></div>
-                                        <a href="#" class="comments"><i class="icon-comment"></i> 1 comment</a></div>
-                                    <div class="clear"></div>
-                                    <p>Vestibulum volutpat urna sed sapien vehicula varius.</p>
-                                    <a href="#" class="btn btn-1">Read More</a></section>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
     </div>
-
-</div>
 </div>
 <!-- footer -->
 <footer>
