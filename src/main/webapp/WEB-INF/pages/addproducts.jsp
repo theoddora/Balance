@@ -99,26 +99,33 @@
                                     <s:url value="/product" var="product"/>
                                     <a href="${product}"><s:message code="balance.product"/></a>
                                 </li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <c:choose>
-                                    <c:when test="${!empty sessionScope.email}">
-                                        <li class="sub-menu"><a href="process.html">Process</a>
-                                            <ul>
-                                                <li><a href="#">Process 01</a></li>
-                                                <li><a href="#">Process 02</a></li>
-                                                <li><a href="#">Process 03</a></li>
-                                            </ul>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li><s:url value="/registration" var="registration"/>
-                                            <a href="${registration}"><s:message code="balance.register"/></a>
-                                        </li>
-                                        <li class="active"><s:url value="/log_in" var="logIn"/>
-                                            <a href="${logIn}"><s:message code="balance.log_in"/></a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
+
+                                <sec:authorize access="isAuthenticated()">
+                                    <sec:authentication var="username" property="principal.username"/>
+                                    <li class="sub-menu"><a><c:out value="${username}"/> </a>
+
+                                        <ul>
+                                            <s:url value="/${username}" var="profileUrl"/>
+                                            <a href="${profileUrl}"><s:message code="balance.profile_page"/></a>
+                                            <a href="<c:url value="/log_out"/>"><s:message code="balance.log_out"/></a>
+                                        </ul>
+                                    </li>
+
+                                </sec:authorize>
+
+
+                                <sec:authorize access="isAnonymous()">
+
+
+                                    <li><s:url value="/registration" var="registration"/>
+                                        <a href="${registration}"><s:message code="balance.register"/></a>
+                                    </li>
+                                    <li><s:url value="/log_in" var="logIn"/>
+                                        <a href="${logIn}"><s:message code="balance.log_in"/></a>
+                                    </li>
+                                </sec:authorize>
+
+
                             </ul>
                         </div>
                     </div>

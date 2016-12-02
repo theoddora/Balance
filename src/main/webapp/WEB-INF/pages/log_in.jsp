@@ -76,15 +76,14 @@
                             <ul class="nav sf-menu">
                                 <li>
                                     <s:url value="/index" var="index"/>
-                                    <a href="${index}"><s:message code="balance.home" /></a>
+                                    <a href="${index}"><s:message code="balance.home"/></a>
                                 </li>
                                 <li>
                                     <s:url value="/product" var="product"/>
-                                    <a href="${product}"><s:message code="balance.product" /></a>
+                                    <a href="${product}"><s:message code="balance.product"/></a>
                                 </li>
-                                <li><a href="blog.html">Blog</a></li>
                                 <c:choose>
-                                    <c:when test= "${!empty sessionScope.email}">
+                                    <c:when test="${!empty sessionScope.email}">
                                         <li class="sub-menu"><a href="profile_page.jsp">Process</a>
                                             <ul>
                                                 <li><a href="#">Process 01</a></li>
@@ -95,10 +94,10 @@
                                     </c:when>
                                     <c:otherwise>
                                         <li><s:url value="/registration" var="registration"/>
-                                            <a href="${registration}"><s:message code="balance.register" /></a>
+                                            <a href="${registration}"><s:message code="balance.register"/></a>
                                         </li>
                                         <li class="active"><s:url value="/log_in" var="logIn"/>
-                                            <a href="${logIn}"><s:message code="balance.log_in" /></a>
+                                            <a href="${logIn}"><s:message code="balance.log_in"/></a>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>
@@ -130,21 +129,18 @@
                             </c:if>
                             <fieldset>
                                 <div>
-                                    <label> Username: </label>
-                                    <input name="username"/>
-                                    <br>
+                                    <input name="username" placeholder="Username: "/>
+                                    <br/><br/>
                                 </div>
                                 <div>
-                                    <label> Password: </label>
-                                    <input type="password" name="password"/>
-                                    <br>
+                                    <input type="password" name="password" placeholder="Password: "/>
+                                    <br/><br/>
                                 </div>
-                                <div class="buttons-wrapper">
-                                    <input class="btn btn-1" type="submit" value="Log In"/>
-                                </div>
-                                <div class = "buttons-wrapper">
-                                    <input id="remember_me" name="remember-me" type="checkbox"/>
-                                    <label for="remember_me" class="inline">Remember me</label>
+
+                                <div>
+                                    <span>Remember me.</span> <input style="width:50px;" id="remember_me"
+                                                                     name="remember-me" type="checkbox"/>
+                                    <input style="width:200px;" type="submit" value="Log In"/>
                                 </div>
 
                             </fieldset>

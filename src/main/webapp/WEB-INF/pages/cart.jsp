@@ -59,21 +59,45 @@ jQuery(window).load(function () {
           <div class="container">
             <h1 class="brand brand_"><a href="index.jsp"><img alt="" src="img/logo.png"> </a></h1>
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span> </a>
-            <div class="nav-collapse nav-collapse_  collapse">
-              <ul class="nav sf-menu">
-                <li><a href="/index">Home</a></li>
-                <li><a href="/product">Work</a></li>
-                <li class="active"><a href="cart">Cart</a></li>
-                <li class="sub-menu"><a href="profile_page.jsp">Process</a>
-                  <ul>
-                    <li><a href="#">Process 01</a></li>
-                    <li><a href="#">Process 02</a></li>
-                    <li><a href="#">Process 03</a></li>
+              <div class="nav-collapse nav-collapse_  collapse">
+                  <ul class="nav sf-menu">
+                      <li>
+                          <s:url value="/index" var="index"/>
+                          <a href="${index}"><s:message code="balance.home"/></a>
+                      </li>
+                      <li>
+                          <s:url value="/product" var="product"/>
+                          <a href="${product}"><s:message code="balance.product"/></a>
+                      </li>
+
+                      <sec:authorize access="isAuthenticated()">
+                          <sec:authentication var="username" property="principal.username"/>
+                          <li class="sub-menu"><a><c:out value="${username}"/> </a>
+
+                              <ul>
+                                  <s:url value="/${username}" var="profileUrl"/>
+                                  <a href="${profileUrl}"><s:message code="balance.profile_page"/></a>
+                                  <a href="<c:url value="/log_out"/>"><s:message code="balance.log_out"/></a>
+                              </ul>
+                          </li>
+
+                      </sec:authorize>
+
+
+                      <sec:authorize access="isAnonymous()">
+
+
+                          <li><s:url value="/registration" var="registration"/>
+                              <a href="${registration}"><s:message code="balance.register"/></a>
+                          </li>
+                          <li><s:url value="/log_in" var="logIn"/>
+                              <a href="${logIn}"><s:message code="balance.log_in"/></a>
+                          </li>
+                      </sec:authorize>
+
+
                   </ul>
-                </li>
-                <li><a href="register.jsp">Contact</a></li>
-              </ul>
-            </div>
+              </div>
           </div>
         </div>
       </div>
@@ -97,18 +121,19 @@ jQuery(window).load(function () {
         </h1>
 
     </div>
+    </div>
 <!--  footer  -->
-<footer>
-  <div class="container clearfix">
-    <ul class="list-social pull-right">
-      <li><a class="icon-1" href="#"></a></li>
-      <li><a class="icon-2" href="#"></a></li>
-      <li><a class="icon-3" href="#"></a></li>
-      <li><a class="icon-4" href="#"></a></li>
-    </ul>
-    <div class="privacy pull-left">&copy; 2013 | <a href="http://www.dzyngiri.com">Dzyngiri</a> | Demo Illustrations by <a href="http://justinmezzell.com">Justin Mezzell</a></div>
-  </div>
-</footer>
+    <footer>
+        <div class="container clearfix">
+            <ul class="list-social pull-right">
+                <li><a class="icon-1" href="#"></a></li>
+                <li><a class="icon-2" href="#"></a></li>
+                <li><a class="icon-3" href="#"></a></li>
+                <li><a class="icon-4" href="#"></a></li>
+            </ul>
+            <div class="privacy pull-left">&copy; 2016 | Best Java Junior Developers |</div>
+        </div>
+    </footer>
 <script src="js/bootstrap.js"></script>
 </body>
 </html>
