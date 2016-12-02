@@ -4,6 +4,7 @@ import com.balance.exceptions.EmailAlreadyExistsException;
 import com.balance.exceptions.NoSuchUserException;
 import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.exceptions.UsernameAlreadyExistsException;
+import com.balance.mail.SendEmail;
 import com.balance.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -46,7 +47,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String COUNT_USERS_BY_USERNAME = "SELECT COUNT(*) as users FROM \"user\" WHERE username = :username;";
     private static final String SELECT_USER_BY_EMAIL = "SELECT user_id, username, email, password, name FROM \"user\" WHERE email LIKE :email;";
     private static final String SELECT_USER_BY_USERNAME = "SELECT user_id, username, email, password, name FROM \"user\" WHERE username LIKE :username;";
-
+    private static final String SELECT_UUID = "SELECT unique_user_id FROM \"user\" WHERE email LIKE :email;";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -73,6 +74,11 @@ public class UserDAOImpl implements UserDAO {
                 user.getEmail(),
                 hashedPassword,
                 user.getName());
+
+        SendEmail email = new SendEmail();
+        email.setReceiverEmail(user.getEmail());
+        email.setCodeVerification(getCodeVerification(user.getEmail()));
+        email.start();
     }
 
     //log in
@@ -127,4 +133,10 @@ public class UserDAOImpl implements UserDAO {
         return count > 0;
     }
 
+    private String getCodeVerification(String email) {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put(COlUMN_EMAIL, email);
+        return jdbcTemplateObject.queryForObject(SELECT_UUID, params, String.class);
+    }
 }

@@ -1,15 +1,11 @@
 package com.balance.controller;
 
 import com.balance.dao.UserDAO;
-import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.model.Product;
 import com.balance.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -22,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * Created by ttosheva on 23/11/2016.
