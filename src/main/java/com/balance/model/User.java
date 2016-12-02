@@ -3,6 +3,7 @@ package com.balance.model;
 import cz.jirutka.validator.spring.SpELAssert;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.omg.CORBA.UserException;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -103,5 +104,21 @@ public class User {
 
     public String getPasswordRepeat() {
         return passwordRepeat;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return id == user.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 }

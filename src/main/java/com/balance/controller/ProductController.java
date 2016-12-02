@@ -2,6 +2,7 @@ package com.balance.controller;
 
 import com.balance.dao.ProductDao;
 import com.balance.model.Product;
+import com.balance.service.OrderManager;
 import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,7 +76,8 @@ public class ProductController {
             message = "There is not enough amount from " + product.getName() + ". The current amount is " + currentAmount + ".";
         }
         for (Product productInCart : cart.keySet()) {
-            totalPrice += cart.get(productInCart)*(productInCart.getPrice()-productInCart.getPrice()*productInCart.getDiscount());
+            double price = productInCart.getPrice() - (productInCart.getPrice()*productInCart.getDiscount());
+            totalPrice += cart.get(productInCart)*price;
         }
         priceToShow = totalPrice;
         priceToShow = Math.floor(priceToShow * 100) / 100;

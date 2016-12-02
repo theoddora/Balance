@@ -22,19 +22,31 @@
         <property name="password" value="${db.password}"/>
 
     </bean>
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
     <!-- Definition for studentJDBCTemplate bean -->
     <bean id="userDAOImpl"
           class="com.balance.dao.UserDAOImpl">
         <property name="dataSource"  ref="dataSource" />
     </bean>
-    <bean id="productDaoImpl"
-          class="com.balance.dao.ProductDaoImpl">
-        <property name="dataSource"  ref="dataSource" />
-    </bean>
+
     <bean id="balanceUserService"
           class="com.balance.security.BalanceUserService">
     </bean>
+
+    <bean id="orderDaoImpl"
+          class="com.balance.dao.OrderDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+
+
+
+
 
 
 </beans>

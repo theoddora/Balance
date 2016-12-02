@@ -9,6 +9,10 @@ public class Order {
     private double amount;
     private Product product;
 
+    public Order(){
+
+    }
+
     public Order(User user, double amount, Product product) {
         this.user = user;
         this.amount = amount;
@@ -37,5 +41,24 @@ public class Order {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        if (!user.equals(order.user)) return false;
+        return product.equals(order.product);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = user.hashCode();
+        result = 31 * result + product.hashCode();
+        return result;
     }
 }
