@@ -114,27 +114,27 @@ jQuery(window).load(function () {
 						  <fieldset>
 							<div>
 								<form:input path="username" cssErrorClass="error" placeholder="Username: "/>
-								<br>
+								<br/><br/>
 							</div>
 							<div>
 								<form:input path="email" type="email" cssErrorClass="error" placeholder="Email: " />
-								<br>
+                              <br/><br/>
 							</div>
 							<div>
 								<form:password path="password" cssErrorClass="error" placeholder="Password:"/>
-								<br>
+                              <br/><br/>
 							</div>
                             <div>
                               <form:password path="passwordRepeat" cssErrorClass="error" placeholder="Repeat Password:"/>
-                              <br>
+                              <br/><br/>
                             </div>
 							<div>
 								<form:input path="name" cssErrorClass="error" placeholder="Your name: "/>
-								<br>
+                              <br/><br/>
 							</div>
                             <br><br>
 							<div class="buttons-wrapper">
-								<input class="btn btn-1" type="submit" value="Register"/>
+								<input class="btn btn-1" type="submit" value="REGISTER"/>
 							</div>
 						  </fieldset>
 						  
@@ -142,19 +142,9 @@ jQuery(window).load(function () {
 			  </div>
 			</article> <!--/ END REGISTER FORM -->
 		
-        <article class="span4">
-          <h3>Contact info</h3>
-          <div class="map"> <a href="#"><img src="img/map.jpg" alt=""></a> </div>
-          <address class="address-1">
-          <strong>Inbetwin Networks,<br>
-          Paud Phata, Road,<br>
-          Kothrud, Pune-38.</strong>
-          <div class="overflow"> <span>Mobile:</span>+91 12345 67890<br>
-            <span>Telephone:</span>+91 12345 67890<br>
-            <span>FAX:</span>+91 12345 67890 <br>
-            <span>E-mail:</span> <a href="#" class="mail-1">you@domain.com</a><br>
-            <span>Skype:</span> <a href="#" class="mail-1">@woohooo</a></div>
-          </address>
+        <article class="span4"><br/>
+          <h3>Want to buy some fruits/vegetables?</h3>
+          <div class="map"><img src="img/map.jpg" alt=""> </div>
         </article>
       </div>
     </div>
