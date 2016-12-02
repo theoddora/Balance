@@ -2,7 +2,8 @@ package com.balance.dao;
 
 
 import com.balance.model.Order;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.balance.model.Product;
+import com.balance.model.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -13,18 +14,26 @@ import java.sql.SQLException;
  */
 public class OrderMapper implements RowMapper<Order> {
 
-    @Autowired
-    ProductDao productDao;
+    private ProductRowMapper productMapper;
+    private UserMapper userMapper;
 
+    public OrderMapper(ProductRowMapper mapper, UserMapper userMapper) {
+        this.productMapper = mapper;
+        this.userMapper = userMapper;
 
+    }
 
     @Override
     public Order mapRow(ResultSet rs, int i) throws SQLException {
 
-        Order order  = new Order();
+        Order order = new Order();
         order.setAmount(rs.getDouble("amount"));
-        int productid = rs.getInt("product_id");
-        order.setProduct(productDao.findProductById(productid));
+        Product product = productMapper.mapRow(rs, i);
+        User user = userMapper.mapRow(rs, i);
+        order.setProduct(product);
+        order.setUser(user);
+
+
         return order;
     }
 }
