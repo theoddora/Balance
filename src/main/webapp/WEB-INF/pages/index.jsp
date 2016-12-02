@@ -88,8 +88,8 @@
 
                                         <ul>
                                             <s:url value="/${username}" var="profileUrl"/>
-
-                                            <a href="<c:url value="/log_out" />">Logout</a>
+                                            <a href="${profileUrl}"><s:message code="balance.profile_page"/></a>
+                                            <a href="<c:url value="/log_out" /><s:message code="balance.log_out"/></a>
                                         </ul>
                                     </li>
 

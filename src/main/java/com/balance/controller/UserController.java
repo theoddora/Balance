@@ -54,13 +54,18 @@ public class UserController {
         }
         userDAO.createUser(user);
 
-        return "redirect:/" + user.getUsername();
+        return "redirect:/emailconfirm";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String getRegisterUserPage(Model model) {
         model.addAttribute(new User());
         return "register";
+    }
+
+    @RequestMapping(value = "/emailconfirm", method = RequestMethod.GET)
+    public String getConfirmEmailPage() {
+        return "emailconfirm";
     }
 
     //log in

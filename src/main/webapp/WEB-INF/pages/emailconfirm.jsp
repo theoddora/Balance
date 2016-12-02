@@ -1,25 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="ISO-8859-1" %>
-<%@ page errorPage="404.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ page session="false" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Kantar | Register</title>
+    <title><s:message code="balance.title"/></title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
     <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/touchTouch.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/kwicks-slider.css" type="text/css" media="screen">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <script src="js/jquery.js"></script>
     <script src="js/superfish.js"></script>
+    <script src="js/jquery.flexslider-min.js"></script>
+    <script src="js/jquery.kwicks-1.5.1.js"></script>
     <script src="js/jquery.easing.1.3.js"></script>
     <script src="js/jquery.cookie.js"></script>
+    <script src="js/touchTouch.jquery.js"></script>
+    <script>
+        if ($(window).width() > 1024) {
+            document.write("<" + "script src='js/jquery.preloader.js'></" + "script>");
+        }
+    </script>
     <script>
         jQuery(window).load(function () {
+            $x = $(window).width();
+            if ($x > 1024) {
+                jQuery("#content .row").preloader();
+            }
+            jQuery('.magnifier').touchTouch();
             jQuery('.spinner').animate({
                 'opacity': 0
             }, 1000, 'easeOutCubic', function () {
@@ -46,8 +59,7 @@
 
 <body>
 <div class="spinner"></div>
-<!-- header -->
-
+<!-- header start -->
 <header>
     <div class="container clearfix">
         <!-- NAV-BAR FORM -->
@@ -87,7 +99,7 @@
                                 <sec:authorize access="isAnonymous()">
 
 
-                                    <li class="active"><s:url value="/registration" var="registration"/>
+                                    <li><s:url value="/registration" var="registration"/>
                                         <a href="${registration}"><s:message code="balance.register"/></a>
                                     </li>
                                     <li><s:url value="/log_in" var="logIn"/>
@@ -106,64 +118,21 @@
     </div>
 
 </header>
+
 <div class="bg-content">
-    <!-- content -->
+    <!--  content  -->
     <div id="content">
-        <div class="ic"></div>
         <div class="container">
-            <div class="row">
+            <div class="row ">
+                <div class="span12">
+                    <div class="block-404"><img class="img-404" src="img/email.jpg" alt="">
 
-                <!-- REGISTER FORM -->
-                <article class="span8">
-                    <h3>Register</h3>
+                        <div class="box-404">
+                            <h3><s:message code="balance.emailSent"/></h3>
 
-                    <div class="inner-1">
-                        <form:form method="POST" id="contact-form" action="registration" commandName="user">
-                            <div class="success"> You have registered successfully!</div>
-                            <c:if test="${errorMessage != null}">
-                                <div class="error" style="display:block;"><c:out value="${errorMessage}"/></div>
-                            </c:if>
-                            <form:errors path="*" element="div" cssClass="errors"/>
-                            <fieldset>
-                                <div>
-                                    <form:input path="username" cssErrorClass="error" placeholder="Username: "/>
-                                    <br/><br/>
-                                </div>
-                                <div>
-                                    <form:input path="email" type="email" cssErrorClass="error" placeholder="Email: "/>
-                                    <br/><br/>
-                                </div>
-                                <div>
-                                    <form:password path="password" cssErrorClass="error" placeholder="Password:"/>
-                                    <br/><br/>
-                                </div>
-                                <div>
-                                    <form:password path="passwordRepeat" cssErrorClass="error"
-                                                   placeholder="Repeat Password:"/>
-                                    <br/><br/>
-                                </div>
-                                <div>
-                                    <form:input path="name" cssErrorClass="error" placeholder="Your name: "/>
-                                    <br/><br/>
-                                </div>
-                                <br><br>
-
-                                <div class="buttons-wrapper">
-                                    <input class="btn btn-1" type="submit" value="REGISTER"/>
-                                </div>
-                            </fieldset>
-
-                        </form:form>
+                        </div>
                     </div>
-                </article>
-                <!--/ END REGISTER FORM -->
-
-                <article class="span4"><br/>
-
-                    <h3>Want to buy some fruits/vegetables?</h3>
-
-                    <div class="map"><img src="img/map.jpg" alt=""></div>
-                </article>
+                </div>
             </div>
         </div>
     </div>
