@@ -1,8 +1,9 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+
 <html lang="en">
 <head>
 <title>Codester | Blog</title>
@@ -114,13 +115,16 @@ jQuery(window).load(function () {
 
            <h1> Product: <c:out value="${product.key.name}"/></h1>
         <h1> Amount: <c:out value="${product.value}"/></h1>
+
+
+
         </c:forEach>
         <h1>
 
         Total price:  <c:out value="${priceToShow}"/> levs
         </h1>
 
-        <input type="button" onclick="location.href = '/addToBuy'" value="BUY PRODUCTS" >
+        <input type="button" onclick="location.href = '/addToBuy'" value="BUY PRODUCTS" class="btn btn-1" >
 
     </div>
     </div>

@@ -151,7 +151,7 @@
                         <table>
 
                             <form:form method="POST" id="addproducts" action="addproducts"
-                                       commandName="product">
+                                       commandName="product" enctype="multipart/form-data">
                                 <tr>
                                     <td><span class="textcolor">Category :</span></td>
 
@@ -182,6 +182,11 @@
                                         </td>
                                     <td>
                                         <form:input path="price" id="price" name="price" placeholder=""/>
+
+                                    </td>
+
+                                    <td>
+                                        <input  type="file" name="file" accept=".jpg" class="textcolor" />
 
                                     </td>
 

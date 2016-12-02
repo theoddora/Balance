@@ -1,8 +1,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,6 +131,14 @@
                         <li class="span4">
                             <div class="thumbnail thumbnail-1"><img src="img/work/${product.name}.jpg" alt="">
                                 <section><a class="link-1"><c:out value="${product.name}"/></a>
+                                    <c:if test="${product.discount > 0}">
+
+                                        <fmt:formatNumber  value="${product.discount * 100} " maxFractionDigits="0" var="discount"/>
+
+
+                                      <p>Only today get <c:out value="${discount}"/>% discount for this product </p>
+
+                                    </c:if>
 
                                     <p>
                                         <c:choose>
@@ -162,6 +171,8 @@
                                     <c:out value="Price:">Price:</c:out>
                                         <c:out value="${product.price} lv."></c:out></p>
                                 </section>
+
+
                             </div>
                         </li>
 

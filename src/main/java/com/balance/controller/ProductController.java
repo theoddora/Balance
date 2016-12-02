@@ -12,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -147,9 +149,18 @@ public class ProductController {
 
     //inserting product
     @RequestMapping(value = "/addproducts", method = RequestMethod.POST)
-    public String addProducts(Product product) {
+    public String addProducts(Product product, @RequestParam ("file")MultipartFile
+            file) {
 
         productDao.insertProduct(product);
+        String productName = product.getName();
+
+        try {
+            file.transferTo(new File(productName  + ".jpg"));
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         return "addproducts";
 
