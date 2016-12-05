@@ -2,11 +2,13 @@ package com.balance.config;
 
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 import java.io.File;
 @ImportResource("multipart.properties")
+
+
+
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     private static final String LOCATION = "H:" + File.separator +"Balance" + File.separator + "Balance" + File.separator +"src" + File.separator + "main" + File.separator + "webapp" + File.separator + "static" + File.separator + "img" + File.separator+ "work" + File.separator;
@@ -16,7 +18,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{RootConfig.class};
+        return new Class<?>[] {RootConfig.class};
     }
 
     @Override

@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page session="false" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +78,7 @@
                                         <ul>
                                             <s:url value="/${username}" var="profileUrl"/>
                                             <a href="${profileUrl}"><s:message code="balance.profile_page"/></a>
-                                            <a href="<c:url value="/log_out"/>"><s:message code="balance.log_out"/></a>
+                                            <a href="<c:url value="/log_out"/><s:message code="balance.log_out"/></a>
                                         </ul>
                                     </li>
 
@@ -94,8 +95,6 @@
                                         <a href="${logIn}"><s:message code="balance.log_in"/></a>
                                     </li>
                                 </sec:authorize>
-
-
                             </ul>
                         </div>
                     </div>

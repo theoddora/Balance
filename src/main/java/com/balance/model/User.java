@@ -1,13 +1,12 @@
 package com.balance.model;
 
-import cz.jirutka.validator.spring.SpELAssert;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-import org.omg.CORBA.UserException;
-
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
+import cz.jirutka.validator.spring.SpELAssert;
 
 @SpELAssert(value = "password.equals(passwordRepeat)", applyIf = "!password.isEmpty() || !passwordRepeat.isEmpty()", message = "{password.match}")
 public class User {
