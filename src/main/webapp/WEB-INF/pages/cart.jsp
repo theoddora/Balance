@@ -3,6 +3,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html lang="en">
 <head>
@@ -123,8 +124,9 @@ jQuery(window).load(function () {
 
         Total price:  <c:out value="${priceToShow}"/> levs
         </h1>
-
+        <c:if test="${fn:length(cart) > 0}">
         <input type="button" onclick="location.href = '/addToBuy'" value="BUY PRODUCTS" class="btn btn-1" >
+        </c:if>
 
     </div>
     </div>

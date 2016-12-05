@@ -62,30 +62,26 @@ public class ProductController {
         String message = null;
 
         if (productDao.hasEnoughAmount(amount, id, isForKilo)) {
-            synchronized (productDao) {
-                if (isForKilo) {
-                    productDao.decreaseProductByKilo(amount, id);
-                } else {
-                    productDao.decreaseProductByPiece( (int)amount, id);
-                }
-            }
+
             cart.put(product, amount);
             message = "The selected amount has been added to the cart";
 
         } else {
-            cart.put(product, 0.0);
+            if(cart.containsKey(product)){
+                cart.remove(product);
+            }
             double currentAmount = productDao.getCurrentAmount(id, isForKilo);
             message = "There is not enough amount from " + product.getName() + ". The current amount is " + currentAmount + ".";
         }
         for (Product productInCart : cart.keySet()) {
+
             double price = productInCart.getPrice() - (productInCart.getPrice()*productInCart.getDiscount());
             totalPrice += cart.get(productInCart)*price;
+
         }
         priceToShow = totalPrice;
         priceToShow = Math.floor(priceToShow * 100) / 100;
-        if(priceToShow == 0 ){
-            priceToShow = 10.0;
-        }
+
 
         model.addAttribute("message", message);
         model.addAttribute("cart", cart);

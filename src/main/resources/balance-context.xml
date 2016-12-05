@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache.xsd">
 
     <bean id="placeholderConfig"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -16,21 +18,25 @@
     <!-- Initialization for data source -->
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value = "${db.driver}" />
+        <property name="driverClassName" value="${db.driver}"/>
         <property name="url" value="${db.url}"/>
         <property name="username" value="${db.username}"/>
         <property name="password" value="${db.password}"/>
 
     </bean>
+    <cache:annotation-driven />
+    <bean id="cacheManager" class=
+            "org.springframework.cache.concurrent.ConcurrentMapCacheManager" />
+
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <!-- Definition for studentJDBCTemplate bean -->
     <bean id="userDAOImpl"
           class="com.balance.dao.UserDAOImpl">
-        <property name="dataSource"  ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <bean id="balanceUserService"
@@ -41,13 +47,6 @@
           class="com.balance.dao.OrderDaoImpl">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-
-
-
-
-
-
-
 
 
 </beans>

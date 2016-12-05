@@ -1,5 +1,6 @@
 package com.balance.controller;
 
+import com.balance.dao.ProductDao;
 import com.balance.dao.UserDAO;
 import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.model.Order;
@@ -39,6 +40,9 @@ public class UserController {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    ProductDao productDao;
 
     @Autowired
     OrderManager orderManager;
@@ -116,7 +120,19 @@ public class UserController {
             return "/";
         }
 
+
         for (Product product : cart.keySet()) {
+            boolean isForKilo = product.getIsForKilo();
+            int id = product.getId();
+            synchronized (productDao) {
+                if (isForKilo) {
+                    double amount = product.getAmountKilo();
+                    productDao.decreaseProductByKilo(amount, id);
+                } else {
+                    double amount = product.getAmountPiece();
+                    productDao.decreaseProductByPiece( (int)amount, id);
+                }
+            }
             int productId = product.getId();
             double amount = cart.get(product);
 

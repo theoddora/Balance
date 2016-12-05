@@ -34,7 +34,6 @@ public class OrderDaoImpl implements OrderDao {
     public void placeOrder(int productId, long userId, double amount) {
 
         String sqlOrder = "INSERT INTO balance.order (product_id, amount, user_Id) VALUES (:productId, :amount, :userId)";
-        KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("productId", productId);
         params.addValue("amount", amount);
