@@ -1,17 +1,14 @@
 package com.balance.controller;
 
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.balance.exceptions.EmailAlreadyExistsException;
 import com.balance.exceptions.NoSuchUserException;
 import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.exceptions.UsernameAlreadyExistsException;
 import com.balance.model.User;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
-/**
- * Created by ttosheva on 30/11/2016.
- */
 @ControllerAdvice
 public class AppWideExceptionHandler {
 

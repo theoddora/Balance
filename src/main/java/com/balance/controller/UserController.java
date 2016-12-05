@@ -1,17 +1,17 @@
 package com.balance.controller;
 
-import com.balance.dao.UserDAO;
-import com.balance.exceptions.PasswordsDontMatchException;
-import com.balance.model.Order;
-import com.balance.model.Product;
-import com.balance.model.User;
-import com.balance.service.OrderManager;
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -20,16 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.security.Principal;
-import java.util.HashMap;
-
+import com.balance.dao.UserDAO;
+import com.balance.model.Order;
+import com.balance.model.Product;
+import com.balance.model.User;
+import com.balance.service.OrderManager;
 /**
  * Created by ttosheva on 23/11/2016.
  */
-
 
 @Controller
 public class UserController {
@@ -40,17 +38,19 @@ public class UserController {
     @Autowired
     OrderManager orderManager;
 
-    private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     //register
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registerUser(@Valid User user, Errors errors, Model model) {
+    public String registerUser(@Valid User user, Errors errors) {
 
+        logger.info("A user wants to register.");
         if (errors.hasErrors()) {
             return "register";
         }
         userDAO.createUser(user);
 
+        logger.info("A user with username " + user.getUsername() + " has registered.");
         return "redirect:/emailconfirm";
     }
 
@@ -69,12 +69,12 @@ public class UserController {
     @RequestMapping(value = "/log_in", method = RequestMethod.POST)
     public String logInUser(@RequestParam(value = "username") String username,
                             @RequestParam(value = "password") String password,
-                            HttpServletRequest request, Model model) {
+                            HttpServletRequest request) {
 
-        User user = userDAO.getUser(username, password);
+        userDAO.getUser(username, password);
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(60 * 60);
-//        session.setAttribute("user", user);
+        // session.setAttribute("user", user);
         session.setAttribute("cart", new HashMap<Product, Double>());
         return "redirect:/index";
     }
@@ -96,7 +96,6 @@ public class UserController {
 
     }
 
-
     @RequestMapping(value = "/addToBuy", method = RequestMethod.GET)
     public String addProductsToBuy(Model model, HttpSession session, Principal principal) {
         if (principal == null) {
@@ -117,9 +116,7 @@ public class UserController {
             int productId = product.getId();
             double amount = cart.get(product);
 
-
             orderManager.placeOrder(productId, userId, amount);
-
         }
 
         Set<Order> orders = orderManager.getOrders(userId);

@@ -4,19 +4,24 @@ package com.balance.mail;
  * Created by ttosheva on 02/12/2016.
  */
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.mail.PasswordAuthentication;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.balance.controller.UserController;
 
 public class SendEmail extends Thread {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private static final String EMAIL_SENDER = "balance.kantar@gmail.com"; // EMAIL ADRESS
     private static final String PASSWORD = "bestjuniorteam"; //EMAIL Password
     private static final String MAIL_PROPERTIES = "mail.properties";
@@ -34,12 +39,13 @@ public class SendEmail extends Thread {
     }
 
     private void sendMail() {
-
+        logger.info("In sendMain().");
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Properties props = new Properties();
-        try(InputStream resourceStream = loader.getResourceAsStream(MAIL_PROPERTIES)) {
+        try (InputStream resourceStream = loader.getResourceAsStream(MAIL_PROPERTIES)) {
             props.load(resourceStream);
         } catch (IOException e) {
+            logger.error("Couldn't load resource stream.");
             return;
         }
 
@@ -57,10 +63,9 @@ public class SendEmail extends Thread {
             message.setText(this.message);
             message.setSentDate(new Date());
             Transport.send(message);
-            System.out.println("Email sent");
+            logger.info("Message for confirm sent to email " + receiverEmail);
         } catch (MessagingException e) {
-            //todo log
-            System.out.println("Couldnt send email");
+            logger.error("Couldn't load resource stream.");
             return;
         }
     }
@@ -68,7 +73,6 @@ public class SendEmail extends Thread {
     @Override
     public void run() {
         sendMail();
-        System.out.println("yey");
     }
 
 }
