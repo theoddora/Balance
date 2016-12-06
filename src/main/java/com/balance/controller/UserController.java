@@ -1,12 +1,5 @@
 package com.balance.controller;
 
-import com.balance.dao.ProductDao;
-import com.balance.dao.UserDAO;
-import com.balance.exceptions.PasswordsDontMatchException;
-import com.balance.model.Order;
-import com.balance.model.Product;
-import com.balance.model.User;
-import com.balance.service.OrderManager;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,12 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.balance.security.SecurityUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -30,16 +21,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.balance.dao.ProductDao;
 import com.balance.dao.UserDAO;
 import com.balance.model.Order;
 import com.balance.model.Product;
 import com.balance.model.User;
 import com.balance.service.OrderManager;
+
 /**
  * Created by ttosheva on 23/11/2016.
  */
-
-
 @Controller
 public class UserController {
 
@@ -88,7 +79,7 @@ public class UserController {
         userDAO.getUser(username, password);
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(60 * 60);
-//        session.setAttribute("user", user);
+        //session.setAttribute("user", user);
         session.setAttribute("cart", new HashMap<Product, Double>());
         return "redirect:/index";
     }
@@ -109,7 +100,6 @@ public class UserController {
         return "profile_page";
 
     }
-
 
     @RequestMapping(value = "/addToBuy", method = RequestMethod.GET)
     public String addProductsToBuy(Model model, HttpSession session, Principal principal) {

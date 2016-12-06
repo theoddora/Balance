@@ -39,13 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     BCryptPasswordEncoder passwordEncoder;
 
 
-
-
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-                auth.
-                        userDetailsService(userService).passwordEncoder(passwordEncoder);
+        auth.
+            userDetailsService(userService).passwordEncoder(passwordEncoder);
 //                jdbcAuthentication()
 //                .dataSource(datasource)
 //                .usersByUsernameQuery("select username, password from \"user\" where username = ? ")
@@ -55,27 +52,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-        .csrf().disable()
-                .formLogin()
-                    .loginPage("/log_in")
-                    .defaultSuccessUrl("/", true)
-                .and()
-                .logout()
-                    .logoutSuccessUrl("/")
-                    .logoutUrl("/log_out")
-                .and()
-                .authorizeRequests()
-                .antMatchers("/log_in", "/register").anonymous()
-                .antMatchers("/register").anonymous()
-                .antMatchers(HttpMethod.POST,"/product").access("isAuthenticated() and hasRole('ROLE_USER')")
-                .anyRequest().permitAll()
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/denied")
-                .and()
-                .rememberMe()
-                .tokenValiditySeconds(FOUR_WEEKS)
-                .key("balanceKye");
+            .csrf().disable()
+            .formLogin()
+            .loginPage("/log_in")
+            .defaultSuccessUrl("/", true)
+            .and()
+            .logout()
+            .logoutSuccessUrl("/")
+            .logoutUrl("/log_out")
+            .and()
+            .authorizeRequests()
+            .antMatchers("/log_in", "/register").anonymous()
+            .antMatchers("/register").anonymous()
+            .antMatchers(HttpMethod.POST, "/product").access("isAuthenticated() and hasRole('USER')")
+            .antMatchers("/addproducts").access("isAuthenticated() and hasRole('ADMIN')")
+            .antMatchers(HttpMethod.POST, "/addproducts").access("isAuthenticated() and hasRole('ADMIN')")
+            .anyRequest().permitAll()
+            .and()
+            .exceptionHandling()
+            .accessDeniedPage("/denied")
+            .and()
+            .rememberMe()
+            .tokenValiditySeconds(FOUR_WEEKS)
+            .key("balanceKye");
 
     }
 
@@ -85,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             return new BCryptPasswordEncoder(ENCODER_STRENGTH, SecureRandom.getInstance("SHA1PRNG"));
         } catch (NoSuchAlgorithmException e) {
             System.out.println(
-                    "Failed to instantiate specified BCryptPasswordEncoder, reverting to deafult BCryptPasswordEncoder.");
+                "Failed to instantiate specified BCryptPasswordEncoder, reverting to deafult BCryptPasswordEncoder.");
             return new BCryptPasswordEncoder();
         }
     }

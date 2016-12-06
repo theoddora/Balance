@@ -1,13 +1,13 @@
 package com.balance.service;
 
-import com.balance.dao.OrderDao;
-import com.balance.model.Order;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Set;
+import com.balance.dao.OrderDao;
+import com.balance.model.Order;
 
 /**
  * Created by hangelov on 01/12/2016.

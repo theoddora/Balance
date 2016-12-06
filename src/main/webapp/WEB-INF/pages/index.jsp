@@ -83,27 +83,40 @@
                                 </li>
 
                                 <sec:authorize access="isAuthenticated()">
-                                    <sec:authentication var="username" property="principal.username"/>
-                                    <li class="sub-menu"><a><c:out value="${username}"/></a>
-                                        <s:url value="/${username}" var="profileUrl"/>
-                                        <ul>
-                                            <a href="${profileUrl}">
-                                                <s:message code="balance.profile_page"/>
-                                            </a>
-                                                <s:url value="/log_out" var="log_out"/>
-                                            <a href="${log_out}"><s:message code="balance.log_out"/></a>
-                                        </ul>
+                                <sec:authentication var="username" property="principal.username"/>
+                                <li class="sub-menu"><a><c:out value="${username}"/></a>
+                                    <s:url value="/${username}" var="profileUrl"/>
+                                    <ul>
+                                        <a href="${profileUrl}">
+                                            <s:message code="balance.profile_page"/>
+                                        </a>
+                                        <s:url value="/log_out" var="log_out"/>
+                                        <a href="${log_out}"><s:message code="balance.log_out"/></a>
+                                    </ul>
+                                </li>
+                                </sec:authorize>
+
+
+                                <sec:authorize access="isAuthenticated()">
+
+                                    <li>
+                                        <s:url value="/addproducts" var="addproduct"/>
+                                        <a href="${addproduct}"><s:message code="balance.addproduct"/></a>
                                     </li>
 
                                 </sec:authorize>
 
+
+
+
+
                                 <sec:authorize access="isAnonymous()">
-                                 <li><s:url value="/registration" var="registration"/>
-                                    <a href="${registration}"><s:message code="balance.register"/></a>
-                                </li>
-                                <li><s:url value="/log_in" var="logIn"/>
-                                    <a href="${logIn}"><s:message code="balance.log_in"/></a>
-                                </li>
+                                    <li><s:url value="/registration" var="registration"/>
+                                        <a href="${registration}"><s:message code="balance.register"/></a>
+                                    </li>
+                                    <li><s:url value="/log_in" var="logIn"/>
+                                        <a href="${logIn}"><s:message code="balance.log_in"/></a>
+                                    </li>
                                 </sec:authorize>
 
 
@@ -112,7 +125,8 @@
                     </div>
                 </div>
             </div>
-        </div><!-- / END NAV-BAR FORM -->
+        </div>
+        <!-- / END NAV-BAR FORM -->
     </div>
 </header>
 

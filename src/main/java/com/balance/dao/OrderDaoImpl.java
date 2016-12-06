@@ -1,16 +1,15 @@
 package com.balance.dao;
 
-import com.balance.model.Order;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
+import java.util.*;
 
 import javax.sql.DataSource;
-import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Component;
+
+import com.balance.model.Order;
 
 /**
  * Created by hangelov on 01/12/2016.
@@ -29,19 +28,14 @@ public class OrderDaoImpl implements OrderDao {
         return jdbcTemplateObject;
     }
 
-
     @Override
     public void placeOrder(int productId, long userId, double amount) {
-
-        String sqlOrder = "INSERT INTO balance.order (product_id, amount, user_Id) VALUES (:productId, :amount, :userId)";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("productId", productId);
         params.addValue("amount", amount);
         params.addValue("userId", userId);
-
-
+        String sqlOrder = "INSERT INTO balance.order (product_id, amount, user_Id) VALUES (:productId, :amount, :userId)";
         getJdbcTemplate().update(sqlOrder, params);
-
     }
 
     @Override

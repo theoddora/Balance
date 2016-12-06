@@ -1,9 +1,8 @@
 package com.balance.dao;
 
-import com.balance.model.Order;
-
-import java.util.List;
 import java.util.Set;
+
+import com.balance.model.Order;
 
 /**
  * Created by hangelov on 01/12/2016.
