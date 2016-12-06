@@ -13,7 +13,10 @@ import com.balance.model.User;
  */
 public class SecurityUser implements UserDetails {
 
-    private User user;
+
+    private String username;
+    private String password;
+    private long id;
     private List<GrantedAuthority> authorities;
 
     public SecurityUser(User user, List<GrantedAuthority> authorities) {
@@ -21,7 +24,10 @@ public class SecurityUser implements UserDetails {
         if (user == null) {
             return;
         }
-        this.user = user;
+
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
         this.authorities = authorities;
     }
 
@@ -32,12 +38,12 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return this.username;
     }
 
     @Override
@@ -59,4 +65,26 @@ public class SecurityUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
 }

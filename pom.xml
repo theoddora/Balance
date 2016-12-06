@@ -10,6 +10,7 @@
     <properties>
         <spring.version>4.2.8.RELEASE</spring.version>
         <spring.security.version>4.2.0.RELEASE</spring.security.version>
+        <ehcache.version>2.10.2</ehcache.version>
     </properties>
     <repositories>
         <repository>
@@ -22,6 +23,27 @@
         </repository>
     </repositories>
     <dependencies>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${ehcache.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -43,6 +65,12 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
             <scope>test</scope>
@@ -54,15 +82,15 @@
             <artifactId>spring-jdbc</artifactId>
             <version>3.2.16.RELEASE</version>
         </dependency>
-        
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
-        
-       
+
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -85,7 +113,7 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
-        
+
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
@@ -100,7 +128,7 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.7</version>
         </dependency>
-        
+
 
         <!-- https://mvnrepository.com/artifact/jstl/jstl -->
         <dependency>

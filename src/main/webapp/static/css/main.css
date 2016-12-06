@@ -50,6 +50,11 @@ td {
     text-align: center;
 }
 
+.productsInput {
+    width: 130px;
+    text-align: center;
+}}
+
 div.table-title {
     display: block;
     margin: auto;

@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final int FOUR_WEEKS = 2419200;
     private static final int ENCODER_STRENGTH = 12;
 
+
     @Autowired
     DataSource datasource;
 
@@ -35,6 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
+
+
+
+
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -57,7 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/log_in", "/register").anonymous()
             .antMatchers("/register").anonymous()
-            .antMatchers(HttpMethod.POST, "/product").access("isAuthenticated() and hasRole('ROLE_USER')")
+            .antMatchers(HttpMethod.POST, "/product").access("isAuthenticated() and hasRole('USER')")
+            .antMatchers("/addproducts").access("isAuthenticated() and hasRole('ADMIN')")
+            .antMatchers(HttpMethod.POST, "/addproducts").access("isAuthenticated() and hasRole('ADMIN')")
+            .antMatchers("/manageproducts").access("isAuthenticated() and hasRole('ADMIN')")
+            .antMatchers(HttpMethod.POST, "/manageproducts").access("isAuthenticated() and hasRole('ADMIN')")
             .anyRequest().permitAll()
             .and()
             .exceptionHandling()
@@ -66,6 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .rememberMe()
             .tokenValiditySeconds(FOUR_WEEKS)
             .key("balanceKye");
+
     }
 
     @Bean

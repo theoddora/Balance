@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="ISO-8859-1" %>
-<%@ page errorPage="404.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page session="false" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,44 +49,69 @@
 <!-- header -->
 
 <header>
+    <s:url value="/index" var="index"/>
     <div class="container clearfix">
         <!-- NAV-BAR FORM -->
         <div class="row">
             <div class="span12">
                 <div class="navbar navbar_">
                     <div class="container">
-                        <h1 class="brand brand_"><a href="index"><img alt="" src="img/logo.png" width="350px"> </a></h1>
-                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_"><s:message
-                                code="balance.menu"/><span class="icon-bar"></span> </a>
+
+                        <h1 class="brand brand_">
+                            <a href="${index}">
+                                <img alt="" src="img/logo.png" width="350px">
+                            </a>
+                        </h1>
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">
+                            <s:message code="balance.menu"/>
+                        </a>
 
                         <div class="nav-collapse nav-collapse_  collapse">
                             <ul class="nav sf-menu">
                                 <li>
-                                    <s:url value="/index" var="index"/>
                                     <a href="${index}"><s:message code="balance.home"/></a>
                                 </li>
                                 <li>
                                     <s:url value="/product" var="product"/>
                                     <a href="${product}"><s:message code="balance.product"/></a>
                                 </li>
+                                <!-- ADMIN STUFF -->
+                                <sec:authorize access="isAuthenticated() and hasRole('ADMIN')">
+                                    <li>
+                                        <s:url value="/addproducts" var="addproduct"/>
+                                        <a href="${addproduct}"><s:message code="balance.addproduct"/></a>
+                                    </li>
+                                    <li>
+                                        <s:url value="/manageproducts" var="manageproduct"/>
+                                        <a href="${manageproduct}"><s:message code="balance.manageproducts"/></a>
+                                    </li>
+                                </sec:authorize>
+                                <!-- END ADMIN STUFF -->
 
                                 <sec:authorize access="isAuthenticated()">
                                     <sec:authentication var="username" property="principal.username"/>
-                                    <li class="sub-menu"><a><c:out value="${username}"/> </a>
-
+                                    <li class="sub-menu">
+                                        <a><c:out value="${username}"/></a>
+                                        <s:url value="/${username}" var="profileUrl"/>
                                         <ul>
-                                            <s:url value="/${username}" var="profileUrl"/>
-                                            <a href="${profileUrl}"><s:message code="balance.profile_page"/></a>
-                                            <a href="<c:url value="/log_out"/><s:message code="balance.log_out"/></a>
+                                            <li>
+                                                <a href="${profileUrl}">
+                                                    <s:message code="balance.profile_page"/>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <s:url value="/log_out" var="log_out"/>
+                                                <a href="${log_out}"><s:message code="balance.log_out"/></a>
+                                            </li>
                                         </ul>
                                     </li>
-
+                                    <li>
+                                        <s:url value="/cart" var="cart"/>
+                                        <a href="${cart}"><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></a>
+                                    </li>
                                 </sec:authorize>
 
-
                                 <sec:authorize access="isAnonymous()">
-
-
                                     <li class="active"><s:url value="/registration" var="registration"/>
                                         <a href="${registration}"><s:message code="balance.register"/></a>
                                     </li>
@@ -95,6 +119,8 @@
                                         <a href="${logIn}"><s:message code="balance.log_in"/></a>
                                     </li>
                                 </sec:authorize>
+
+
                             </ul>
                         </div>
                     </div>
@@ -103,7 +129,6 @@
         </div>
         <!-- / END NAV-BAR FORM -->
     </div>
-
 </header>
 <div class="bg-content">
     <!-- content -->

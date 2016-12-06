@@ -1,10 +1,12 @@
 package com.balance.controller;
 
+import java.io.File;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +15,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.balance.dao.ProductDao;
 import com.balance.model.Product;
 
+
 @Controller
 public class ProductController {
+
 
     @Autowired
     ProductDao productDao;
 
+
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public String getProducts(Model model) {
 
-        List<Product> products = productDao.getAllProducts();
+        List<Product> products = productDao.getAllSellingProducts();
+
         model.addAttribute("products", products);
 
         return "work";
@@ -66,34 +73,30 @@ public class ProductController {
         double totalPrice = 0.0;
         Double priceToShow = 0.0;
 
-        boolean isForKilo = product.getIsForKilo();
 
-        String message = null;
+        boolean isForKilo = product.getIsForKilo();
+        String message;
+        
         if (productDao.hasEnoughAmount(amount, id, isForKilo)) {
-            synchronized (productDao) {
-                if (isForKilo) {
-                    productDao.decreaseProductByKilo(amount, id);
-                } else {
-                    productDao.decreaseProductByPiece((int) amount, id);
-                }
-            }
+
             currentCart.put(product, amount);
             message = "The selected amount has been added to the cart";
+
         } else {
-            currentCart.put(product, 0.0);
+            if (currentCart.containsKey(product)) {
+                currentCart.remove(product);
+            }
             double currentAmount = productDao.getCurrentAmount(id, isForKilo);
             message = "There is not enough amount from " + product.getName() + ". The current amount is " + currentAmount + ".";
         }
-
         for (Product productInCart : currentCart.keySet()) {
+
             double price = productInCart.getPrice() - (productInCart.getPrice() * productInCart.getDiscount());
             totalPrice += currentCart.get(productInCart) * price;
+
         }
         priceToShow = totalPrice;
         priceToShow = Math.floor(priceToShow * 100) / 100;
-        if (priceToShow == 0) {
-            priceToShow = 10.0;
-        }
 
         model.addAttribute("message", message);
         model.addAttribute("currentCart", currentCart);
@@ -150,36 +153,106 @@ public class ProductController {
 
 
         return "addproducts";
+
     }
 
     //inserting product
     @RequestMapping(value = "/addproducts", method = RequestMethod.POST)
-    public String addProducts(Product product) {
+    public String addProducts(Product product, @RequestParam("file") MultipartFile
+        file) {
 
         productDao.insertProduct(product);
+        String productName = product.getName();
+
+        try {
+            file.transferTo(new File(productName + ".jpg"));
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         return "addproducts";
+
     }
 
     //returning view
     @RequestMapping(value = "/manageproducts", method = RequestMethod.GET)
     public String manageProductsJSP(Model model) {
 
-        List<Product> products = productDao.getAllProducts();
-        for (Product product : products) {
-            System.out.println(product);
-        }
-        model.addAttribute("products", products);
+      
+        prepareRender(model);
 
         return "manageproducts";
     }
 
     //managing products
-    @RequestMapping(value = "/manageproducts", method = RequestMethod.POST)
-    public String manageProducts(Model model) {
+    @RequestMapping(value = "/removeproduct", method = RequestMethod.POST)
+    public String removeProduct(HttpServletRequest request, Model model) {
+
+        int id = Integer.parseInt(request.getParameter("productToDelete"));
+
+        productDao.removeProduct(id);
+        prepareRender(model);
+        return "manageproducts";
+
+    }
+
+    @RequestMapping(value = "/addproducttothestore", method = RequestMethod.POST)
+    public String addToTheStore(HttpServletRequest request, Model model){
+
+        int id = Integer.parseInt(request.getParameter("productToAdd"));
+
+        productDao.addToTheStore(id);
+        prepareRender(model);
+        return "manageproducts";
+    }
+
+    @RequestMapping(value = "/updateproduct", method = RequestMethod.POST)
+    public String updateProducts(HttpServletRequest request, Model model, Product product){
+
+        int id = Integer.parseInt(request.getParameter("productToUpdate"));
+
+        productDao.updateProduct(id, product);
+
+
+
+        prepareRender(model);
 
 
         return "manageproducts";
 
     }
+
+    @RequestMapping(value = "/addquantity", method = RequestMethod.POST)
+    public String addQuantity(HttpServletRequest request, Model model, Product product){
+
+        int id = Integer.parseInt(request.getParameter("quantityToAdd"));
+
+        productDao.updateProduct(id, product);
+
+
+
+        prepareRender(model);
+
+
+        return "manageproducts";
+
+    }
+
+
+
+    private void prepareRender(Model model) {
+        List<Product> products = productDao.getAllSellingProducts();
+        List<Product> notSellingProducts = productDao.getAllNotSellingProducts();
+        List<Product> emptyProducts = productDao.getAllEmptyProducts();
+
+        model.addAttribute("notSellingProducts", notSellingProducts);
+        model.addAttribute("products", products);
+        model.addAttribute("emptyProducts", emptyProducts);
+        model.addAttribute(new Product());
+
+
+    }
+
+
 }

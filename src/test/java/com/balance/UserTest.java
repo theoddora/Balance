@@ -43,12 +43,4 @@ public class UserTest {
         MockMvc mockMvc = standaloneSetup(controller).build();
         mockMvc.perform(get("/registration")).andExpect(view().name("register"));
     }
-
-    /*
-    @Test
-    public void testListAllUsers(){
-        dao.listUsers();
-    }
-    */
-
 }

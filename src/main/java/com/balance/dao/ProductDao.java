@@ -1,6 +1,8 @@
 package com.balance.dao;
 
 import com.balance.model.Product;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.annotation.Secured;
 
 import javax.print.attribute.IntegerSyntax;
@@ -13,26 +15,48 @@ public interface ProductDao {
     @Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
     void setDataSource(DataSource ds);
 
-    void insertProduct(Product product);
+    @CacheEvict(value = "productCache" , allEntries = true)
+    @Cacheable(value = "productCache")
+    Product insertProduct(Product product);
 
+    @Cacheable(value = "productCache", key = "#root.args[0]")
     Product findProductById(int id);
 
-
+    @CacheEvict(value = "productCache")
     void deleteProduct(int id);
 
+    void removeProduct(int id);
+
+    List<Product> getAllSellingProducts();
+    
+    @Cacheable(value = "productCache")
     List<Product> getAllProducts();
 
+    List<Product> getAllNotSellingProducts();
+
+    @Cacheable(value = "productCache")
     List<Product> getAllFruits();
 
+    @Cacheable(value = "productCache")
     List<Product> getAllVegetables();
 
-    void increaseProductByKilo(Double kilos, int id);
+    List<Product> getAllEmptyProducts();
 
-    void decreaseProductByKilo(Double kilos, int id);
+    void updateProduct(int id, Product product);
 
-    void increaseProductByPiece(Integer pieces, int id);
+    void addToTheStore(int id);
 
-    void decreaseProductByPiece(Integer piece, int id);
+    @CacheEvict(value = "productCache",key = "#result")
+    int increaseProductByKilo(Double kilos, int id);
+
+    @CacheEvict(value = "productCache",key = "#result")
+    int decreaseProductByKilo(Double kilos, int id);
+
+    @CacheEvict(value = "productCache",key = "#result")
+    int increaseProductByPiece(Integer pieces, int id);
+
+    @CacheEvict(value = "productCache",key = "#result")
+    int decreaseProductByPiece(Integer piece, int id);
 
     boolean hasEnoughAmount(double amount, int id, boolean isForKilo);
 
