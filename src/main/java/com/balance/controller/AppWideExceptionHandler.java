@@ -3,9 +3,8 @@ package com.balance.controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import com.balance.exceptions.EmailAlreadyExistsException;
-import com.balance.exceptions.NoSuchUserException;
-import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.exceptions.UsernameAlreadyExistsException;
 import com.balance.model.User;
 
@@ -13,18 +12,6 @@ import com.balance.model.User;
 public class AppWideExceptionHandler {
 
     private static final String ERROR_MESSAGE = "errorMessage";
-
-    @ExceptionHandler(PasswordsDontMatchException.class)
-    public String logInWrongPassword(PasswordsDontMatchException e, Model model) {
-        model.addAttribute(ERROR_MESSAGE, e.getMessage());
-        return "log_in";
-    }
-
-    @ExceptionHandler(NoSuchUserException.class)
-    public String logInWrongUsername(NoSuchUserException e, Model model) {
-        model.addAttribute(ERROR_MESSAGE, e.getMessage());
-        return "log_in";
-    }
 
     @ExceptionHandler(UsernameAlreadyExistsException.class)
     public String registerUser(UsernameAlreadyExistsException e, Model model) {

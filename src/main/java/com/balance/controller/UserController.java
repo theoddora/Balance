@@ -25,6 +25,7 @@ import com.balance.model.Order;
 import com.balance.model.Product;
 import com.balance.model.User;
 import com.balance.service.OrderManager;
+
 /**
  * Created by ttosheva on 23/11/2016.
  */
@@ -69,13 +70,17 @@ public class UserController {
     @RequestMapping(value = "/log_in", method = RequestMethod.POST)
     public String logInUser(@RequestParam(value = "username") String username,
                             @RequestParam(value = "password") String password,
+                            Errors errors, Model model,
                             HttpServletRequest request) {
+
+        logger.info("A user with username " + username + " wants to log in.");
 
         userDAO.getUser(username, password);
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(60 * 60);
-        // session.setAttribute("user", user);
         session.setAttribute("cart", new HashMap<Product, Double>());
+
+        logger.info("A cart for this user was created - " + username + " - and he log in.");
         return "redirect:/index";
     }
 
