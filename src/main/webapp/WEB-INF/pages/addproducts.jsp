@@ -144,12 +144,12 @@
                         <table>
 
                             <form:form method="POST" id="addproducts" action="addproducts"
-                                       commandName="product">
+                                       commandName="product" name="productForm" onsubmit="validateAddProducts()">
                                 <tr>
                                     <td><span class="textcolor">Category :</span></td>
 
                                     <td>
-                                        <form:select path="productType" id="products">
+                                        <form:select path="productType" id="products" name="productType">
                                             <form:option disabled="true" selected="true"
                                                          value="">Choose product</form:option>
                                             <form:option value="vegetable">Vegetable</form:option>
@@ -159,7 +159,7 @@
                                     </td>
 
                                     <td>
-                                        <form:input path="name" placeholder="Product name"/>
+                                        <form:input path="name" placeholder="Product name" name="productName"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -170,8 +170,8 @@
                                         <form:radiobutton path="isForKilo" name="isForKilo" value="false"
                                                           id="forPiece"/><span class="textcolor">Piece </span>
                                     </td>
-                                    <td><form:input path="amountKilo" id="amountKilo" placeholder="Add kilos"/>
-                                        <form:input path="amountPiece" id="amountPiece" placeholder="Add pieces"/>
+                                    <td><form:input path="amountKilo" id="amountKilo" placeholder="Add kilos" name="amountKilo"/>
+                                        <form:input path="amountPiece" id="amountPiece" placeholder="Add pieces" name="amountPiece"/>
                                         </td>
                                     <td>
                                         <form:input path="price" id="price" name="price" placeholder=""/>
@@ -181,7 +181,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><b><input type="submit" value="Add  " class="textcolor"/></b></td>
+                                    <td><b><input type="submit" value="Submit" class="textcolor"/></b></td>
                                 </tr>
 
 

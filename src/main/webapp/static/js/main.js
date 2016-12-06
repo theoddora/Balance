@@ -66,5 +66,22 @@ $(document).ready(function () {
     $('input[name="isForKilo"]').attr('checked', false);
 });
 
+function reload() {
+    window.location.reload(true);
+}
 
+function validateAddProducts() {
+    var productType = document.forms["productForm"]["productType"].value;
+    var productName = document.forms["productForm"]["productName"].value;
+
+    var amountKilo = document.forms["productForm"]["amountKilo"].value;
+    var amountPiece = document.forms["productForm"]["amountPiece"].value;
+
+    var price = document.forms["productForm"]["price"].value;
+
+    if ((productType == "") || (productName == "") || (amountKilo == "") || (amountPiece == "") || (price == "")) {
+        alert("All fields must be filled out !");
+        return false;
+    }
+}
 

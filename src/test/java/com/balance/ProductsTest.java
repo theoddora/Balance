@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.util.Assert;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -26,18 +27,23 @@ public class ProductsTest {
     @Autowired
     private ProductDao dao;
 
-    @Test
-    public void listAllFruits() throws Exception {
-        dao.getAllFruits();
-        for(Product product : dao.getAllFruits()){
-            System.out.println(product);
-        }
-    }
+//    @Test
+//    public void listAllFruits() throws Exception {
+//        dao.getAllFruits();
+//        for(Product product : dao.getAllFruits()){
+//            System.out.println(product);
+//        }
+//    }
 
     @Test
     public void listAllVegetables() throws Exception {
-        dao.getAllVegetables();
-        for(Product product : dao.getAllVegetables()){
+//        dao.getAllVegetables();
+//        for(Product product : dao.getAllVegetables()){
+//            System.out.println(product);
+//        }
+
+        Assert.notNull(dao.getAllNotSellingProducts());
+        for(Product product : dao.getAllNotSellingProducts()){
             System.out.println(product);
         }
     }

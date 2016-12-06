@@ -18,13 +18,21 @@ public interface ProductDao {
     Product findProductById(int id);
 
 
-    void deleteProduct(int id);
+    void removeProduct(int id);
 
-    List<Product> getAllProducts();
+    List<Product> getAllSellingProducts();
+
+    List<Product> getAllNotSellingProducts();
 
     List<Product> getAllFruits();
 
     List<Product> getAllVegetables();
+
+    List<Product> getAllEmptyProducts();
+
+    void updateProduct(int id, Product product);
+
+    void addToTheStore(int id);
 
     void increaseProductByKilo(Double kilos, int id);
 
