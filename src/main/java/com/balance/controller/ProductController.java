@@ -19,16 +19,20 @@ import org.springframework.web.multipart.MultipartFile;
 import com.balance.dao.ProductDao;
 import com.balance.model.Product;
 
+
 @Controller
 public class ProductController {
+
 
     @Autowired
     ProductDao productDao;
 
+
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public String getProducts(Model model) {
 
-        List<Product> products = productDao.getAllProducts();
+        List<Product> products = productDao.getAllSellingProducts();
+
         model.addAttribute("products", products);
 
         return "work";
@@ -76,7 +80,6 @@ public class ProductController {
         }
         priceToShow = totalPrice;
         priceToShow = Math.floor(priceToShow * 100) / 100;
-
 
         model.addAttribute("message", message);
         model.addAttribute("cart", cart);
@@ -161,21 +164,80 @@ public class ProductController {
     @RequestMapping(value = "/manageproducts", method = RequestMethod.GET)
     public String manageProductsJSP(Model model) {
 
-        List<Product> products = productDao.getAllProducts();
-        for (Product product : products) {
-            System.out.println(product);
-        }
-        model.addAttribute("products", products);
+      
+        prepareRender(model);
 
         return "manageproducts";
     }
 
     //managing products
-    @RequestMapping(value = "/manageproducts", method = RequestMethod.POST)
-    public String manageProducts(Model model) {
+    @RequestMapping(value = "/removeproduct", method = RequestMethod.POST)
+    public String removeProduct(HttpServletRequest request, Model model) {
+
+        int id = Integer.parseInt(request.getParameter("productToDelete"));
+
+        productDao.removeProduct(id);
+        prepareRender(model);
+        return "manageproducts";
+
+    }
+
+    @RequestMapping(value = "/addproducttothestore", method = RequestMethod.POST)
+    public String addToTheStore(HttpServletRequest request, Model model){
+
+        int id = Integer.parseInt(request.getParameter("productToAdd"));
+
+        productDao.addToTheStore(id);
+        prepareRender(model);
+        return "manageproducts";
+    }
+
+    @RequestMapping(value = "/updateproduct", method = RequestMethod.POST)
+    public String updateProducts(HttpServletRequest request, Model model, Product product){
+
+        int id = Integer.parseInt(request.getParameter("productToUpdate"));
+
+        productDao.updateProduct(id, product);
+
+
+
+        prepareRender(model);
+
 
         return "manageproducts";
 
     }
+
+    @RequestMapping(value = "/addquantity", method = RequestMethod.POST)
+    public String addQuantity(HttpServletRequest request, Model model, Product product){
+
+        int id = Integer.parseInt(request.getParameter("quantityToAdd"));
+
+        productDao.updateProduct(id, product);
+
+
+
+        prepareRender(model);
+
+
+        return "manageproducts";
+
+    }
+
+
+
+    private void prepareRender(Model model) {
+        List<Product> products = productDao.getAllSellingProducts();
+        List<Product> notSellingProducts = productDao.getAllNotSellingProducts();
+        List<Product> emptyProducts = productDao.getAllEmptyProducts();
+
+        model.addAttribute("notSellingProducts", notSellingProducts);
+        model.addAttribute("products", products);
+        model.addAttribute("emptyProducts", emptyProducts);
+        model.addAttribute(new Product());
+
+
+    }
+
 
 }
