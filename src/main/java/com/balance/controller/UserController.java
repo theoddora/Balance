@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -74,12 +75,9 @@ public class UserController {
                             HttpServletRequest request) {
 
         logger.info("A user with username " + username + " wants to log in.");
-
-        userDAO.getUser(username, password);
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(60 * 60);
         session.setAttribute("cart", new HashMap<Product, Double>());
-
         logger.info("A cart for this user was created - " + username + " - and he log in.");
         return "redirect:/index";
     }
@@ -90,15 +88,17 @@ public class UserController {
     }
 
     //profile
-    @RequestMapping(value = "/{username}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public String viewProfilePage(@PathVariable String username, Model model) {
 
-        User user = userDAO.findByUsername(username);
-        if (user != null) {
+        User user = null;
+        try {
+            user = userDAO.findByUsername(username);
             model.addAttribute("user", user);
+            return "profile_page";
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return "forward:/404";
         }
-        return "profile_page";
-
     }
 
     @RequestMapping(value = "/addToBuy", method = RequestMethod.GET)

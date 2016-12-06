@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
     <link rel="stylesheet" href="css/touchTouch.css" type="text/css" media="screen">
     <link rel="stylesheet" href="css/kwicks-slider.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="screen">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <script src="js/jquery.js"></script>
     <script src="js/superfish.js"></script>
@@ -77,10 +78,6 @@
                                     <s:url value="/index" var="index"/>
                                     <a href="${index}"><s:message code="balance.home"/></a>
                                 </li>
-                                <li>
-                                    <s:url value="/product" var="product"/>
-                                    <a href="${product}"><s:message code="balance.product"/></a>
-                                </li>
 
                                 <sec:authorize access="isAuthenticated()">
                                     <sec:authentication var="username" property="principal.username"/>
@@ -88,13 +85,18 @@
                                         <s:url value="/${username}" var="profileUrl"/>
                                         <ul>
                                             <a href="${profileUrl}">
-                                                <s:message code="balance.profile_page"/>
+                                                <li><s:message code="balance.profile_page"/></li>
                                             </a>
                                                 <s:url value="/log_out" var="log_out"/>
-                                            <a href="${log_out}"><s:message code="balance.log_out"/></a>
+                                            <a href="${log_out}">
+                                                <li><s:message code="balance.log_out"/></li>
+                                            </a>
                                         </ul>
                                     </li>
-
+                                    <li>
+                                        <s:url value="/cart" var="cart"/>
+                                        <a href="${cart}"><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></a>
+                                    </li>
                                 </sec:authorize>
 
                                 <sec:authorize access="isAnonymous()">
@@ -128,7 +130,6 @@
 
                     <div>
                         <br/>
-
                         <p><s:message code="balance.welcomeMessage"/></p>
                     </div>
                 </div>

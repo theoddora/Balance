@@ -33,7 +33,7 @@ public class BalanceUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        logger.info("A user is logging in - " + username);
+        logger.info("in loadUserByUsername() method with username - " + username);
         User user = null;
         try {
             user = userDao.findByUsername(username);
@@ -45,7 +45,7 @@ public class BalanceUserService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        logger.info("A user has logged in - " + username);
+        logger.info("end loadUserByUsername() method");
         return new SecurityUser(user, authorities);
     }
 }

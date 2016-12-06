@@ -4,6 +4,7 @@ package com.balance.model;
  * Created by hangelov on 21/11/2016.
  */
 public class Product {
+
     private Integer id;
     private String productType;
     private String name;
@@ -13,26 +14,14 @@ public class Product {
     private double discount;
     private boolean isForKilo;
 
-
-
-
-
-   
-    public Product( String productType, String name, Double amountKilo, Integer amountPiece, Double price, double discount, boolean isForKilo) {
-
-
-
+    public Product(String productType, String name, Double amountKilo, Integer amountPiece, Double price, double discount, boolean isForKilo) {
         this.name = name;
         this.amountKilo = amountKilo;
         this.amountPiece = amountPiece;
         this.price = price;
         this.discount = discount;
-
         this.id = id;
-
         this.isForKilo = isForKilo;
-
-
     }
 
     public Product() {
@@ -105,15 +94,15 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", productType=" + productType +
-                ", name='" + name + '\'' +
-                ", amountKilo=" + amountKilo +
-                ", amountPiece=" + amountPiece +
-                ", price=" + price +
-                ", discount=" + discount +
-                '}';
+        return "Product{"
+            + "id=" + id
+            + ", productType=" + productType
+            + ", name='" + name + '\''
+            + ", amountKilo=" + amountKilo
+            + ", amountPiece=" + amountPiece
+            + ", price=" + price
+            + ", discount=" + discount
+            + '}';
     }
 
     @Override

@@ -1,7 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="ISO-8859-1" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Codester | Process</title>
+    <title><s:message code="balance.title"/></title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
     <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
@@ -43,19 +48,48 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
     <![endif]-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load('visualization', '1.0', {
+            'packages': ['corechart']
+        });
+
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Fruits/Vegetables', 'Amounth'],
+                <c:forEach items="${products}" var="entry">
+                ['${entry.key}', ${entry.value}],
+                </c:forEach>
+            ]);
+
+            var options = {
+                is3D: true,
+                pieSliceText: 'label',
+                tooltip: {showColorCode: true},
+                'height': 400
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
 </head>
 <body>
 <div class="spinner"></div>
 <!-- header -->
 <header>
     <div class="container clearfix">
+        <!-- NAV-BAR FORM -->
         <div class="row">
             <div class="span12">
                 <div class="navbar navbar_">
                     <div class="container">
-                        <h1 class="brand brand_"><a href="index.jsp"><img alt="" src="img/logo.png"> </a></h1>
-                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span
-                                class="icon-bar"></span> </a>
+                        <h1 class="brand brand_"><a href="index"><img alt="" src="img/logo.png" width="350px"> </a></h1>
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_"><s:message
+                                code="balance.menu"/><span class="icon-bar"></span> </a>
 
                         <div class="nav-collapse nav-collapse_  collapse">
                             <ul class="nav sf-menu">
@@ -70,21 +104,22 @@
 
                                 <sec:authorize access="isAuthenticated()">
                                     <sec:authentication var="username" property="principal.username"/>
-                                    <li class="sub-menu"><a><c:out value="${username}"/> </a>
-
+                                    <li class="sub-menu active"><a><c:out value="${username}"/></a>
+                                        <s:url value="/${username}" var="profileUrl"/>
                                         <ul>
-                                            <s:url value="/${username}" var="profileUrl"/>
-                                            <a href="${profileUrl}"><s:message code="balance.profile_page"/></a>
-                                            <a href="<c:url value="/log_out"/>"><s:message code="balance.log_out"/></a>
+                                            <a href="${profileUrl}">
+                                                <li><s:message code="balance.profile_page"/></li>
+                                            </a>
+                                            <s:url value="/log_out" var="log_out"/>
+                                            <a href="${log_out}">
+                                                <li><s:message code="balance.log_out"/></li>
+                                            </a>
                                         </ul>
                                     </li>
 
                                 </sec:authorize>
 
-
                                 <sec:authorize access="isAnonymous()">
-
-
                                     <li><s:url value="/registration" var="registration"/>
                                         <a href="${registration}"><s:message code="balance.register"/></a>
                                     </li>
@@ -100,6 +135,7 @@
                 </div>
             </div>
         </div>
+        <!-- / END NAV-BAR FORM -->
     </div>
 </header>
 <div class="bg-content">
@@ -108,71 +144,12 @@
         <div class="ic"></div>
         <div class="container">
             <div class="row">
-                <article class="span12">
-                    <h4>Services</h4>
-                </article>
-                <div class="clear"></div>
-                <ul class="thumbnails thumbnails-1 list-services">
-                    <li class="span4">
-                        <div class="thumbnail thumbnail-1"><img src="img/service-1.jpg" alt="">
-                            <section><a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-
-                                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate
-                                    nonprovident similique sunt in culpa.</p>
-                            </section>
-                        </div>
-                    </li>
-                    <li class="span4">
-                        <div class="thumbnail thumbnail-1"><img src="img/service-2.jpg" alt="">
-                            <section><a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-
-                                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate
-                                    nonprovident similique sunt in culpa.</p>
-                            </section>
-                        </div>
-                    </li>
-                    <li class="span4">
-                        <div class="thumbnail thumbnail-1"><img src="img/service-3.jpg" alt="">
-                            <section><a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-
-                                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate
-                                    nonprovident similique sunt in culpa.</p>
-                            </section>
-                        </div>
-                    </li>
-                    <li class="span4">
-                        <div class="thumbnail thumbnail-1"><img src="img/service-4.jpg" alt="">
-                            <section><a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-
-                                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate
-                                    nonprovident similique sunt in culpa.</p>
-                            </section>
-                        </div>
-                    </li>
-                    <li class="span4">
-                        <div class="thumbnail thumbnail-1"><img src="img/service-5.jpg" alt="">
-                            <section><a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-
-                                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate
-                                    nonprovident similique sunt in culpa.</p>
-                            </section>
-                        </div>
-                    </li>
-                    <li class="span4">
-                        <div class="thumbnail thumbnail-1"><img src="img/service-6.jpg" alt="">
-                            <section><a href="#" class="link-1">At vero eos et accusamus et iusto </a>
-
-                                <p>Deleniti atque corrupti quos dolores molestias excepturi sint occaecati cupiditate
-                                    nonprovident similique sunt in culpa.</p>
-                            </section>
-                        </div>
-                    </li>
-                </ul>
+                <div id="chart_div">${products}</div>
             </div>
         </div>
     </div>
 </div>
-<!--============================== footer =================================-->
+<!-- footer -->
 <footer>
     <div class="container clearfix">
         <ul class="list-social pull-right">
@@ -181,8 +158,7 @@
             <li><a class="icon-3" href="#"></a></li>
             <li><a class="icon-4" href="#"></a></li>
         </ul>
-        <div class="privacy pull-left">&copy; 2013 | <a href="http://www.dzyngiri.com">Dzyngiri</a> | Demo Illustrations
-            by <a href="http://justinmezzell.com">Justin Mezzell</a></div>
+        <div class="privacy pull-left">&copy; 2016 | Best Java Junior Developers |</div>
     </div>
 </footer>
 <script src="js/bootstrap.js"></script>
