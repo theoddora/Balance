@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import com.balance.security.SecurityUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.balance.dao.ProductDao;
 import com.balance.dao.UserDAO;
 import com.balance.model.Order;
 import com.balance.model.Product;
@@ -31,14 +29,12 @@ import com.balance.service.OrderManager;
 /**
  * Created by ttosheva on 23/11/2016.
  */
+
 @Controller
 public class UserController {
 
     @Autowired
     private UserDAO userDAO;
-
-    @Autowired
-    ProductDao productDao;
 
     @Autowired
     OrderManager orderManager;
@@ -74,13 +70,17 @@ public class UserController {
     @RequestMapping(value = "/log_in", method = RequestMethod.POST)
     public String logInUser(@RequestParam(value = "username") String username,
                             @RequestParam(value = "password") String password,
+                            Errors errors, Model model,
                             HttpServletRequest request) {
+
+        logger.info("A user with username " + username + " wants to log in.");
 
         userDAO.getUser(username, password);
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(60 * 60);
-        //session.setAttribute("user", user);
         session.setAttribute("cart", new HashMap<Product, Double>());
+
+        logger.info("A cart for this user was created - " + username + " - and he log in.");
         return "redirect:/index";
     }
 
@@ -116,7 +116,6 @@ public class UserController {
         if (cart == null) {
             return "/";
         }
-
 
         for (Product product : cart.keySet()) {
             boolean isForKilo = product.getIsForKilo();

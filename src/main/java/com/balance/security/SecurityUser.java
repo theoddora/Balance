@@ -1,11 +1,12 @@
 package com.balance.security;
 
-import com.balance.model.User;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
+import com.balance.model.User;
 
 /**
  * Created by hangelov on 29/11/2016.

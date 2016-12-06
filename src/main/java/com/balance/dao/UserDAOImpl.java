@@ -7,14 +7,11 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.balance.exceptions.EmailAlreadyExistsException;
-import com.balance.exceptions.NoSuchUserException;
-import com.balance.exceptions.PasswordsDontMatchException;
 import com.balance.exceptions.UsernameAlreadyExistsException;
 import com.balance.mail.SendEmail;
 import com.balance.model.User;
@@ -24,15 +21,13 @@ public class UserDAOImpl implements UserDAO {
 
     private NamedParameterJdbcTemplate jdbcTemplateObject;
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
 
     //columns
     private static final String COlUMN_EMAIL = "email";
     private static final String COlUMN_USERNAME = "username";
 
     //error messages
-    private static final String WRONG_PASSWORD = "You have entered a wrong password";
-    private static final String WRONG_USERNAME = "You have entered a wrong username";
     private static final String DUPLICATE_USERNAME = "User with that username already exists.";
     private static final String DUPLICATE_EMAIL = "User with that email already exists.";
 
@@ -41,8 +36,8 @@ public class UserDAOImpl implements UserDAO {
         + "values (?, ?, ?, ?)";
     private static final String COUNT_USER_BY_EMAIL = "SELECT COUNT(*) as users FROM \"user\" WHERE email = :email;";
     private static final String COUNT_USERS_BY_USERNAME = "SELECT COUNT(*) as users FROM \"user\" WHERE username = :username;";
-    private static final String SELECT_USER_BY_EMAIL = "SELECT user_id, username, email, password, name FROM \"user\" WHERE email LIKE :email;";
-    private static final String SELECT_USER_BY_USERNAME = "SELECT user_id, username, email, password, name FROM \"user\" WHERE username LIKE :username;";
+    private static final String SELECT_USER_BY_EMAIL = "SELECT user_id, username, email, password, name, is_admin FROM \"user\" WHERE email LIKE :email;";
+    private static final String SELECT_USER_BY_USERNAME = "SELECT user_id, username, email, password, name, is_admin FROM \"user\" WHERE username LIKE :username;";
     private static final String SELECT_UUID = "SELECT unique_user_id FROM \"user\" WHERE email LIKE :email;";
 
     @Autowired
@@ -57,7 +52,7 @@ public class UserDAOImpl implements UserDAO {
         logger.info("In createUser() method for user with username " + user.getUsername());
         if (exists(COUNT_USER_BY_EMAIL, COlUMN_EMAIL, user.getEmail())) {
             logger.error("Email already exists - " + user.getEmail());
-            throw new EmailAlreadyExistsException(DUPLICATE_EMAIL);
+            throw new EmailAlreadyExistsException(DUPLICATE_EMAIL, null, false,false);
         }
         if (exists(COUNT_USERS_BY_USERNAME, COlUMN_USERNAME, user.getUsername())) {
             logger.error("Username already exists - " + user.getUsername());
@@ -78,21 +73,6 @@ public class UserDAOImpl implements UserDAO {
         email.setCodeVerification(getCodeVerification(user.getEmail()));
         email.start();
         logger.info("Finish createUser() method for user with username " + user.getUsername());
-    }
-
-    //log in
-    @Override
-    public User getUser(String username, String password) throws IncorrectResultSizeDataAccessException, PasswordsDontMatchException {
-
-        User user;
-        if (!exists(COUNT_USERS_BY_USERNAME, COlUMN_USERNAME, username)) {
-            throw new NoSuchUserException(WRONG_USERNAME);
-        }
-        user = findByUsername(username);
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new PasswordsDontMatchException(WRONG_PASSWORD);
-        }
-        return user;
     }
 
     @Override

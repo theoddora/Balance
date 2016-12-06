@@ -124,12 +124,14 @@
 
                     <div class="inner-1">
                         <form method="POST" id="contact-form" action="log_in">
-                            <c:if test="${errorMessage != null}">
-                                <div class="error" style="display:block;"><c:out value="${errorMessage}"/></div>
+                            <c:if test="${sessionScope[\"SPRING_SECURITY_LAST_EXCEPTION\"].message eq 'Bad credentials'}">
+                                <div class="error" style="display:block;">
+                                    <s:message code="balance.invalid_credentials"/>
+                                </div>
                             </c:if>
                             <fieldset>
                                 <div>
-                                    <input name="username" placeholder="Username: "/>
+                                    <input name="username" placeholder="Username: "  cssClass="errors"/>
                                     <br/><br/>
                                 </div>
                                 <div>
@@ -139,7 +141,7 @@
 
                                 <div>
                                     <span>Remember me.</span> <input style="width:50px;" id="remember_me"
-                                                                     name="remember-me" type="checkbox"/>
+                                                                     name="remember-me" type="checkbox"  cssClass="errors"/>
                                     <input style="width:200px;" type="submit" value="Log In"/>
                                 </div>
 
