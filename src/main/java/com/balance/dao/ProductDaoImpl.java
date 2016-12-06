@@ -48,18 +48,16 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Product findProductById(int id) {
+    public Product findProductById(int id)  {
 
 
-        String sql = "Select * from product where product.id = :id ";
+        String sql = "Select * from product where id = :id ";
 
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        Product product = null;
-        List<Product> prods = getJdbcTemplate().query(sql, params, new ProductRowMapper());
-        if (prods.size() > 0) {
-            product = prods.get(0);
-        }
+
+        Product product = getJdbcTemplate().queryForObject(sql, params, new ProductRowMapper());
+
         return product;
     }
 
@@ -147,7 +145,7 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public void decreaseProductByPiece(Integer piece, int id) {
         String sql = "update balance.product  SET  amount_pc = amount_pc - :piece where product.id = : id";
-        Map<String, Object> params = new HashMap<>();
+        Map<String , Object> params = new HashMap<>();
         params.put("id", id);
         params.put("piece", piece);
         getJdbcTemplate().update(sql, params);

@@ -1,28 +1,27 @@
 package com.balance.security;
 
-import com.balance.model.User;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
+import com.balance.model.User;
 
 /**
  * Created by hangelov on 29/11/2016.
  */
 public class SecurityUser implements UserDetails {
 
-
-    private String username;
-    private String password;
-    private long id;
+    private User user;
     private List<GrantedAuthority> authorities;
 
     public SecurityUser(User user, List<GrantedAuthority> authorities) {
-        this.id = user.getId();
-        if(user!=null)
-        this.username = user.getUsername();
-        this.password = user.getPassword();
+
+        if (user == null) {
+            return;
+        }
+        this.user = user;
         this.authorities = authorities;
     }
 
@@ -33,12 +32,12 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.username;
+        return user.getUsername();
     }
 
     @Override
@@ -59,13 +58,5 @@ public class SecurityUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 }

@@ -73,7 +73,7 @@
 
                         <div class="nav-collapse nav-collapse_  collapse">
                             <ul class="nav sf-menu">
-                                <li class="active">
+                                <li>
                                     <s:url value="/index" var="index"/>
                                     <a href="${index}"><s:message code="balance.home"/></a>
                                 </li>
@@ -84,26 +84,27 @@
 
                                 <sec:authorize access="isAuthenticated()">
                                     <sec:authentication var="username" property="principal.username"/>
-                                    <li class="sub-menu"><a><c:out value="${username}"/></a>
-                                        <s:url value="/${username}" var="profileUrl"/>
+                                    <li class="sub-menu"><a><c:out value="${username}"/> </a>
+
                                         <ul>
-                                            <a href="${profileUrl}">
-                                                <s:message code="balance.profile_page"/>
-                                            </a>
-                                                <s:url value="/log_out" var="log_out"/>
-                                            <a href="${log_out}"><s:message code="balance.log_out"/></a>
+                                            <s:url value="/${username}" var="profileUrl"/>
+                                            <a href="${profileUrl}"><s:message code="balance.profile_page"/></a>
+                                            <a href="<c:url value="/log_out"/>"><s:message code="balance.log_out"/></a>
                                         </ul>
                                     </li>
 
                                 </sec:authorize>
 
+
                                 <sec:authorize access="isAnonymous()">
-                                 <li><s:url value="/registration" var="registration"/>
-                                    <a href="${registration}"><s:message code="balance.register"/></a>
-                                </li>
-                                <li><s:url value="/log_in" var="logIn"/>
-                                    <a href="${logIn}"><s:message code="balance.log_in"/></a>
-                                </li>
+
+
+                                    <li><s:url value="/registration" var="registration"/>
+                                        <a href="${registration}"><s:message code="balance.register"/></a>
+                                    </li>
+                                    <li><s:url value="/log_in" var="logIn"/>
+                                        <a href="${logIn}"><s:message code="balance.log_in"/></a>
+                                    </li>
                                 </sec:authorize>
 
 
@@ -112,43 +113,28 @@
                     </div>
                 </div>
             </div>
-        </div><!-- / END NAV-BAR FORM -->
+        </div>
+        <!-- / END NAV-BAR FORM -->
     </div>
+
 </header>
 
 <div class="bg-content">
-    <div class="container">
-        <div class="row">
-            <div class="span12">
-                <br/>
-                <span id="responsiveFlag"></span>
+    <!--  content  -->
+    <div id="content">
+        <div class="container">
+            <div class="row ">
+                <div class="span12">
+                    <div class="block-404"><img class="img-404" src="img/email.jpg" alt="">
 
-                <div class="block-slogan">
-                    <h2>balance.com</h2>
+                        <div class="box-404">
+                            <h3><s:message code="balance.emailSent"/></h3>
 
-                    <div>
-                        <br/>
-
-                        <p><s:message code="balance.welcomeMessage"/></p>
+                        </div>
                     </div>
                 </div>
-
-                <!-- slider -->
-                <div class="flexslider">
-                    <ul class="slides">
-                        <li><img height="400" src="img/slide-1.jpg" alt=""></li>
-                        <li><img height="400" src="img/slide-2.jpg" alt=""></li>
-                        <li><img height="400" src="img/slide-3.jpg" alt=""></li>
-                        <li><img height="400" src="img/slide-4.jpg" alt=""></li>
-                        <li><img height="400" src="img/slide-5.jpg" alt=""></li>
-                    </ul>
-                </div>
-
             </div>
         </div>
-    </div>
-    <!-- content -->
-    <div id="content" class="content-extra">
     </div>
 </div>
 <!-- footer -->

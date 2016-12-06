@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,27 +57,52 @@
 <!-- header -->
 <header>
     <div class="container clearfix">
+        <s:url value="/index" var="index"/>
         <div class="row">
             <div class="span12">
                 <div class="navbar navbar_">
                     <div class="container">
-                        <h1 class="brand brand_"><a href="index.jsp"><img alt="" src="img/logo.png"> </a></h1>
+                        <h1 class="brand brand_"><a href="${index}"><img alt="" src="img/logo.png" width="350px"> </a>
+                        </h1>
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse_">Menu <span
                                 class="icon-bar"></span> </a>
 
                         <div class="nav-collapse nav-collapse_  collapse">
                             <ul class="nav sf-menu">
-                                <li><a href="index.jsp">Home</a></li>
-                                <li class="active"><a href="work.jsp">Work</a></li>
-                                <li><a href="cart.jsp">Blog</a></li>
-                                <li class="sub-menu"><a href="process.html">Process</a>
-                                    <ul>
-                                        <li><a href="#">Process 01</a></li>
-                                        <li><a href="#">Process 02</a></li>
-                                        <li><a href="#">Process 03</a></li>
-                                    </ul>
+                                <li>
+                                    <a href="${index}"><s:message code="balance.home"/></a>
                                 </li>
-                                <li><a href="register.jsp">Contact</a></li>
+                                <li class="active">
+                                    <s:url value="/product" var="product"/>
+                                    <a href="${product}"><s:message code="balance.product"/></a>
+                                </li>
+
+                                <sec:authorize access="isAuthenticated()">
+                                    <sec:authentication var="username" property="principal.username"/>
+                                    <li class="sub-menu"><a><c:out value="${username}"/> </a>
+
+                                        <ul>
+                                            <s:url value="/${username}" var="profileUrl"/>
+                                            <a href="${profileUrl}"><s:message code="balance.profile_page"/></a>
+                                            <a href="<c:url value="/log_out"/>"><s:message code="balance.log_out"/></a>
+                                        </ul>
+                                    </li>
+
+                                </sec:authorize>
+
+
+                                <sec:authorize access="isAnonymous()">
+
+
+                                    <li><s:url value="/registration" var="registration"/>
+                                        <a href="${registration}"><s:message code="balance.register"/></a>
+                                    </li>
+                                    <li><s:url value="/log_in" var="logIn"/>
+                                        <a href="${logIn}"><s:message code="balance.log_in"/></a>
+                                    </li>
+                                </sec:authorize>
+
+
                             </ul>
                         </div>
                     </div>
@@ -89,48 +115,64 @@
 
 <!-- Content -->
 
+<div class="bg-content">
+    <!-- content -->
+    <div id="content">
+        <div class="ic"></div>
+        <div class="container">
+            <div class="row">
+                <article class="span12">
+                    <h4></h4>
+                </article>
+                <div class="clear"></div>
+                <ul class="thumbnails thumbnails-1 list-services">
+                    <c:forEach items="${products}" var="product">
+                        <li class="span4">
+                            <div class="thumbnail thumbnail-1"><img src="img/work/${product.name}.jpg" alt="">
+                                <section><a class="link-1"><c:out value="${product.name}"/></a>
 
-<div class="container">
+                                    <p>
+                                        <c:choose>
+                                        <c:when test="${product.isForKilo}">
 
+                                    <form action="${pageContext.request.contextPath}/product" method="POST">
+                                        <input type="text" name="amount" placeholder="Amount...">
+                                        <button type="submit" value="${product.id}" name="productId" class="btn btn-1">
+                                            Buy
+                                        </button>
+                                    </form>
+                                    </c:when>
+                                    <c:when test="${not product.isForKilo}">
+                                        <form action="${pageContext.request.contextPath}/product" method="POST">
+                                            <input type="text" list="amount" name="amount" placeholder="Enter pieces">
+                                            <datalist id="amount" name="amount">
+                                                <option value="1">
+                                                <option value="2">
+                                                <option value="3">
+                                                <option value="4">
+                                            </datalist>
+                                            <button type="submit" value="${product.id}" name="productId"
+                                                    class="btn btn-1">Buy
+                                            </button>
+                                        </form>
 
-    <c:forEach items="${products}" var="product">
+                                    </c:when>
+                                    </c:choose>
 
-        <div class="box floating-box"><c:out value="${product.name}"></c:out><img alt=""
-                                                                                  src="img/work/${product.name}.jpg"
-                                                                                  width="100" height="100">
+                                    <c:out value="Price:">Price:</c:out>
+                                        <c:out value="${product.price} lv."></c:out></p>
+                                </section>
+                            </div>
+                        </li>
 
+                    </c:forEach>
 
-            <c:choose>
-                <c:when test="${product.isForKilo}">
-                    <form action="${pageContext.request.contextPath}/product" method="POST">
-                    <input type="text" name="amount" placeholder="Amount...">
-                    <button type="submit" value="${product.id}" name = "productId" class="btn btn-1">Buy</button>
-                    </form>
-                </c:when>
-                <c:when test="${not product.isForKilo}">
-                    <form action="${pageContext.request.contextPath}/product" method="POST">
-                        <input type="text" list="amount" placeholder="Enter pieces">
-                        <datalist id="amount">
-                            <option value="1">
-                            <option value="2">
-                            <option value="3">
-                            <option value="4">
-                        </datalist>
-                        <input type="submit" value="${product.id}">
-                    </form>
-
-                </c:when>
-            </c:choose>
-
-            <c:out value="Price:">Price:</c:out>
-            <c:out value="${product.price} lv."></c:out>
+                </ul>
+            </div>
         </div>
-
-
-    </c:forEach>
-
-
+    </div>
 </div>
+
 <!-- footer -->
 <footer>
     <div class="container clearfix">
@@ -140,8 +182,7 @@
             <li><a class="icon-3" href="#"></a></li>
             <li><a class="icon-4" href="#"></a></li>
         </ul>
-        <div class="privacy pull-left">&copy; 2013 | <a href="http://www.dzyngiri.com">Dzyngiri</a> | Demo Illustrations
-            by <a href="http://justinmezzell.com">Justin Mezzell</a></div>
+        <div class="privacy pull-left">&copy; 2016 | Best Java Junior Developers |</div>
     </div>
 </footer>
 <script src="js/bootstrap.js"></script>

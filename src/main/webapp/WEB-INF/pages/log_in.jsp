@@ -76,16 +76,15 @@
                             <ul class="nav sf-menu">
                                 <li>
                                     <s:url value="/index" var="index"/>
-                                    <a href="${index}"><s:message code="balance.home" /></a>
+                                    <a href="${index}"><s:message code="balance.home"/></a>
                                 </li>
                                 <li>
                                     <s:url value="/product" var="product"/>
-                                    <a href="${product}"><s:message code="balance.product" /></a>
+                                    <a href="${product}"><s:message code="balance.product"/></a>
                                 </li>
-                                <li><a href="blog.html">Blog</a></li>
                                 <c:choose>
-                                    <c:when test= "${!empty sessionScope.email}">
-                                        <li class="sub-menu"><a href="process.html">Process</a>
+                                    <c:when test="${!empty sessionScope.email}">
+                                        <li class="sub-menu"><a href="profile_page.jsp">Process</a>
                                             <ul>
                                                 <li><a href="#">Process 01</a></li>
                                                 <li><a href="#">Process 02</a></li>
@@ -95,10 +94,10 @@
                                     </c:when>
                                     <c:otherwise>
                                         <li><s:url value="/registration" var="registration"/>
-                                            <a href="${registration}"><s:message code="balance.register" /></a>
+                                            <a href="${registration}"><s:message code="balance.register"/></a>
                                         </li>
                                         <li class="active"><s:url value="/log_in" var="logIn"/>
-                                            <a href="${logIn}"><s:message code="balance.log_in" /></a>
+                                            <a href="${logIn}"><s:message code="balance.log_in"/></a>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>
@@ -125,23 +124,27 @@
 
                     <div class="inner-1">
                         <form method="POST" id="contact-form" action="log_in">
-                            <c:if test="${errorMessage != null}">
-                                <div class="error" style="display:block;"><c:out value="${errorMessage}"/></div>
+                            <c:if test="${sessionScope[\"SPRING_SECURITY_LAST_EXCEPTION\"].message eq 'Bad credentials'}">
+                                <div class="error" style="display:block;">
+                                    <s:message code="balance.invalid_credentials"/>
+                                </div>
                             </c:if>
                             <fieldset>
                                 <div>
-                                    <label> Username: </label>
-                                    <input name="username"/>
-                                    <br>
+                                    <input name="username" placeholder="Username: "  cssClass="errors"/>
+                                    <br/><br/>
                                 </div>
                                 <div>
-                                    <label> Password: </label>
-                                    <input type="password" name="password"/>
-                                    <br>
+                                    <input type="password" name="password" placeholder="Password: "/>
+                                    <br/><br/>
                                 </div>
-                                <div class="buttons-wrapper">
-                                    <input class="btn btn-1" type="submit" value="Log In"/>
+
+                                <div>
+                                    <span>Remember me.</span> <input style="width:50px;" id="remember_me"
+                                                                     name="remember-me" type="checkbox"  cssClass="errors"/>
+                                    <input style="width:200px;" type="submit" value="Log In"/>
                                 </div>
+
                             </fieldset>
                         </form>
                     </div>

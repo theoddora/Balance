@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -36,10 +38,21 @@ public class ProductController {
     //cart
 
     @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public String addToCart(@RequestParam("productId") int id, @RequestParam("amount") double amount, Model model) {
-        Map<Product, Double> cart = new HashMap<>();
+    public String addToCart(@RequestParam("productId") int id, @RequestParam("amount") double amount, Model model, Principal principal, HttpSession session) {
 
+        if (principal == null) {
+            return "log_in";
+        }
+        Map<Product, Double> cart = (Map<Product, Double>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new HashMap<Product, Double>();
+           session.setAttribute("cart", cart);
+        }
         Product product = productDao.findProductById(id);
+
+        double totalPrice = 0.0;
+        Double priceToShow = 0.0;
+
 
         boolean isForKilo = product.getIsForKilo();
         String message = null;
@@ -49,7 +62,7 @@ public class ProductController {
                 if (isForKilo) {
                     productDao.decreaseProductByKilo(amount, id);
                 } else {
-                    productDao.decreaseProductByPiece((int) amount, id);
+                    productDao.decreaseProductByPiece( (int)amount, id);
                 }
             }
             cart.put(product, amount);
@@ -60,9 +73,21 @@ public class ProductController {
             double currentAmount = productDao.getCurrentAmount(id, isForKilo);
             message = "There is not enough amount from " + product.getName() + ". The current amount is " + currentAmount + ".";
         }
+        for (Product productInCart : cart.keySet()) {
+            double price = productInCart.getPrice() - (productInCart.getPrice()*productInCart.getDiscount());
+            totalPrice += cart.get(productInCart)*price;
+        }
+        priceToShow = totalPrice;
+        priceToShow = Math.floor(priceToShow * 100) / 100;
+        if(priceToShow == 0 ){
+            priceToShow = 10.0;
+        }
+
         model.addAttribute("message", message);
         model.addAttribute("cart", cart);
+        session.setAttribute("priceToShow", priceToShow);
         return "cart";
+
 
     }
 

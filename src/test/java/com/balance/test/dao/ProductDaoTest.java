@@ -21,13 +21,19 @@ public class ProductDaoTest {
     @Autowired
     ProductDao productDao;
 
-
+//    @Test
+//    public void testFindProductById() throws  Exception{
+//
+//        Assert.assertNotNull(productDao);
+//
+//    }
 
 
 
     @Test
     public void testFindProductById() throws  Exception{
-        Assert.assertNotNull(productDao.findProductById(6));
+
+        Assert.assertNotNull(productDao.getAllProducts());
 
     }
 
