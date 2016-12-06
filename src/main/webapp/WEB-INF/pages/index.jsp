@@ -4,7 +4,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html lang="en">
+<html >
 <head>
     <title><s:message code="balance.title"/></title>
     <meta charset="utf-8">
@@ -73,7 +73,7 @@
 
                         <div class="nav-collapse nav-collapse_  collapse">
                             <ul class="nav sf-menu">
-                                <li class="active">
+                                <li>
                                     <s:url value="/index" var="index"/>
                                     <a href="${index}"><s:message code="balance.home"/></a>
                                 </li>
@@ -81,6 +81,25 @@
                                     <s:url value="/product" var="product"/>
                                     <a href="${product}"><s:message code="balance.product"/></a>
                                 </li>
+
+
+                                <sec:authorize access="isAuthenticated() and hasRole('ADMIN')">
+
+                                    <li>
+                                        <s:url value="/addproducts" var="addproduct"/>
+                                        <a href="${addproduct}"><s:message code="balance.addproduct"/></a>
+                                    </li>
+
+                                </sec:authorize>
+
+                                <sec:authorize access="isAuthenticated() and hasRole('ADMIN')">
+
+                                    <li>
+                                        <s:url value="/manageproducts" var="manageproduct"/>
+                                        <a href="${manageproduct}"><s:message code="balance.manageproducts"/></a>
+                                    </li>
+
+                                </sec:authorize>
 
                                 <sec:authorize access="isAuthenticated()">
                                 <sec:authentication var="username" property="principal.username"/>
@@ -97,14 +116,7 @@
                                 </sec:authorize>
 
 
-                                <sec:authorize access="isAuthenticated()">
 
-                                    <li>
-                                        <s:url value="/addproducts" var="addproduct"/>
-                                        <a href="${addproduct}"><s:message code="balance.addproduct"/></a>
-                                    </li>
-
-                                </sec:authorize>
 
 
 

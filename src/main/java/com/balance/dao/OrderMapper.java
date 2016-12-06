@@ -1,13 +1,13 @@
 package com.balance.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
 
 import com.balance.model.Order;
 import com.balance.model.Product;
 import com.balance.model.User;
-import org.springframework.jdbc.core.RowMapper;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Created by hangelov on 01/12/2016.

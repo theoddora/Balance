@@ -3,7 +3,6 @@ package com.balance.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.balance.dao.UserDAOImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.balance.dao.UserDAO;
+import com.balance.dao.UserDAOImpl;
 import com.balance.model.User;
 
 /**
@@ -29,7 +29,6 @@ public class BalanceUserService implements UserDetailsService {
     public BalanceUserService(UserDAO userDao) {
         this.userDao = userDao;
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -49,7 +48,6 @@ public class BalanceUserService implements UserDetailsService {
         logger.info("A user has logged in - " + username);
         return new SecurityUser(user, authorities);
     }
-
 
 }
 

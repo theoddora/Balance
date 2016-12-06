@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.balance.dao.ProductDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    ProductDao productDao;
 
     @Autowired
     OrderManager orderManager;
@@ -75,7 +79,7 @@ public class UserController {
 
         logger.info("A user with username " + username + " wants to log in.");
 
-        userDAO.getUser(username, password);
+
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(60 * 60);
         session.setAttribute("cart", new HashMap<Product, Double>());

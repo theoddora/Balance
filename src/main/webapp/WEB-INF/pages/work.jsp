@@ -129,7 +129,7 @@
                 <ul class="thumbnails thumbnails-1 list-services">
                     <c:forEach items="${products}" var="product">
                         <li class="span4">
-                            <div class="thumbnail thumbnail-1"><img src="img/work/${product.name}.jpg" alt="">
+                            <div class="thumbnail thumbnail-1"><img src="img/work/${product.name}.jpg" alt="" width="800" height="800">
                                 <section><a class="link-1"><c:out value="${product.name}"/></a>
                                     <c:if test="${product.discount > 0}">
 

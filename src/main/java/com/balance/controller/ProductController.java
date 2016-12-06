@@ -1,7 +1,13 @@
 package com.balance.controller;
 
-import com.balance.dao.ProductDao;
-import com.balance.model.Product;
+import java.io.File;
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,21 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.balance.dao.ProductDao;
+import com.balance.model.Product;
 
 @Controller
 public class ProductController {
 
-
     @Autowired
     ProductDao productDao;
-
 
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public String getProducts(Model model) {
@@ -46,7 +45,7 @@ public class ProductController {
         Map<Product, Double> cart = (Map<Product, Double>) session.getAttribute("cart");
         if (cart == null) {
             cart = new HashMap<Product, Double>();
-           session.setAttribute("cart", cart);
+            session.setAttribute("cart", cart);
         }
         Product product = productDao.findProductById(id);
 
@@ -63,7 +62,7 @@ public class ProductController {
             message = "The selected amount has been added to the cart";
 
         } else {
-            if(cart.containsKey(product)){
+            if (cart.containsKey(product)) {
                 cart.remove(product);
             }
             double currentAmount = productDao.getCurrentAmount(id, isForKilo);
@@ -71,8 +70,8 @@ public class ProductController {
         }
         for (Product productInCart : cart.keySet()) {
 
-            double price = productInCart.getPrice() - (productInCart.getPrice()*productInCart.getDiscount());
-            totalPrice += cart.get(productInCart)*price;
+            double price = productInCart.getPrice() - (productInCart.getPrice() * productInCart.getDiscount());
+            totalPrice += cart.get(productInCart) * price;
 
         }
         priceToShow = totalPrice;
@@ -141,14 +140,14 @@ public class ProductController {
 
     //inserting product
     @RequestMapping(value = "/addproducts", method = RequestMethod.POST)
-    public String addProducts(Product product, @RequestParam ("file")MultipartFile
-            file) {
+    public String addProducts(Product product, @RequestParam("file") MultipartFile
+        file) {
 
         productDao.insertProduct(product);
         String productName = product.getName();
 
         try {
-            file.transferTo(new File(productName  + ".jpg"));
+            file.transferTo(new File(productName + ".jpg"));
 
         } catch (Exception e) {
             System.out.println(e);
@@ -163,7 +162,7 @@ public class ProductController {
     public String manageProductsJSP(Model model) {
 
         List<Product> products = productDao.getAllProducts();
-        for(Product product : products){
+        for (Product product : products) {
             System.out.println(product);
         }
         model.addAttribute("products", products);
@@ -175,13 +174,8 @@ public class ProductController {
     @RequestMapping(value = "/manageproducts", method = RequestMethod.POST)
     public String manageProducts(Model model) {
 
-
-
         return "manageproducts";
 
     }
-
-
-
 
 }
