@@ -98,8 +98,8 @@
                                     <a href="${index}"><s:message code="balance.home"/></a>
                                 </li>
                                 <li>
-                                    <s:url value="/product" var="product"/>
-                                    <a href="${product}"><s:message code="balance.product"/></a>
+                                    <s:url value="/product" var="product1"/>
+                                    <a href="${product1}"><s:message code="balance.product"/></a>
                                 </li>
                                 <!-- ADMIN STUFF -->
                                 <sec:authorize access="isAuthenticated() and hasRole('ADMIN')">
