@@ -143,6 +143,7 @@
     <div id="content">
         <div class="ic"></div>
         <div class="container">
+            <br/>
             <div class="row">
                 <div id="chart_div">${products}</div>
             </div>

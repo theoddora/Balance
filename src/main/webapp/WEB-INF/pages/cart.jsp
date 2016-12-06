@@ -101,7 +101,7 @@
 
                         <div class="nav-collapse nav-collapse_  collapse">
                             <ul class="nav sf-menu">
-                                <li class="active">
+                                <li>
                                     <s:url value="/index" var="index"/>
                                     <a href="${index}"><s:message code="balance.home"/></a>
                                 </li>
@@ -120,7 +120,7 @@
                                             </a>
                                         </ul>
                                     </li>
-                                    <li>
+                                    <li class="active">
                                         <s:url value="/cart" var="cart"/>
                                         <a href="${cart}"><i class="fa fa-shopping-cart fa-lg"
                                                              aria-hidden="true"></i></a>
