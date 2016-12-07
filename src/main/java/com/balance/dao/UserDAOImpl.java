@@ -37,8 +37,8 @@ public class UserDAOImpl implements UserDAO {
         + "values (?, ?, ?, ?)";
     private static final String COUNT_USER_BY_EMAIL = "SELECT COUNT(*) as users FROM \"user\" WHERE email = :email;";
     private static final String COUNT_USERS_BY_USERNAME = "SELECT COUNT(*) as users FROM \"user\" WHERE username = :username;";
-    private static final String SELECT_USER_BY_EMAIL = "SELECT user_id, username, email, password, name, is_admin FROM \"user\" WHERE email LIKE :email;";
-    private static final String SELECT_USER_BY_USERNAME = "SELECT user_id, username, email, password, name, is_admin FROM \"user\" WHERE username LIKE :username;";
+    private static final String SELECT_USER_BY_EMAIL = "SELECT user_id, username, email, password, name, is_admin FROM \"user\" WHERE email = :email;";
+    private static final String SELECT_USER_BY_USERNAME = "SELECT user_id, username, email, password, name, is_admin FROM \"user\" WHERE username = :username;";
     private static final String SELECT_UUID = "SELECT unique_user_id FROM \"user\" WHERE email LIKE :email;";
 
     @Autowired
@@ -53,14 +53,13 @@ public class UserDAOImpl implements UserDAO {
         logger.info("In createUser() method for user with username " + user.getUsername());
         if (exists(COUNT_USER_BY_EMAIL, COlUMN_EMAIL, user.getEmail())) {
             logger.error("Email already exists - " + user.getEmail());
-            throw new EmailAlreadyExistsException(DUPLICATE_EMAIL, null, false,false);
+            throw new EmailAlreadyExistsException(DUPLICATE_EMAIL);
         }
         if (exists(COUNT_USERS_BY_USERNAME, COlUMN_USERNAME, user.getUsername())) {
             logger.error("Username already exists - " + user.getUsername());
             throw new UsernameAlreadyExistsException(DUPLICATE_USERNAME);
         }
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(user.getPassword());
 
         jdbcTemplateObject.getJdbcOperations().update(INSERT_USER,

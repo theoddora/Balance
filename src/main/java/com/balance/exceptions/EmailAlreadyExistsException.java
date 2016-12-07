@@ -5,7 +5,7 @@ package com.balance.exceptions;
  */
 public class EmailAlreadyExistsException extends RuntimeException {
 
-    public EmailAlreadyExistsException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public EmailAlreadyExistsException(String message) {
+        super(message);
     }
 }

@@ -191,7 +191,7 @@
                         <h3>
                             Total price:
                             <span id="totalPrice">{{${priceToShow} | number : 2}}</span> levs.
-                            <input type="button" onclick="location.href = '/addToBuy'" value="BUY PRODUCTS"
+                            <input type="button" onclick="location.href = 'addToBuy'" value="BUY PRODUCTS"
                                    class="btn btn-1">
                         </h3>
                     </article>

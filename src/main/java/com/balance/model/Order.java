@@ -3,7 +3,7 @@ package com.balance.model;
 /**
  * Created by hangelov on 28/11/2016.
  */
-public class Order {
+public class Order implements Comparable<Order> {
 
     private User user;
     private double amount;
@@ -60,5 +60,10 @@ public class Order {
         int result = user.hashCode();
         result = 31 * result + product.hashCode();
         return result;
+    }
+
+    @Override
+    public int compareTo(Order o) {
+        return product.compareTo(o.getProduct());
     }
 }

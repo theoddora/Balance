@@ -49,33 +49,41 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
     <![endif]-->
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        google.load('visualization', '1.0', {
-            'packages': ['corechart']
-        });
-
-        google.setOnLoadCallback(drawChart);
-
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
 
             var data = google.visualization.arrayToDataTable([
-                ['Fruits/Vegetables', 'Amounth'],
-                <c:forEach items="${products}" var="entry">
-                ['${entry.key}', ${entry.value}],
+                ['Fruit/Vegetables', 'Amount'],
+                <c:forEach var="ord" items="${orders}" varStatus="stat">
+                ['${ord.product.name}', ${ord.amount}]
+
+                <c:if test="${!stat.last}">
+                ,
+                </c:if>
                 </c:forEach>
             ]);
 
             var options = {
+                title: 'My Last Order Activities',
                 is3D: true,
-                pieSliceText: 'label',
-                tooltip: {showColorCode: true},
-                'height': 400
+                pieHole: 0.4,
+                backgroundColor: 'none',
+                fontSize: 15,
+                legend: {
+                    textStyle: {
+                        color: 'white'
+                    }
+                },
             };
 
-            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
             chart.draw(data, options);
         }
+        ;
     </script>
 </head>
 <body>
@@ -140,7 +148,8 @@
                                     </li>
                                     <li>
                                         <s:url value="/cart" var="cart"/>
-                                        <a href="${cart}"><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></a>
+                                        <a href="${cart}"><i class="fa fa-shopping-cart fa-lg"
+                                                             aria-hidden="true"></i></a>
                                     </li>
                                 </sec:authorize>
 
@@ -166,12 +175,22 @@
 <div class="bg-content">
     <!-- content -->
     <div id="content">
-        <div class="ic"></div>
+        <div class="ic">
+
+            <c:out value="${orders.size()}"></c:out>
+
+        </div>
         <div class="container">
             <br/>
+
+            <h3>Last order made: </h3>
+
             <div class="row">
-                <div id="chart_div">${products}</div>
+                <div id="piechart" style="width: 900px; height: 500px;"></div>
             </div>
+
+
+            <br/>
         </div>
     </div>
 </div>

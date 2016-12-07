@@ -46,7 +46,7 @@ public class OrderDaoImpl implements OrderDao {
         params.put("userId", userId);
 
         List<Order> orders = getJdbcTemplate().query(sql, params, new OrderMapper(new ProductRowMapper(), new UserMapper()));
-        Set<Order> uniqueOrders = new HashSet<>();
+        Set<Order> uniqueOrders = new TreeSet<>();
         for (Order order : orders) {
             uniqueOrders.add(order);
         }

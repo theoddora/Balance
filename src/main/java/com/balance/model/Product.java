@@ -3,7 +3,7 @@ package com.balance.model;
 /**
  * Created by hangelov on 21/11/2016.
  */
-public class Product {
+public class Product implements Comparable<Product> {
 
     private Integer id;
     private String productType;
@@ -119,5 +119,13 @@ public class Product {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        if (name.compareTo(o.getName()) == 0) {
+            return price.compareTo(o.getPrice());
+        }
+        return name.compareTo(o.getName());
     }
 }
