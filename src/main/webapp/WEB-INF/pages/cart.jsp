@@ -45,33 +45,7 @@
             });
         });
     </script>
-    <script>
-        var app = angular.module('myApp', ['smart-table']);
-        app.controller('mainCtrl', ['$scope', function (scope) {
-            scope.rnowCollectio = [
-                <c:forEach var="product" items="${currentCart}" varStatus="status">
 
-                {
-                    name: '${product.key.name}',
-                    type: '${product.key.productType}',
-                    price: '${product.key.price}',
-                    amount: '${product.value}'
-                }
-
-                <c:if test="${!status.last}">
-                ,
-                </c:if>
-                </c:forEach>
-            ];
-
-            scope.removeRow = function removeRow(row) {
-                var index = scope.rowCollection.indexOf(row);
-                if (index !== -1) {
-                    scope.rowCollection.splice(index, 1);
-                }
-            }
-        }]);
-    </script>
     <!--[if lt IE 8]>
     <div style='text-align:center'><a
             href="http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode"><img
@@ -148,7 +122,8 @@
                                     </li>
                                     <li class="active">
                                         <s:url value="/cart" var="cart"/>
-                                        <a href="${cart}"><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></a>
+                                        <a href="${cart}"><i class="fa fa-shopping-cart fa-lg"
+                                                             aria-hidden="true"></i></a>
                                     </li>
                                 </sec:authorize>
 
@@ -174,42 +149,66 @@
 <div class="bg-content">
     <!--  content  -->
     <div class="container">
-
-        <br/>
-        <h2><c:out value="${message}"/></h2>
-        <br/>
-        <table st-table="displayedCollection" st-safe-src="rowCollection"  class="table-fill">
-            <thead>
-            <tr>
-                <th class="text-left">Products</th>
-                <th class="text-left">Type</th>
-                <th class="text-left">Price</th>
-                <th class="text-left">Amount</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="row in rowCollection">
-                <td class="text-left">{{row.name}}</td>
-                <td class="text-left">{{row.type}}</td>
-                <td class="text-left">{{row.price | currency}}</td>
-                <td class="text-left">{{row.amount | currency}}</td>
-                <td class="text-left">
-                    <button type="button" ng-click="removeRow(row)" class="btn btn-sm btn-danger">
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-
         <article class="span8">
-            <h3>
-                Total price: <c:out value="${priceToShow}"/> levs.
-                <c:if test="${fn:length(cart) > 0}">
-                    <input type="button" onclick="location.href = '/addToBuy'" value="BUY PRODUCTS" class="btn btn-1" >
-                </c:if>
-            </h3>
+
+
+            <c:set value="${currentCart}" var="product"/>
+            <br/>
+            <c:choose>
+                <c:when test="${currentCart.size() > 0}">
+
+                    <h2><c:out value="${message}"/></h2>
+                    <br/>
+                    <table st-table="displayedCollection" st-safe-src="rowCollection" class="table-fill">
+                        <thead>
+                        <tr>
+                            <th class="text-left">Products</th>
+                            <th class="text-left">Type</th>
+                            <th class="text-left">Price</th>
+                            <th class="text-left">Amount</th>
+                            <th class="text-left">Discount</th>
+                            <th class="text-left">Remove</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in rowCollection">
+                            <td class="text-left">{{row.name}}</td>
+                            <td class="text-left">{{row.type}}</td>
+                            <td class="text-left">{{row.price | currency}}</td>
+                            <td class="text-left">{{row.amount | number : 2}}</td>
+                            <td class="text-left">{{row.discount * 100 | number : 0}} %</td>
+                            <td class="text-left">
+                                <button type="button" ng-click="removeRow(row)" class="btn btn-sm btn-danger"
+                                        value="{{row.id}}">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <article class="span8">
+                        <h3>
+                            Total price:
+                            <span id="totalPrice">{{${priceToShow} | number : 2}}</span> levs.
+                            <input type="button" onclick="location.href = '/addToBuy'" value="BUY PRODUCTS"
+                                   class="btn btn-1">
+                        </h3>
+                    </article>
+
+                </c:when>
+                <c:otherwise>
+                    <h3>
+                        Your cart is empty.
+                    </h3>
+                </c:otherwise>
+
+            </c:choose>
+
+            <br/>
+        </article>
+        <article class="span3"><br/>
+            <img src="img/shopper.jpg">
         </article>
     </div>
 </div>
@@ -226,7 +225,52 @@
     </div>
 </footer>
 <script src="js/bootstrap.js"></script>
+<script>
 
+    var app = angular.module('myApp', ['smart-table']);
+    app.controller('mainCtrl', ['$scope', function (scope) {
+        scope.rowCollection = [
+            <c:forEach var="product" items="${currentCart}" varStatus="stat">
+            {
+                name: '${product.key.name}',
+                type: '${product.key.productType}',
+                price: '${product.key.price}',
+                amount: '${product.value}',
+                discount: '${product.key.discount}',
+                id: '${product.key.id}'
+            }
+            <c:if test="${!stat.last}">
+            ,
+            </c:if>
+            </c:forEach>
+        ];
+
+        scope.removeRow = function removeRow(row) {
+            var index = scope.rowCollection.indexOf(row);
+            if (index !== -1) {
+                $.ajax(
+                        {
+                            dataType: 'text',
+                            type: "POST",
+                            url: 'removeFromCart',
+                            data: {
+                                id: scope.rowCollection[index].id
+                            },
+                            success: function (successData) {
+                                if (successData < 0) {
+                                    successData = 0;
+                                }
+                                document.getElementById('totalPrice').innerHTML = successData;
+                            }
+                        }
+                );
+                scope.rowCollection.splice(index, 1);
+            }
+        }
+
+    }]);
+
+</script>
 
 </body>
 </html>

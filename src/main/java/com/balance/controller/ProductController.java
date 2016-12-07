@@ -16,18 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.balance.dao.ProductDao;
 import com.balance.model.Product;
 
-
 @Controller
 public class ProductController {
 
-
     @Autowired
     ProductDao productDao;
-
 
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public String getProducts(Model model) {
@@ -57,49 +55,43 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public String addToCart(@RequestParam("productId") int id, @RequestParam("amount") double amount, Model model, Principal principal, HttpSession session) {
+    public String addToCart(@RequestParam("productId") int id, @RequestParam("amount") double amount, RedirectAttributes redirectAttributes, Principal principal, HttpSession session) {
 
         if (principal == null) {
             return "log_in";
         }
+
         Map<Product, Double> currentCart = (Map<Product, Double>) session.getAttribute("cart");
         if (currentCart == null) {
             currentCart = new HashMap<Product, Double>();
-            session.setAttribute("currentCart", currentCart);
+            session.setAttribute("cart", currentCart);
         }
 
         Product product = productDao.findProductById(id);
-
-        double totalPrice = 0.0;
-        Double priceToShow = 0.0;
-
+        double priceToShow = 0.0;
 
         boolean isForKilo = product.getIsForKilo();
         String message;
-        
-        if (productDao.hasEnoughAmount(amount, id, isForKilo)) {
 
+        if (productDao.hasEnoughAmount(amount, id, isForKilo)) {
             currentCart.put(product, amount);
             message = "The selected amount has been added to the cart";
-
+            redirectAttributes.addAttribute("message", message);
         } else {
             if (currentCart.containsKey(product)) {
                 currentCart.remove(product);
             }
             double currentAmount = productDao.getCurrentAmount(id, isForKilo);
             message = "There is not enough amount from " + product.getName() + ". The current amount is " + currentAmount + ".";
+            redirectAttributes.addAttribute("message", message);
+            return "redirect:/cart";
         }
-        for (Product productInCart : currentCart.keySet()) {
-
-            double price = productInCart.getPrice() - (productInCart.getPrice() * productInCart.getDiscount());
-            totalPrice += currentCart.get(productInCart) * price;
-
+        for (Map.Entry<Product, Double> productDoubleEntry : currentCart.entrySet()) {
+            priceToShow += (productDoubleEntry.getKey().getPrice()
+                - (productDoubleEntry.getKey().getPrice() * productDoubleEntry.getKey().getDiscount())) * productDoubleEntry.getValue();
         }
-        priceToShow = totalPrice;
-        priceToShow = Math.floor(priceToShow * 100) / 100;
 
-        model.addAttribute("message", message);
-        model.addAttribute("currentCart", currentCart);
+        redirectAttributes.addAttribute("message", message);
         session.setAttribute("priceToShow", priceToShow);
         return "redirect:/cart";
     }
@@ -179,7 +171,7 @@ public class ProductController {
     @RequestMapping(value = "/manageproducts", method = RequestMethod.GET)
     public String manageProductsJSP(Model model) {
 
-      
+
         prepareRender(model);
 
         return "manageproducts";
@@ -198,7 +190,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/addproducttothestore", method = RequestMethod.POST)
-    public String addToTheStore(HttpServletRequest request, Model model){
+    public String addToTheStore(HttpServletRequest request, Model model) {
 
         int id = Integer.parseInt(request.getParameter("productToAdd"));
 
@@ -208,12 +200,11 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/updateproduct", method = RequestMethod.POST)
-    public String updateProducts(HttpServletRequest request, Model model, Product product){
+    public String updateProducts(HttpServletRequest request, Model model, Product product) {
 
         int id = Integer.parseInt(request.getParameter("productToUpdate"));
 
         productDao.updateProduct(id, product);
-
 
 
         prepareRender(model);
@@ -224,12 +215,11 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/addquantity", method = RequestMethod.POST)
-    public String addQuantity(HttpServletRequest request, Model model, Product product){
+    public String addQuantity(HttpServletRequest request, Model model, Product product) {
 
         int id = Integer.parseInt(request.getParameter("quantityToAdd"));
 
         productDao.updateProduct(id, product);
-
 
 
         prepareRender(model);
@@ -238,8 +228,6 @@ public class ProductController {
         return "manageproducts";
 
     }
-
-
 
     private void prepareRender(Model model) {
         List<Product> products = productDao.getAllSellingProducts();
@@ -253,6 +241,4 @@ public class ProductController {
 
 
     }
-
-
 }

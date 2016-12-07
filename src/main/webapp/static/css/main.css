@@ -53,7 +53,7 @@ td {
 .productsInput {
     width: 130px;
     text-align: center;
-}}
+}
 
 div.table-title {
     display: block;
@@ -80,7 +80,6 @@ div.table-title {
     background: white;
     border-radius:3px;
     border-collapse: collapse;
-    height: 320px;
     margin: auto;
     width: 100%;
     padding:5px;
@@ -115,7 +114,7 @@ tr {
     border-top: 1px solid #C1C3D1;
     border-bottom-: 1px solid #C1C3D1;
     color:#666B85;
-    font-size:16px;
+    font-size:14px;
     font-weight:normal;
     text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
 }
@@ -152,12 +151,9 @@ tr:last-child td:last-child {
 }
 
 td {
-    background:#FFFFFF;
-    padding:20px;
-    text-align:left;
-    vertical-align:middle;
-    font-weight:300;
-    font-size:18px;
+    background: #b9a851;
+    padding:5px;
+    font-size:14px;
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
     border-right: 1px solid #C1C3D1;
 }

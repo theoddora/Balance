@@ -158,7 +158,7 @@
 
                     <div class="inner-1">
                         <form method="POST" id="contact-form" action="log_in">
-                            <c:if test="${sessionScope[\"SPRING_SECURITY_LAST_EXCEPTION\"].message eq 'Bad credentials'}">
+                            <c:if test="${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message eq 'Bad credentials'}">
                                 <div class="error" style="display:block;">
                                     <s:message code="balance.invalid_credentials"/>
                                 </div>

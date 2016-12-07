@@ -6,6 +6,8 @@ import org.springframework.context.MessageSource;
 
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -54,5 +56,10 @@ public class RootConfig extends WebMvcConfigurerAdapter {
         LocaleChangeInterceptor changeInterceptor = new LocaleChangeInterceptor();
         changeInterceptor.setParamName("language");
         registry.addInterceptor(changeInterceptor);
+    }
+
+    @Bean
+    public AbstractJackson2HttpMessageConverter getMessageConverter() {
+        return new MappingJackson2HttpMessageConverter();
     }
 }
