@@ -13,7 +13,6 @@ import com.balance.model.User;
  */
 public class SecurityUser implements UserDetails {
 
-
     private String username;
     private String password;
     private long id;
@@ -70,10 +69,6 @@ public class SecurityUser implements UserDetails {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -85,6 +80,5 @@ public class SecurityUser implements UserDetails {
     public void setId(long id) {
         this.id = id;
     }
-
 
 }

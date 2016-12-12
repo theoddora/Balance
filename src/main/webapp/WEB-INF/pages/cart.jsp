@@ -151,13 +151,13 @@
     <div class="container">
         <article class="span8">
 
-
+            <br/>
+            <h3><c:out value="${message}"/></h3>
+            <br/>
             <c:set value="${currentCart}" var="product"/>
             <br/>
             <c:choose>
                 <c:when test="${currentCart.size() > 0}">
-
-                    <h2><c:out value="${message}"/></h2>
                     <br/>
                     <table st-table="displayedCollection" st-safe-src="rowCollection" class="table-fill">
                         <thead>

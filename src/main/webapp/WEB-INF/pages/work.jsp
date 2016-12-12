@@ -149,60 +149,51 @@
         <div class="ic"></div>
         <div class="container">
             <div class="row">
-                <article class="span12">
-                    <h4></h4>
-                </article>
-                <div class="clear"></div>
+                <br/>
                 <ul class="thumbnails thumbnails-1 list-services">
                     <c:forEach items="${products}" var="product">
-                        <li class="span4">
-                            <div class="thumbnail thumbnail-1"><img src="img/work/${product.name}.jpg" alt="" width="800" height="800">
+                        <li class="span3">
+                            <div class="thumbnail thumbnail-1"><img src="img/work/${product.name}.jpg" alt="" width="400">
                                 <section><a class="link-1"><c:out value="${product.name}"/></a>
                                     <c:if test="${product.discount > 0}">
 
                                         <fmt:formatNumber  value="${product.discount * 100} " maxFractionDigits="0" var="discount"/>
 
-
-                                      <p>Only today get <c:out value="${discount}"/>% discount for this product </p>
+                                      <p>Only today get <span style="color:#ff3200"><c:out value="${discount}"/>% discount </span>for this product </p>
 
                                     </c:if>
 
                                     <p>
                                         <c:choose>
-                                        <c:when test="${product.isForKilo}">
-
-                                    <form action="${pageContext.request.contextPath}/product" method="POST">
-                                        <input type="text" name="amount" placeholder="Amount...">
-                                        <button type="submit" value="${product.id}" name="productId" class="btn btn-1">
-                                            Buy
-                                        </button>
-                                    </form>
-                                    </c:when>
-                                    <c:when test="${not product.isForKilo}">
-                                        <form action="${pageContext.request.contextPath}/product" method="POST">
-                                            <input type="text" list="amount" name="amount" placeholder="Enter pieces">
-                                            <datalist id="amount" name="amount">
-                                                <option value="1">
-                                                <option value="2">
-                                                <option value="3">
-                                                <option value="4">
-                                            </datalist>
-                                            <button type="submit" value="${product.id}" name="productId"
-                                                    class="btn btn-1">Buy
-                                            </button>
-                                        </form>
-
-                                    </c:when>
+                                            <c:when test="${product.isForKilo}">
+                                                <form action="${pageContext.request.contextPath}/product" method="POST">
+                                                    <input type="text" name="amount" placeholder="Amount...">
+                                                    <button type="submit" value="${product.id}" name="productId" class="btn btn-1">
+                                                        Buy
+                                                    </button>
+                                                </form>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <form action="${pageContext.request.contextPath}/product" method="POST">
+                                                    <input type="text" list="amount" name="amount" placeholder="Enter pieces">
+                                                    <datalist id="amount" name="amount">
+                                                        <option value="1">
+                                                        <option value="2">
+                                                        <option value="3">
+                                                        <option value="4">
+                                                    </datalist>
+                                                    <button type="submit" value="${product.id}" name="productId"
+                                                            class="btn btn-1">Buy
+                                                    </button>
+                                                </form>
+                                            </c:otherwise>
                                     </c:choose>
-
                                     <c:out value="Price:">Price:</c:out>
                                         <c:out value="${product.price} lv."></c:out></p>
                                 </section>
                             </div>
                         </li>
-
                     </c:forEach>
-
                 </ul>
             </div>
         </div>

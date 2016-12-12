@@ -109,7 +109,7 @@
 
                         <div class="nav-collapse nav-collapse_  collapse">
                             <ul class="nav sf-menu">
-                                <li class="active">
+                                <li>
                                     <a href="${index}"><s:message code="balance.home"/></a>
                                 </li>
                                 <li>

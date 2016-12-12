@@ -21,7 +21,6 @@ import com.balance.model.Product;
 @Component
 public class ProductDaoImpl implements ProductDao {
 
-
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplateObject;
 

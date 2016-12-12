@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RequestDeniedController {
 
     @RequestMapping("/denied")
-    public String accessDenied(){
+    public String accessDenied() {
         return "404";
     }
-
 
 }

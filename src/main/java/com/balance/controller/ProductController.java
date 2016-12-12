@@ -24,6 +24,8 @@ import com.balance.model.Product;
 @Controller
 public class ProductController {
 
+    private static final String ADDED_TO_CART = "The selected amount has been added to the cart";
+    private static final String MESSAGE = "message";
     @Autowired
     ProductDao productDao;
 
@@ -55,7 +57,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public String addToCart(@RequestParam("productId") int id, @RequestParam("amount") double amount, RedirectAttributes redirectAttributes, Principal principal, HttpSession session) {
+    public String addToCart(@RequestParam("productId") int id, @RequestParam("amount") double amount, Principal principal, HttpSession session, RedirectAttributes ra) {
 
         if (principal == null) {
             return "log_in";
@@ -63,35 +65,33 @@ public class ProductController {
 
         Map<Product, Double> currentCart = (Map<Product, Double>) session.getAttribute("cart");
         if (currentCart == null) {
-            currentCart = new HashMap<Product, Double>();
+            currentCart = new HashMap<>();
             session.setAttribute("cart", currentCart);
         }
 
-        Product product = productDao.findProductById(id);
+        String message;
         double priceToShow = 0.0;
 
+        Product product = productDao.findProductById(id);
         boolean isForKilo = product.getIsForKilo();
-        String message;
 
-        if (productDao.hasEnoughAmount(amount, id, isForKilo)) {
-            currentCart.put(product, amount);
-            message = "The selected amount has been added to the cart";
-            redirectAttributes.addAttribute("message", message);
-        } else {
+        if (!productDao.hasEnoughAmount(amount, id, isForKilo)) {
             if (currentCart.containsKey(product)) {
                 currentCart.remove(product);
             }
             double currentAmount = productDao.getCurrentAmount(id, isForKilo);
             message = "There is not enough amount from " + product.getName() + ". The current amount is " + currentAmount + ".";
-            redirectAttributes.addAttribute("message", message);
+            ra.addFlashAttribute(MESSAGE, message);
             return "redirect:/cart";
         }
+        currentCart.put(product, amount);
+        ra.addFlashAttribute(MESSAGE, ADDED_TO_CART);
         for (Map.Entry<Product, Double> productDoubleEntry : currentCart.entrySet()) {
+            //(current product - discount) * amount
             priceToShow += (productDoubleEntry.getKey().getPrice()
                 - (productDoubleEntry.getKey().getPrice() * productDoubleEntry.getKey().getDiscount())) * productDoubleEntry.getValue();
         }
 
-        redirectAttributes.addAttribute("message", message);
         session.setAttribute("priceToShow", priceToShow);
         return "redirect:/cart";
     }

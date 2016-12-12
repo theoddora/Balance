@@ -1,14 +1,14 @@
 package com.balance.dao;
 
-import com.balance.model.Product;
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.annotation.Secured;
 
-import javax.print.attribute.IntegerSyntax;
-import javax.sql.DataSource;
-import java.util.List;
-
+import com.balance.model.Product;
 
 public interface ProductDao {
 
@@ -61,10 +61,5 @@ public interface ProductDao {
     boolean hasEnoughAmount(double amount, int id, boolean isForKilo);
 
     double getCurrentAmount(int id, boolean isForKilo);
-
-
-
-
-
 
 }

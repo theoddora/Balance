@@ -27,7 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final int FOUR_WEEKS = 2419200;
     private static final int ENCODER_STRENGTH = 12;
 
-
     @Autowired
     DataSource datasource;
 
@@ -36,10 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
-
-
-
-
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
