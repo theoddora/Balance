@@ -9,7 +9,9 @@ import com.balance.model.Order;
  */
 public interface OrderManager {
 
-    void placeOrder(int productId, long userId, double amount);
+    long placeOrder(int productId, long userId, double amount);
 
-    Set<Order> getOrders(long userId);
+    Set<Order> getOrders(String username);
+
+    Order getLastOrder(long userId, long orderId);
 }

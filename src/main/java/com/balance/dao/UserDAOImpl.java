@@ -91,11 +91,6 @@ public class UserDAOImpl implements UserDAO {
         return jdbcTemplateObject.queryForObject(SELECT_USER_BY_USERNAME, params, new UserMapper());
     }
 
-    @Override
-    public void delete(String email) {
-
-    }
-
     private boolean exists(String sql, String column_name, String parameter) {
         Map<String, Object> params = new HashMap<>();
         params.put(column_name, parameter);

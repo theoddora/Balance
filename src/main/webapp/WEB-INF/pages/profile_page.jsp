@@ -67,7 +67,6 @@
             ]);
 
             var options = {
-                title: 'My Last Order Activities',
                 is3D: true,
                 pieHole: 0.4,
                 backgroundColor: 'none',
@@ -175,22 +174,38 @@
 <div class="bg-content">
     <!-- content -->
     <div id="content">
-        <div class="ic">
-
-            <c:out value="${orders.size()}"></c:out>
-
-        </div>
         <div class="container">
+
+                <ul class="list extra extra1">
+                    <c:choose>
+                        <c:when test="${boughtItems != null}">
+                            <h3>Items just bought: </h3>
+                            <c:forEach var="item" items="${boughtItems}">
+                                <li><a><c:out value="${item.key.name}"/></a> <c:out value="${item.value}"/></li>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <h3>You have no orders in the current session.</h3>
+                        </c:otherwise>
+                    </c:choose>
+
+                </ul>
+
             <br/>
 
-            <h3>Last order made: </h3>
+            <c:choose>
 
-            <div class="row">
-                <div id="piechart" style="width: 900px; height: 500px;"></div>
-            </div>
+                <c:when test="${orders != null}">
+                    <h3>All orders made: </h3>
+                    <div class="row">
+                        <div id="piechart" style="width: 900px; height: 500px;"></div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <h3>You have no orders.</h3>
+                </c:otherwise>
+            </c:choose>
 
-
-            <br/>
         </div>
     </div>
 </div>

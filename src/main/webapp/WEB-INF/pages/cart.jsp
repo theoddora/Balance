@@ -153,7 +153,6 @@
 
             <br/>
             <h3><c:out value="${message}"/></h3>
-            <br/>
             <c:set value="${currentCart}" var="product"/>
             <br/>
             <c:choose>
@@ -191,8 +190,7 @@
                         <h3>
                             Total price:
                             <span id="totalPrice">{{${priceToShow} | number : 2}}</span> levs.
-                            <input type="button" onclick="location.href = 'addToBuy'" value="BUY PRODUCTS"
-                                   class="btn btn-1">
+                            <form action="addToBuy"  method="POST"><input class="btn btn-1" type="submit" value="BUY ITEMS"/></form>
                         </h3>
                     </article>
 

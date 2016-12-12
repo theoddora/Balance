@@ -20,7 +20,6 @@ public class OrderMapper implements RowMapper<Order> {
     public OrderMapper(ProductRowMapper mapper, UserMapper userMapper) {
         this.productMapper = mapper;
         this.userMapper = userMapper;
-
     }
 
     @Override
@@ -32,7 +31,6 @@ public class OrderMapper implements RowMapper<Order> {
         User user = userMapper.mapRow(rs, i);
         order.setProduct(product);
         order.setUser(user);
-
 
         return order;
     }

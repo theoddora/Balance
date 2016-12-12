@@ -20,16 +20,19 @@ public class OrderManagerImpl implements OrderManager {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void placeOrder(int productId, long userId, double amount) {
+    public long placeOrder(int productId, long userId, double amount) {
 
-        orderDao.placeOrder(productId, userId,amount);
+        return orderDao.placeOrder(productId, userId,amount);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Set<Order> getOrders(long userId) {
+    public Set<Order> getOrders(String username) {
+        return orderDao.getAllOrders(username);
+    }
 
-
-        return orderDao.getAllOrders(userId);
+    @Override
+    public Order getLastOrder(long userId, long orderId) {
+        return orderDao.getLastOrder(userId, orderId);
     }
 }

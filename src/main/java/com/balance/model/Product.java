@@ -20,7 +20,6 @@ public class Product implements Comparable<Product> {
         this.amountPiece = amountPiece;
         this.price = price;
         this.discount = discount;
-        this.id = id;
         this.isForKilo = isForKilo;
     }
 

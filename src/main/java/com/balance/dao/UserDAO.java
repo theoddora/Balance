@@ -12,8 +12,6 @@ public interface UserDAO {
 
     void createUser(User user);
 
-    void delete(String email);
-
     User findByUserEmail(String email) throws IncorrectResultSizeDataAccessException;
 
     User findByUsername(String username) throws IncorrectResultSizeDataAccessException;

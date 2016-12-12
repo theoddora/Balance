@@ -9,8 +9,9 @@ import com.balance.model.Order;
  */
 public interface OrderDao {
 
-    void placeOrder(int productId, long userId, double amount);
+    long placeOrder(int productId, long userId, double amount);
 
-    Set<Order> getAllOrders(long userId);
+    Set<Order> getAllOrders(String username);
 
+    Order getLastOrder(long userId, long orderId);
 }

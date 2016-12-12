@@ -27,6 +27,7 @@ import com.balance.model.Order;
 import com.balance.model.Product;
 import com.balance.model.User;
 import com.balance.service.OrderManager;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by ttosheva on 23/11/2016.
@@ -80,7 +81,6 @@ public class UserController {
 
         logger.info("A user with username " + username + " wants to log in.");
 
-
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(60 * 60);
         session.setAttribute("cart", new HashMap<Product, Double>());
@@ -101,22 +101,26 @@ public class UserController {
         try {
             user = userDAO.findByUsername(username);
             model.addAttribute("user", user);
+
+            Set<Order> orders = orderManager.getOrders(username);
+            model.addAttribute("orders", orders);
             return "profile_page";
         } catch (IncorrectResultSizeDataAccessException e) {
             return "forward:/404";
         }
     }
 
-    @RequestMapping(value = "/addToBuy", method = RequestMethod.GET)
-    public String addProductsToBuy(Model model, HttpSession session, Principal principal) {
+    @RequestMapping(value = "/addToBuy", method = RequestMethod.POST)
+    public String addProductsToBuy(HttpSession session, Principal principal) {
+
         if (principal == null) {
             return "log_in";
         }
 
         String username = principal.getName();
-
         User user = userDAO.findByUsername(username);
         long userId = user.getId();
+
         Map<Product, Double> cart = (Map<Product, Double>) session.getAttribute("cart");
 
         if (cart == null) {
@@ -124,31 +128,45 @@ public class UserController {
         }
 
         for (Product product : cart.keySet()) {
+
             boolean isForKilo = product.getIsForKilo();
             int id = product.getId();
             synchronized (productDao) {
                 if (isForKilo) {
-                    double amount = product.getAmountKilo();
+                    double amount = cart.get(product);
                     productDao.decreaseProductByKilo(amount, id);
                 } else {
                     double amount = product.getAmountPiece();
-                    productDao.decreaseProductByPiece( (int)amount, id);
+                    productDao.decreaseProductByPiece((int) amount, id);
                 }
             }
             int productId = product.getId();
             double amount = cart.get(product);
 
-
             orderManager.placeOrder(productId, userId, amount);
-
         }
 
-        Set<Order> orders = orderManager.getOrders(userId);
+        Map<Product, Double> currentItemsBought = cart;
+        session.setAttribute("cart", new HashMap<Product, Double>());
+        Map<Product, Double> boughtItems = ((Map<Product, Double>)session.getAttribute("boughtItems"));
 
-        model.addAttribute("orders", orders);
+        if (session.getAttribute("boughtItems") != null) {
 
+            for (Map.Entry<Product, Double> productDoubleEntry: boughtItems.entrySet()) {
+                for (Map.Entry<Product, Double> currProductDoubleEntry : currentItemsBought.entrySet()) {
+                    if (productDoubleEntry.getKey().compareTo(currProductDoubleEntry.getKey()) == 0) {
+                        double value = productDoubleEntry.getValue() + currProductDoubleEntry.getValue();
+                        boughtItems.put(productDoubleEntry.getKey(), value);
+                    } else {
+                        boughtItems.put(currProductDoubleEntry.getKey(), currProductDoubleEntry.getValue());
+                    }
+                }
+            }
+        } else {
+            session.setAttribute("boughtItems", currentItemsBought);
+        }
 
-        return "profile_page";
+        return "redirect:/" + username;
     }
 
 }
