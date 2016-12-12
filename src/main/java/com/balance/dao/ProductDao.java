@@ -12,10 +12,10 @@ import com.balance.model.Product;
 
 public interface ProductDao {
 
-    @Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
+    @Secured( {"IS_AUTHENTICATED_ANONYMOUSLY"})
     void setDataSource(DataSource ds);
 
-    @CacheEvict(value = "productCache" , allEntries = true)
+    @CacheEvict(value = "productCache", allEntries = true)
     @Cacheable(value = "productCache")
     Product insertProduct(Product product);
 
@@ -28,7 +28,7 @@ public interface ProductDao {
     void removeProduct(int id);
 
     List<Product> getAllSellingProducts();
-    
+
     @Cacheable(value = "productCache")
     List<Product> getAllProducts();
 
@@ -46,16 +46,16 @@ public interface ProductDao {
 
     void addToTheStore(int id);
 
-    @CacheEvict(value = "productCache",key = "#result")
+    @CacheEvict(value = "productCache", key = "#result")
     int increaseProductByKilo(Double kilos, int id);
 
-    @CacheEvict(value = "productCache",key = "#result")
+    @CacheEvict(value = "productCache", key = "#result")
     int decreaseProductByKilo(Double kilos, int id);
 
-    @CacheEvict(value = "productCache",key = "#result")
+    @CacheEvict(value = "productCache", key = "#result")
     int increaseProductByPiece(Integer pieces, int id);
 
-    @CacheEvict(value = "productCache",key = "#result")
+    @CacheEvict(value = "productCache", key = "#result")
     int decreaseProductByPiece(Integer piece, int id);
 
     boolean hasEnoughAmount(double amount, int id, boolean isForKilo);

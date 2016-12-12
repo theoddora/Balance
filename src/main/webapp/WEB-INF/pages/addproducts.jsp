@@ -9,6 +9,7 @@
 <head>
     <title><s:message code="balance.title"/></title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="screen">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <style>

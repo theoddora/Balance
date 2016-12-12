@@ -35,7 +35,6 @@ public class ProductRowMapper implements RowMapper<Product> {
             product.setDiscount(discount);
         }
 
-
         return product;
     }
 

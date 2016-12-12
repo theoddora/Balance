@@ -27,7 +27,6 @@ import com.balance.model.Order;
 import com.balance.model.Product;
 import com.balance.model.User;
 import com.balance.service.OrderManager;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by ttosheva on 23/11/2016.

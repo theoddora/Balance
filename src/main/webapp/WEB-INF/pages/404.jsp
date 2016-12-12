@@ -9,6 +9,7 @@
 <head>
     <title>Kantar | 404</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="screen">
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">
     <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">

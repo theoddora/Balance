@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
     <link rel="stylesheet" href="css/touchTouch.css" type="text/css" media="screen">
     <link rel="stylesheet" href="css/kwicks-slider.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="screen">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
     <script src="js/jquery.js"></script>
     <script src="js/superfish.js"></script>

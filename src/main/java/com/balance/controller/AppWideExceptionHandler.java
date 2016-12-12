@@ -1,6 +1,5 @@
 package com.balance.controller;
 
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
