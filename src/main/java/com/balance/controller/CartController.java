@@ -1,9 +1,7 @@
 package com.balance.controller;
 
-import java.security.Principal;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,9 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.balance.model.Product;
 
-/**
- * Created by ttosheva on 07/12/2016.
- */
 @RestController
 public class CartController {
 
@@ -28,7 +23,7 @@ public class CartController {
     @RequestMapping(value = " /removeFromCart", method = RequestMethod.POST,
         consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity removeFromCart(@RequestParam Integer id, Principal principal, HttpSession session, HttpServletRequest request) {
+    public ResponseEntity<Double> removeFromCart(@RequestParam Integer id, HttpSession session) {
 
         Map<Product, Double> currentCart = (Map<Product, Double>) session.getAttribute("cart");
         Product productToDelete = null;

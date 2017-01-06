@@ -26,6 +26,7 @@ public class ProductController {
 
     private static final String ADDED_TO_CART = "The selected amount has been added to the cart";
     private static final String MESSAGE = "message";
+
     @Autowired
     ProductDao productDao;
 
@@ -61,6 +62,10 @@ public class ProductController {
 
         if (principal == null) {
             return "log_in";
+        }
+
+        if (amount < 0) {
+            return "redirect:/product";
         }
 
         Map<Product, Double> currentCart = (Map<Product, Double>) session.getAttribute("cart");
@@ -124,11 +129,8 @@ public class ProductController {
             productDao.increaseProductByPiece(product.getAmountPiece(), product.getId());
         }
 
-
         return "/";
-
     }
-
 
     //returning view
     @RequestMapping(value = "/addproducts", method = RequestMethod.GET)
@@ -145,7 +147,6 @@ public class ProductController {
 
 
         return "addproducts";
-
     }
 
     //inserting product
@@ -164,7 +165,6 @@ public class ProductController {
         }
 
         return "addproducts";
-
     }
 
     //returning view
@@ -230,6 +230,7 @@ public class ProductController {
     }
 
     private void prepareRender(Model model) {
+
         List<Product> products = productDao.getAllSellingProducts();
         List<Product> notSellingProducts = productDao.getAllNotSellingProducts();
         List<Product> emptyProducts = productDao.getAllEmptyProducts();
@@ -238,7 +239,5 @@ public class ProductController {
         model.addAttribute("products", products);
         model.addAttribute("emptyProducts", emptyProducts);
         model.addAttribute(new Product());
-
-
     }
 }

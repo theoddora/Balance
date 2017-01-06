@@ -7,9 +7,6 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.balance.model.User;
 
-/**
- * Created by pgenev on 23/11/2016.
- */
 public class UserMapper implements RowMapper<User> {
 
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {

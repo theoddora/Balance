@@ -15,14 +15,70 @@ import org.springframework.stereotype.Component;
 
 import com.balance.model.Product;
 
-/**
- * Created by hangelov on 22/11/2016.
- */
+@SuppressWarnings("ALL")
 @Component
 public class ProductDaoImpl implements ProductDao {
 
     private DataSource dataSource;
     private NamedParameterJdbcTemplate jdbcTemplateObject;
+
+    private static final String PRODUCT_TABLE_PROPERTIES = "id, name, type, amount_kg, amount_pc, price, discount, is_for_kilo, to_show";
+
+    private static final String INSERT_PRODUCT =
+        " INSERT INTO balance.product (name, type, amount_kg, amount_pc,price, discount,is_for_kilo) "
+            + " VALUES (:name,:type,:amount_kg,:amount_pc,:price,:discount, :is_for_kilo )";
+
+    private static final String DELETE_PRODUCT =
+        "DELETE FROM product WHERE id = :id";
+
+    private static final String REMOVE_PRODUCT =
+        "UPDATE balance.product SET to_show=false WHERE product.id = :id";
+
+    private static final String FIND_PRODUCTS_BY_ID =
+        "SELECT" + PRODUCT_TABLE_PROPERTIES + "FROM product WHERE id = :id ";
+
+    private static final String ALL_PRODUCTS_FOR_SALE =
+        "UPDATE balance.product SET to_show=true WHERE product.id = :id";
+
+    private static final String ALL_PRODUCTS_NOT_FOR_SALE =
+        "SELECT" + PRODUCT_TABLE_PROPERTIES + "FROM product WHERE to_show = false";
+
+    private static final String GET_ALL_PRODUCTS_FOR_SALE =
+        "SELECT" + PRODUCT_TABLE_PROPERTIES + "FROM product WHERE to_show = true";
+
+    private static final String GET_ALL_FRUITS =
+        "SELECT" + PRODUCT_TABLE_PROPERTIES + "FROM balance.product WHERE product.type = 'fruit'";
+
+    private static final String GET_ALL_VEGETABLES =
+        "SELECT" + PRODUCT_TABLE_PROPERTIES + "FROM balance.product WHERE product.type = 'vegetable'";
+
+    private static final String INCREASE_AMOUNT =
+        "UPDATE balance.product  SET  amount_kg = amount_kg + :kilos WHERE product.id = :id";
+
+    private static final String DECREASE_AMOUNT =
+        "UPDATE balance.product  SET  amount_kg = amount_kg - :kilos WHERE product.id = :id";
+
+    private static final String DECREASE_PRODUCT_BY_PRICE =
+        "UPDATE balance.product  SET  amount_pc = amount_pc + :pieces WHERE product.id = :id";
+
+    private static final String INCREASE_PRODUCT_BY_PRICE =
+        "UPDATE balance.product  SET  amount_pc = amount_pc - :piece WHERE product.id = :id";
+
+    private static final String UPDATE_PRODUCT =
+        "UPDATE balance.product SET name = :name, type = :type, amount_kg = :amount_kg, amount_pc = :amount_pc, price = :price,"
+            + "discount = :discount WHERE product.id = :id";
+
+    private static final String GET_KG =
+        "SELECT amount_kg FROM balance.product WHERE id = :id";
+    private static final String GET_PC =
+        "SELECT amount_pc FROM balance.product WHERE id = :id";
+
+    private static final String GET_ALL_EMPTY_PRODUCTS =
+        "SELECT" + PRODUCT_TABLE_PROPERTIES + "FROM balance.product WHERE "
+            + " (amount_kg IS NULL AND amount_pc IS NULL) OR "
+            + " (amount_kg = 0 AND amount_pc = 0) OR"
+            + " (amount_kg IS NULL AND amount_pc = 0) OR"
+            + " (amount_kg = 0 AND amount_pc IS NULL);";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -39,18 +95,15 @@ public class ProductDaoImpl implements ProductDao {
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("name", product.getName());
-        params.addValue("type", product.getProductType().toString());
+        params.addValue("type", product.getProductType());
         params.addValue("amount_kg", product.getAmountKilo());
         params.addValue("amount_pc", product.getAmountPiece());
         params.addValue("price", product.getPrice());
         params.addValue("discount", product.getDiscount());
         params.addValue("is_for_kilo", product.getIsForKilo());
 
-        String sql =
-            " INSERT INTO balance.product (name, type, amount_kg, amount_pc,price, discount,is_for_kilo) "
-                + " VALUES (:name,:type,:amount_kg,:amount_pc,:price,:discount, :is_for_kilo )";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        getJdbcTemplate().update(sql, params, keyHolder, new String[] { "id" });
+        getJdbcTemplate().update(INSERT_PRODUCT, params, keyHolder, new String[] { "id" });
         int id = keyHolder.getKey().intValue();
         product.setId(id);
         return product;
@@ -59,12 +112,10 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public Product findProductById(int id) {
 
-        String sql = "SELECT * FROM product WHERE id = :id ";
-
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
 
-        Product product = getJdbcTemplate().queryForObject(sql, params, new ProductRowMapper());
+        Product product = getJdbcTemplate().queryForObject(FIND_PRODUCTS_BY_ID, params, new ProductRowMapper());
         product.setId(id);
 
         return product;
@@ -72,36 +123,28 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void deleteProduct(int id) {
-        String sql = "DELETE FROM product * WHERE id = :id";
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        getJdbcTemplate().update(sql, params);
+        getJdbcTemplate().update(DELETE_PRODUCT, params);
     }
 
     @Override
     public void removeProduct(int id) {
-        String sql = "UPDATE balance.product SET to_show=false WHERE product.id = :id";
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        getJdbcTemplate().update(sql, params);
+        getJdbcTemplate().update(REMOVE_PRODUCT, params);
     }
 
     @Override
     public void addToTheStore(int id) {
-        String sql = "UPDATE balance.product SET to_show=true WHERE product.id = :id";
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        getJdbcTemplate().update(sql, params);
-
+        getJdbcTemplate().update(ALL_PRODUCTS_FOR_SALE, params);
     }
 
     @Override
     public List<Product> getAllSellingProducts() {
-
-        String sql = "SELECT * FROM product WHERE to_show = true";
-        List<Product> products = getJdbcTemplate().query(sql, new ProductRowMapper());
-
-        return products;
+        return getJdbcTemplate().query(GET_ALL_PRODUCTS_FOR_SALE, new ProductRowMapper());
     }
 
     @Override
@@ -112,67 +155,52 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public List<Product> getAllNotSellingProducts() {
 
-        String sql = "SELECT * FROM product WHERE to_show = false";
-        List<Product> products = getJdbcTemplate().query(sql, new ProductRowMapper());
-
-        return products;
+        return getJdbcTemplate().query(ALL_PRODUCTS_NOT_FOR_SALE, new ProductRowMapper());
     }
 
     @Override
     public List<Product> getAllFruits() {
-
-        String sql = "SELECT * FROM balance.product WHERE product.type = 'fruit'";
-        List<Product> products = getJdbcTemplate().query(sql, new ProductRowMapper());
-
-        return products;
+        return getJdbcTemplate().query(GET_ALL_FRUITS, new ProductRowMapper());
     }
 
     @Override
     public List<Product> getAllVegetables() {
-        String sql = "SELECT * FROM balance.product WHERE product.type = 'vegetable'";
-        List<Product> products = getJdbcTemplate().query(sql, new ProductRowMapper());
-
-        return products;
+        return getJdbcTemplate().query(GET_ALL_VEGETABLES, new ProductRowMapper());
     }
 
     @Override
     public int increaseProductByKilo(Double kilos, int id) {
-        String sql = "UPDATE balance.product  SET  amount_kg = amount_kg + :kilos WHERE product.id = :id";
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         params.put("kilos", kilos);
-        getJdbcTemplate().update(sql, params);
+        getJdbcTemplate().update(INCREASE_AMOUNT, params);
         return id;
     }
 
     @Override
     public int decreaseProductByKilo(Double kilos, int id) {
-        String sql = "UPDATE balance.product  SET  amount_kg = amount_kg - :kilos WHERE product.id = :id";
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         params.put("kilos", kilos);
-        getJdbcTemplate().update(sql, params);
+        getJdbcTemplate().update(DECREASE_AMOUNT, params);
         return id;
     }
 
     @Override
     public int increaseProductByPiece(Integer pieces, int id) {
-        String sql = "UPDATE balance.product  SET  amount_pc = amount_pc + :pieces WHERE product.id = :id";
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         params.put("pieces", pieces);
-        getJdbcTemplate().update(sql, params);
+        getJdbcTemplate().update(INCREASE_PRODUCT_BY_PRICE, params);
         return id;
-
     }
 
     @Override
     public int decreaseProductByPiece(Integer piece, int id) {
-        String sql = "UPDATE balance.product  SET  amount_pc = amount_pc - :piece WHERE product.id = :id";
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         params.put("piece", piece);
-        getJdbcTemplate().update(sql, params);
+        getJdbcTemplate().update(DECREASE_PRODUCT_BY_PRICE, params);
         return id;
     }
 
@@ -220,50 +248,27 @@ public class ProductDaoImpl implements ProductDao {
         }
         params.put("id", id);
 
-        String sql =
-            "UPDATE balance.product SET name = :name, type = :type, amount_kg = :amount_kg, amount_pc = :amount_pc, price = :price,"
-                + "discount = :discount WHERE product.id = :id";
-
-        getJdbcTemplate().update(sql, params);
-
+        getJdbcTemplate().update(UPDATE_PRODUCT, params);
     }
 
     @Override
     public boolean hasEnoughAmount(double amount, int id, boolean isForKilo) {
-
         double result = this.getCurrentAmount(id, isForKilo);
-        if (result < amount) {
-            return false;
-        } else {
-            return true;
-        }
+        return result >= amount;
     }
 
     @Override
     public double getCurrentAmount(int id, boolean isForKilo) {
-        String sql = null;
-        if (isForKilo) {
-            sql = "SELECT amount_kg FROM balance.product WHERE id = :id";
-        } else {
-            sql = "SELECT amount_pc FROM balance.product WHERE id = :id";
-        }
 
+        String sql = isForKilo ? GET_KG : GET_PC;
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        double result = getJdbcTemplate().queryForObject(sql, params, Double.class);
-
-        return result;
+        return getJdbcTemplate().queryForObject(sql, params, Double.class);
     }
 
     @Override
     public List<Product> getAllEmptyProducts() {
-        String sql = "SELECT * FROM balance.product WHERE "
-            + " (amount_kg IS NULL AND amount_pc IS NULL) OR "
-            + " (amount_kg = 0 AND amount_pc = 0) OR"
-            + " (amount_kg IS NULL AND amount_pc = 0) OR"
-            + " (amount_kg = 0 AND amount_pc IS NULL);";
-        List<Product> products = getJdbcTemplate().query(sql, new ProductRowMapper());
-        return products;
+        return getJdbcTemplate().query(GET_ALL_EMPTY_PRODUCTS, new ProductRowMapper());
     }
 
 }

@@ -17,6 +17,7 @@ import com.balance.exceptions.UsernameAlreadyExistsException;
 import com.balance.mail.SendEmail;
 import com.balance.model.User;
 
+@SuppressWarnings("ALL")
 @Component
 public class UserDAOImpl implements UserDAO {
 
@@ -24,21 +25,23 @@ public class UserDAOImpl implements UserDAO {
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImpl.class);
 
-    //columns
+    // columns
     private static final String COLUMN_EMAIL = "email";
     private static final String COLUMN_USERNAME = "username";
 
-    //error messages
+    // error messages
     private static final String DUPLICATE_USERNAME = "User with that username already exists.";
     private static final String DUPLICATE_EMAIL = "User with that email already exists.";
 
-    //sql queries
+    // sql queries
     private static final String INSERT_USER = "INSERT INTO \"user\" (username, email, \"password\", \"name\") "
         + "values (?, ?, ?, ?)";
     private static final String COUNT_USER_BY_EMAIL = "SELECT COUNT(*) as users FROM \"user\" WHERE email = :email;";
     private static final String COUNT_USERS_BY_USERNAME = "SELECT COUNT(*) as users FROM \"user\" WHERE username = :username;";
-    private static final String SELECT_USER_BY_EMAIL = "SELECT user_id, username, email, password, name, is_admin FROM \"user\" WHERE email = :email;";
-    private static final String SELECT_USER_BY_USERNAME = "SELECT user_id, username, email, password, name, is_admin FROM \"user\" WHERE username = :username;";
+    private static final String SELECT_USER_BY_EMAIL =
+        "SELECT user_id, username, email, password, name, is_admin FROM \"user\" WHERE email = :email;";
+    private static final String SELECT_USER_BY_USERNAME =
+        "SELECT user_id, username, email, password, name, is_admin FROM \"user\" WHERE username = :username;";
     private static final String SELECT_UUID = "SELECT unique_user_id FROM \"user\" WHERE email LIKE :email;";
 
     @Autowired
@@ -46,7 +49,7 @@ public class UserDAOImpl implements UserDAO {
         this.jdbcTemplateObject = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    //register
+    // register
     @Override
     public void createUser(User user) {
 
@@ -73,14 +76,6 @@ public class UserDAOImpl implements UserDAO {
         email.setCodeVerification(getCodeVerification(user.getEmail()));
         email.start();
         LOGGER.info("Finish createUser() method for user with username " + user.getUsername());
-    }
-
-    @Override
-    public User findByUserEmail(String email) {
-
-        Map<String, Object> params = new HashMap<>();
-        params.put(COLUMN_EMAIL, email);
-        return jdbcTemplateObject.queryForObject(SELECT_USER_BY_EMAIL, params, new UserMapper());
     }
 
     @Override

@@ -1,8 +1,5 @@
 package com.balance.model;
 
-/**
- * Created by hangelov on 21/11/2016.
- */
 public class Product implements Comparable<Product> {
 
     private Integer id;
@@ -14,7 +11,8 @@ public class Product implements Comparable<Product> {
     private double discount;
     private boolean isForKilo;
 
-    public Product(String productType, String name, Double amountKilo, Integer amountPiece, Double price, double discount, boolean isForKilo) {
+    public Product(String name, Double amountKilo, Integer amountPiece, Double price, double discount,
+                   boolean isForKilo) {
         this.name = name;
         this.amountKilo = amountKilo;
         this.amountPiece = amountPiece;
@@ -106,8 +104,12 @@ public class Product implements Comparable<Product> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Product product = (Product) o;
 

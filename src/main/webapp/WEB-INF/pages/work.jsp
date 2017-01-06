@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="ISO-8859-1" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
@@ -118,7 +118,8 @@
                                     </li>
                                     <li>
                                         <s:url value="/cart" var="cart"/>
-                                        <a href="${cart}"><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></a>
+                                        <a href="${cart}"><i class="fa fa-shopping-cart fa-lg"
+                                                             aria-hidden="true"></i></a>
                                     </li>
                                 </sec:authorize>
 
@@ -154,40 +155,38 @@
                 <ul class="thumbnails thumbnails-1 list-services">
                     <c:forEach items="${products}" var="product">
                         <li class="span3">
-                            <div class="thumbnail thumbnail-1"><img src="img/work/${product.name}.jpg" alt="" width="400">
+                            <div class="thumbnail thumbnail-1"><img src="img/work/${product.name}.jpg" alt=""
+                                                                    width="330">
                                 <section><a class="link-1"><c:out value="${product.name}"/></a>
                                     <c:if test="${product.discount > 0}">
 
-                                        <fmt:formatNumber  value="${product.discount * 100} " maxFractionDigits="0" var="discount"/>
+                                        <fmt:formatNumber value="${product.discount * 100} " maxFractionDigits="0"
+                                                          var="discount"/>
 
-                                      <p>Only today get <span style="color:#ff3200"><c:out value="${discount}"/>% discount </span>for this product </p>
+                                        <p>Only today get <span style="color:#ff3200"><c:out value="${discount}"/>% discount </span>for
+                                            this product </p>
 
                                     </c:if>
 
                                     <p>
                                         <c:choose>
-                                            <c:when test="${product.isForKilo}">
-                                                <form action="${pageContext.request.contextPath}/product" method="POST">
-                                                    <input type="text" name="amount" placeholder="Amount...">
-                                                    <button type="submit" value="${product.id}" name="productId" class="btn btn-1">
-                                                        Buy
-                                                    </button>
-                                                </form>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <form action="${pageContext.request.contextPath}/product" method="POST">
-                                                    <input type="text" list="amount" name="amount" placeholder="Enter pieces">
-                                                    <datalist id="amount" name="amount">
-                                                        <option value="1">
-                                                        <option value="2">
-                                                        <option value="3">
-                                                        <option value="4">
-                                                    </datalist>
-                                                    <button type="submit" value="${product.id}" name="productId"
-                                                            class="btn btn-1">Buy
-                                                    </button>
-                                                </form>
-                                            </c:otherwise>
+                                        <c:when test="${product.isForKilo}">
+
+                                    <form action="${pageContext.request.contextPath}/product" method="POST">
+                                        <input type="number" name="amount" placeholder="Amount..."  min="0" >
+                                        <button type="submit" value="${product.id}" name="productId" class="btn btn-1">
+                                            Buy
+                                        </button>
+                                    </form>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <form action="${pageContext.request.contextPath}/product" method="POST">
+                                            <input type="number" name="amount" placeholder="Enter pieces" min="0">
+                                            <button type="submit" value="${product.id}" name="productId"
+                                                    class="btn btn-1">Buy
+                                            </button>
+                                        </form>
+                                    </c:otherwise>
                                     </c:choose>
                                     <c:out value="Price:">Price:</c:out>
                                         <c:out value="${product.price} lv."></c:out></p>

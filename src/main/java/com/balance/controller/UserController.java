@@ -28,10 +28,6 @@ import com.balance.model.Product;
 import com.balance.model.User;
 import com.balance.service.OrderManager;
 
-/**
- * Created by ttosheva on 23/11/2016.
- */
-
 @Controller
 public class UserController {
 
@@ -74,9 +70,7 @@ public class UserController {
     // log in
     @RequestMapping(value = "/log_in", method = RequestMethod.POST)
     public String logInUser(@RequestParam(value = "username") String username,
-        @RequestParam(value = "password") String password,
-        Errors errors, Model model,
-        HttpServletRequest request) {
+                            HttpServletRequest request) {
 
         LOGGER.info("A user with username " + username + " wants to log in.");
 
@@ -96,7 +90,7 @@ public class UserController {
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public String viewProfilePage(@PathVariable String username, Model model) {
 
-        User user = null;
+        User user;
         try {
             user = userDAO.findByUsername(username);
             model.addAttribute("user", user);
@@ -145,14 +139,13 @@ public class UserController {
             orderManager.placeOrder(productId, userId, amount);
         }
 
-        Map<Product, Double> currentItemsBought = cart;
         session.setAttribute("cart", new HashMap<Product, Double>());
         Map<Product, Double> boughtItems = ((Map<Product, Double>) session.getAttribute("boughtItems"));
 
         if (session.getAttribute("boughtItems") != null) {
 
             for (Map.Entry<Product, Double> productDoubleEntry : boughtItems.entrySet()) {
-                for (Map.Entry<Product, Double> currProductDoubleEntry : currentItemsBought.entrySet()) {
+                for (Map.Entry<Product, Double> currProductDoubleEntry : cart.entrySet()) {
                     if (productDoubleEntry.getKey().compareTo(currProductDoubleEntry.getKey()) == 0) {
                         double value = productDoubleEntry.getValue() + currProductDoubleEntry.getValue();
                         boughtItems.put(productDoubleEntry.getKey(), value);
@@ -162,7 +155,7 @@ public class UserController {
                 }
             }
         } else {
-            session.setAttribute("boughtItems", currentItemsBought);
+            session.setAttribute("boughtItems", cart);
         }
 
         return "redirect:/" + username;

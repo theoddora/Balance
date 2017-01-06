@@ -1,22 +1,14 @@
 package com.balance.model;
 
-/**
- * Created by hangelov on 28/11/2016.
- */
 public class Order implements Comparable<Order> {
 
     private User user;
     private double amount;
     private Product product;
+    private Order o;
 
-    public Order(){
+    public Order() {
 
-    }
-
-    public Order(User user, double amount, Product product) {
-        this.user = user;
-        this.amount = amount;
-        this.product = product;
     }
 
     public User getUser() {
@@ -45,13 +37,16 @@ public class Order implements Comparable<Order> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Order order = (Order) o;
 
-        if (!user.equals(order.user)) return false;
-        return product.equals(order.product);
+        return user.equals(order.user) && product.equals(order.product);
 
     }
 

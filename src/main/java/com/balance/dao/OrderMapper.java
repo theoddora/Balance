@@ -9,9 +9,6 @@ import com.balance.model.Order;
 import com.balance.model.Product;
 import com.balance.model.User;
 
-/**
- * Created by hangelov on 01/12/2016.
- */
 public class OrderMapper implements RowMapper<Order> {
 
     private ProductRowMapper productMapper;

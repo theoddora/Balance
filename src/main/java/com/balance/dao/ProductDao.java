@@ -12,7 +12,7 @@ import com.balance.model.Product;
 
 public interface ProductDao {
 
-    @Secured( {"IS_AUTHENTICATED_ANONYMOUSLY"})
+    @Secured({ "IS_AUTHENTICATED_ANONYMOUSLY" })
     void setDataSource(DataSource ds);
 
     @CacheEvict(value = "productCache", allEntries = true)

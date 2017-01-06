@@ -1,9 +1,5 @@
 package com.balance.mail;
 
-/**
- * Created by ttosheva on 02/12/2016.
- */
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -27,7 +23,7 @@ public class SendEmail extends Thread {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     private static final String EMAIL_SENDER = "balance.kantar@gmail.com"; // EMAIL ADRESS
-    private static final String PASSWORD = "bestjuniorteam"; //EMAIL Password
+    private static final String PASSWORD = "bestjuniorteam"; // EMAIL Password
     private static final String MAIL_PROPERTIES = "mail.properties";
     private String receiverEmail;
     private String message;
@@ -70,7 +66,6 @@ public class SendEmail extends Thread {
             LOGGER.info("Message for confirm sent to email " + receiverEmail);
         } catch (MessagingException e) {
             LOGGER.error("Couldn't load resource stream.");
-            return;
         }
     }
 

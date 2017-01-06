@@ -81,10 +81,6 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    public void setPasswordRepeat(String passwordRepeat) {
-        this.passwordRepeat = passwordRepeat;
-    }
-
     // getters
     public boolean isAdmin() {
         return isAdmin;
@@ -108,10 +104,6 @@ public class User {
 
     public String getName() {
         return name;
-    }
-
-    public String getPasswordRepeat() {
-        return passwordRepeat;
     }
 
     @Override

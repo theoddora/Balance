@@ -240,7 +240,7 @@
             <li><a class="icon-3" href="#"></a></li>
             <li><a class="icon-4" href="#"></a></li>
         </ul>
-        <div class="privacy pull-left">&copy; 2016 | Best Java Junior Developers |</div>
+        <div class="privacy pull-left">&copy; 2017 | Best Java Junior Developers |</div>
     </div>
 </footer>
 
