@@ -23,7 +23,7 @@ import com.balance.model.User;
 public class BalanceUserService implements UserDetailsService {
 
     private final UserDAO userDao;
-    private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImpl.class);
 
     @Autowired
     public BalanceUserService(UserDAO userDao) {
@@ -33,7 +33,7 @@ public class BalanceUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        logger.info("in loadUserByUsername() method with username - " + username);
+        LOGGER.info("in loadUserByUsername() method with username - " + username);
         User user = null;
         try {
             user = userDao.findByUsername(username);
@@ -45,7 +45,7 @@ public class BalanceUserService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        logger.info("end loadUserByUsername() method");
+        LOGGER.info("end loadUserByUsername() method");
         return new SecurityUser(user, authorities);
     }
 

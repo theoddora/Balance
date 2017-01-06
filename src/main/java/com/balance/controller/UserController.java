@@ -44,19 +44,19 @@ public class UserController {
     @Autowired
     OrderManager orderManager;
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    //register
+    // register
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registerUser(@Valid User user, Errors errors) {
 
-        logger.info("A user wants to register.");
+        LOGGER.info("A user wants to register.");
         if (errors.hasErrors()) {
             return "register";
         }
         userDAO.createUser(user);
 
-        logger.info("A user with username " + user.getUsername() + " has registered.");
+        LOGGER.info("A user with username " + user.getUsername() + " has registered.");
         return "redirect:/emailconfirm";
     }
 
@@ -71,19 +71,19 @@ public class UserController {
         return "emailconfirm";
     }
 
-    //log in
+    // log in
     @RequestMapping(value = "/log_in", method = RequestMethod.POST)
     public String logInUser(@RequestParam(value = "username") String username,
-                            @RequestParam(value = "password") String password,
-                            Errors errors, Model model,
-                            HttpServletRequest request) {
+        @RequestParam(value = "password") String password,
+        Errors errors, Model model,
+        HttpServletRequest request) {
 
-        logger.info("A user with username " + username + " wants to log in.");
+        LOGGER.info("A user with username " + username + " wants to log in.");
 
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(60 * 60);
         session.setAttribute("cart", new HashMap<Product, Double>());
-        logger.info("A cart for this user was created - " + username + " - and he log in.");
+        LOGGER.info("A cart for this user was created - " + username + " - and he log in.");
         return "redirect:/index";
     }
 
@@ -92,7 +92,7 @@ public class UserController {
         return "log_in";
     }
 
-    //profile
+    // profile
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public String viewProfilePage(@PathVariable String username, Model model) {
 
@@ -147,11 +147,11 @@ public class UserController {
 
         Map<Product, Double> currentItemsBought = cart;
         session.setAttribute("cart", new HashMap<Product, Double>());
-        Map<Product, Double> boughtItems = ((Map<Product, Double>)session.getAttribute("boughtItems"));
+        Map<Product, Double> boughtItems = ((Map<Product, Double>) session.getAttribute("boughtItems"));
 
         if (session.getAttribute("boughtItems") != null) {
 
-            for (Map.Entry<Product, Double> productDoubleEntry: boughtItems.entrySet()) {
+            for (Map.Entry<Product, Double> productDoubleEntry : boughtItems.entrySet()) {
                 for (Map.Entry<Product, Double> currProductDoubleEntry : currentItemsBought.entrySet()) {
                     if (productDoubleEntry.getKey().compareTo(currProductDoubleEntry.getKey()) == 0) {
                         double value = productDoubleEntry.getValue() + currProductDoubleEntry.getValue();

@@ -23,7 +23,7 @@ import com.balance.model.Product;
 @RestController
 public class CartController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CartController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CartController.class);
 
     @RequestMapping(value = " /removeFromCart", method = RequestMethod.POST,
         consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
@@ -35,7 +35,7 @@ public class CartController {
         for (Product product : currentCart.keySet()) {
             if (id.equals(product.getId())) {
                 productToDelete = product;
-                logger.info("Product with id " + product.getId() + " was found in cart.");
+                LOGGER.info("Product with id " + product.getId() + " was found in cart.");
                 break;
             }
         }
@@ -43,7 +43,7 @@ public class CartController {
         double priceToShow = (double) session.getAttribute("priceToShow");
 
         if (productToDelete != null) {
-            logger.info("The price in the cart before removing the product is " + priceToShow);
+            LOGGER.info("The price in the cart before removing the product is " + priceToShow);
 
             double price = (productToDelete.getPrice()
                 - (productToDelete.getPrice() * productToDelete.getDiscount())) * currentCart.get(productToDelete);
@@ -51,8 +51,8 @@ public class CartController {
             session.setAttribute("priceToShow", priceToShow);
             currentCart.remove(productToDelete);
 
-            logger.info("Product with id " + productToDelete.getId() + " was removed from cart.");
-            logger.info("The price in the cart is now " + priceToShow);
+            LOGGER.info("Product with id " + productToDelete.getId() + " was removed from cart.");
+            LOGGER.info("The price in the cart is now " + priceToShow);
         }
 
         return ResponseEntity.ok(priceToShow);

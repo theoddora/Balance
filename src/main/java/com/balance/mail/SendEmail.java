@@ -25,7 +25,7 @@ import com.balance.controller.UserController;
 
 public class SendEmail extends Thread {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     private static final String EMAIL_SENDER = "balance.kantar@gmail.com"; // EMAIL ADRESS
     private static final String PASSWORD = "bestjuniorteam"; //EMAIL Password
     private static final String MAIL_PROPERTIES = "mail.properties";
@@ -43,13 +43,13 @@ public class SendEmail extends Thread {
     }
 
     private void sendMail() {
-        logger.info("In sendMain().");
+        LOGGER.info("In sendMain().");
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Properties props = new Properties();
         try (InputStream resourceStream = loader.getResourceAsStream(MAIL_PROPERTIES)) {
             props.load(resourceStream);
         } catch (IOException e) {
-            logger.error("Couldn't load resource stream.");
+            LOGGER.error("Couldn't load resource stream.");
             return;
         }
 
@@ -67,9 +67,9 @@ public class SendEmail extends Thread {
             message.setText(this.message);
             message.setSentDate(new Date());
             Transport.send(message);
-            logger.info("Message for confirm sent to email " + receiverEmail);
+            LOGGER.info("Message for confirm sent to email " + receiverEmail);
         } catch (MessagingException e) {
-            logger.error("Couldn't load resource stream.");
+            LOGGER.error("Couldn't load resource stream.");
             return;
         }
     }

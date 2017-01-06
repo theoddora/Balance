@@ -23,7 +23,8 @@ import com.balance.model.Order;
 @Component
 public class OrderDaoImpl implements OrderDao {
 
-    private static final String SELECT_LAST_ORDER = "SELECT o.id, o.product_id,o.user_id, o.amount, p.amount_kg, p.amount_pc, p.discount, p.id, p.name,p.price,p.is_for_kilo, p.type, u.user_id, u.name, u.email, u.is_admin, u.password, u.username FROM balance.order o JOIN balance.product p ON (p.id = o.product_id) JOIN balance.user u ON(u.user_id = o.user_id)  WHERE u.user_id = :userId AND o.id = :orderId";
+    private static final String SELECT_LAST_ORDER =
+        "SELECT o.id, o.product_id,o.user_id, o.amount, p.amount_kg, p.amount_pc, p.discount, p.id, p.name,p.price,p.is_for_kilo, p.type, u.user_id, u.name, u.email, u.is_admin, u.password, u.username FROM balance.order o JOIN balance.product p ON (p.id = o.product_id) JOIN balance.user u ON(u.user_id = o.user_id)  WHERE u.user_id = :userId AND o.id = :orderId";
     private NamedParameterJdbcTemplate jdbcTemplateObject;
     private SimpleJdbcInsert insert;
 
@@ -44,16 +45,19 @@ public class OrderDaoImpl implements OrderDao {
         params.addValue("amount", amount);
         params.addValue("userId", userId);
         String sqlOrder = "INSERT INTO balance.order (product_id, amount, user_Id) VALUES (:productId, :amount, :userId)";
-        GeneratedKeyHolder  holder = new GeneratedKeyHolder();
-        getJdbcTemplate().update(sqlOrder, params, holder, new String[] {"id"});
-        long order_id = holder.getKey().longValue();
-        return order_id;
+        GeneratedKeyHolder holder = new GeneratedKeyHolder();
+        getJdbcTemplate().update(sqlOrder, params, holder, new String[] { "id" });
+        long orderId = holder.getKey().longValue();
+        return orderId;
     }
 
     @Override
     public Set<Order> getAllOrders(String username) {
 
-        String sql = "SELECT o.id, o.product_id,o.user_id, o.amount, p.amount_kg, p.amount_pc, p.discount, p.id, p.name,p.price,p.is_for_kilo, p.type, u.user_id, u.name, u.email, u.is_admin, u.password, u.username FROM balance.order o JOIN balance.product p ON (p.id = o.product_id) JOIN balance.user u ON(u.user_id = o.user_id)  WHERE u.username = :username";
+        String sql = "SELECT o.id, o.product_id,o.user_id, o.amount, p.amount_kg, p.amount_pc, p.discount, "
+            + "p.id, p.name,p.price,p.is_for_kilo, p.type, u.user_id, u.name, u.email, u.is_admin, u.password, "
+            + "u.username FROM balance.order o JOIN balance.product p ON (p.id = o.product_id) "
+            + " JOIN balance.user u ON(u.user_id = o.user_id)  WHERE u.username = :username";
         Map<String, Object> params = new HashMap<>();
         params.put("username", username);
 
@@ -73,7 +77,8 @@ public class OrderDaoImpl implements OrderDao {
         params.put("userId", userId);
         params.put("orderId", orderId);
 
-        Order order = getJdbcTemplate().queryForObject(SELECT_LAST_ORDER, params, new OrderMapper(new ProductRowMapper(), new UserMapper()));
+        Order order =
+            getJdbcTemplate().queryForObject(SELECT_LAST_ORDER, params, new OrderMapper(new ProductRowMapper(), new UserMapper()));
 
         return order;
     }

@@ -22,11 +22,11 @@ public class UserDAOImpl implements UserDAO {
 
     private NamedParameterJdbcTemplate jdbcTemplateObject;
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImpl.class);
 
     //columns
-    private static final String COlUMN_EMAIL = "email";
-    private static final String COlUMN_USERNAME = "username";
+    private static final String COLUMN_EMAIL = "email";
+    private static final String COLUMN_USERNAME = "username";
 
     //error messages
     private static final String DUPLICATE_USERNAME = "User with that username already exists.";
@@ -50,13 +50,13 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void createUser(User user) {
 
-        logger.info("In createUser() method for user with username " + user.getUsername());
-        if (exists(COUNT_USER_BY_EMAIL, COlUMN_EMAIL, user.getEmail())) {
-            logger.error("Email already exists - " + user.getEmail());
+        LOGGER.info("In createUser() method for user with username " + user.getUsername());
+        if (exists(COUNT_USER_BY_EMAIL, COLUMN_EMAIL, user.getEmail())) {
+            LOGGER.error("Email already exists - " + user.getEmail());
             throw new EmailAlreadyExistsException(DUPLICATE_EMAIL);
         }
-        if (exists(COUNT_USERS_BY_USERNAME, COlUMN_USERNAME, user.getUsername())) {
-            logger.error("Username already exists - " + user.getUsername());
+        if (exists(COUNT_USERS_BY_USERNAME, COLUMN_USERNAME, user.getUsername())) {
+            LOGGER.error("Username already exists - " + user.getUsername());
             throw new UsernameAlreadyExistsException(DUPLICATE_USERNAME);
         }
 
@@ -72,14 +72,14 @@ public class UserDAOImpl implements UserDAO {
         email.setReceiverEmail(user.getEmail());
         email.setCodeVerification(getCodeVerification(user.getEmail()));
         email.start();
-        logger.info("Finish createUser() method for user with username " + user.getUsername());
+        LOGGER.info("Finish createUser() method for user with username " + user.getUsername());
     }
 
     @Override
     public User findByUserEmail(String email) {
 
         Map<String, Object> params = new HashMap<>();
-        params.put(COlUMN_EMAIL, email);
+        params.put(COLUMN_EMAIL, email);
         return jdbcTemplateObject.queryForObject(SELECT_USER_BY_EMAIL, params, new UserMapper());
     }
 
@@ -87,7 +87,7 @@ public class UserDAOImpl implements UserDAO {
     public User findByUsername(String username) {
 
         Map<String, Object> params = new HashMap<>();
-        params.put(COlUMN_USERNAME, username);
+        params.put(COLUMN_USERNAME, username);
         return jdbcTemplateObject.queryForObject(SELECT_USER_BY_USERNAME, params, new UserMapper());
     }
 
@@ -101,7 +101,7 @@ public class UserDAOImpl implements UserDAO {
     private String getCodeVerification(String email) {
 
         Map<String, Object> params = new HashMap<>();
-        params.put(COlUMN_EMAIL, email);
+        params.put(COLUMN_EMAIL, email);
         return jdbcTemplateObject.queryForObject(SELECT_UUID, params, String.class);
     }
 }
